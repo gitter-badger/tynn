@@ -1,0 +1,2 @@
+default:
+	cutest ./test/*.rb
