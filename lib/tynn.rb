@@ -28,15 +28,15 @@ class Tynn < Syro::Deck
     __middleware.unshift(Proc.new { |app| middleware.new(app, *args, &block) })
   end
 
-  def self.helpers(mod)
-    self.include(mod)
+  def self.helpers(helper, *args)
+    self.include(helper)
 
-    if defined?(mod::ClassMethods)
-      self.extend(mod::ClassMethods)
+    if defined?(helper::ClassMethods)
+      self.extend(helper::ClassMethods)
     end
 
-    if mod.respond_to?(:setup)
-      mod.setup(self)
+    if helper.respond_to?(:setup)
+      helper.setup(self, *args)
     end
   end
 end

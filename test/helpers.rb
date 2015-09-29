@@ -6,13 +6,17 @@ module Helper
   end
 
   module Number
+    def self.setup(app, number)
+      app.settings[:number] = number
+    end
+
     def number
-      return 1
+      return settings[:number]
     end
   end
 
-  def self.setup(app)
-    app.helpers(Number)
+  def self.setup(app, number = 1)
+    app.helpers(Number, number)
   end
 
   module ClassMethods
@@ -51,4 +55,16 @@ test "setup" do |app|
   app.get("/")
 
   assert_equal "1", app.res.body
+end
+
+test "setup with arguments" do |app|
+  Tynn.helpers(Helper, 2)
+
+  Tynn.define do
+    res.write(number)
+  end
+
+  app.get("/")
+
+  assert_equal "2", app.res.body
 end
