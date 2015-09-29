@@ -1,4 +1,4 @@
-$VERBOSE = ENV["VERBOSE"]
+$VERBOSE = true
 
 require "cutest"
 require "rack/test"
