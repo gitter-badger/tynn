@@ -13,7 +13,7 @@ class Shrimp
 end
 
 setup do
-  Tynn.__middleware.clear
+  Tynn.reset!
 end
 
 test "use middleware in main application" do

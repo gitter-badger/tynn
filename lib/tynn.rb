@@ -9,23 +9,27 @@ class Tynn < Syro::Deck
   end
 
   def self.to_app
-    if __middleware.empty?
-      return @__syro
+    if middleware.empty?
+      return @syro
     else
-      return __middleware.inject(@__syro) { |a, m| m.call(a) }
+      return middleware.inject(@syro) { |a, m| m.call(a) }
     end
   end
 
-  def self.__middleware
-    return @__middleware ||= []
+  def self.middleware
+    return @middleware ||= []
+  end
+
+  def self.reset!
+    @middleware = []
   end
 
   def self.define(&block)
-    @__syro = Syro.new(self, &block)
+    @syro = Syro.new(self, &block)
   end
 
-  def self.use(middleware, *args, &block)
-    __middleware.unshift(Proc.new { |app| middleware.new(app, *args, &block) })
+  def self.use(_middleware, *args, &block)
+    middleware.unshift(Proc.new { |app| _middleware.new(app, *args, &block) })
   end
 
   def self.helpers(helper, *args)
