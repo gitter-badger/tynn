@@ -14,4 +14,5 @@ class Driver
   end
 
   alias_method :res, :last_response
+  alias_method :req, :last_request
 end
