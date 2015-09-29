@@ -40,3 +40,5 @@ class Tynn < Syro::Deck
     end
   end
 end
+
+require_relative "tynn/version"
