@@ -26,7 +26,7 @@ test "use middleware in main application" do
     end
   end
 
-  app = Driver.new(Tynn)
+  app = Tynn::Test.new
   app.get("/")
 
   assert_equal 200, app.res.status
@@ -52,7 +52,7 @@ test "use middleware with composition" do
     end
   end
 
-  app = Driver.new(Tynn)
+  app = Tynn::Test.new
   app.get("/api")
 
   assert_equal 200, app.res.status
@@ -77,8 +77,7 @@ test "use middleware only in child application" do
     end
   end
 
-  app = Driver.new(Tynn)
-
+  app = Tynn::Test.new
   app.get("/api")
 
   assert_equal 200, app.res.status

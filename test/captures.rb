@@ -1,10 +1,6 @@
 require_relative "helper"
 
-setup do
-  Driver.new(Tynn)
-end
-
-test "captures" do |app|
+test "captures" do
   Tynn.define do
     on :foo do
       on :bar do
@@ -13,6 +9,7 @@ test "captures" do |app|
     end
   end
 
+  app = Tynn::Test.new
   app.get("/foo/bar")
 
   assert_equal 200, app.res.status

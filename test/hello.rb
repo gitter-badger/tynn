@@ -7,7 +7,7 @@ test "hello" do
     end
   end
 
-  app = Driver.new(Tynn)
+  app = Tynn::Test.new
   app.get("/")
 
   assert_equal 200, app.res.status

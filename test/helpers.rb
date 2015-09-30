@@ -27,7 +27,7 @@ module Helper
 end
 
 setup do
-  Driver.new(Tynn)
+  Tynn::Test.new
 end
 
 test "helpers" do |app|

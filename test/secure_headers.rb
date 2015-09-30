@@ -10,7 +10,7 @@ test "secure headers" do
     end
   end
 
-  app = Driver.new(Tynn)
+  app = Tynn::Test.new
   app.get("/")
 
   headers = app.res.headers

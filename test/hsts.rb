@@ -7,7 +7,7 @@ test "hsts" do
   Tynn.define do
   end
 
-  app = Driver.new(Tynn)
+  app = Tynn::Test.new
   app.get("/")
 
   header = app.res.headers["Strict-Transport-Security"]
@@ -21,7 +21,7 @@ test "hsts with options" do
   Tynn.define do
   end
 
-  app = Driver.new(Tynn)
+  app = Tynn::Test.new
   app.get("/")
 
   header = app.res.headers["Strict-Transport-Security"]

@@ -13,7 +13,7 @@ test "session" do
     end
   end
 
-  app = Driver.new(Tynn)
+  app = Tynn::Test.new
   app.get("/")
 
   env = app.last_request.env

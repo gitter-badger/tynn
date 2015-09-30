@@ -7,7 +7,7 @@ test "static" do
   Tynn.define do
   end
 
-  app = Driver.new(Tynn)
+  app = Tynn::Test.new
   app.get("/test/static.rb")
 
   assert_equal File.read(__FILE__), app.res.body

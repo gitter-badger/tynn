@@ -9,7 +9,7 @@ test "use settings inside the application" do
     end
   end
 
-  app = Driver.new(Tynn)
+  app = Tynn::Test.new
   app.get("/")
 
   assert_equal "hello", app.res.body

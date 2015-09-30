@@ -1,10 +1,6 @@
 require_relative "helper"
 
-setup do
-  Driver.new(Tynn)
-end
-
-test "composition" do |app|
+test "composition" do
   class Foo < Tynn
   end
 
@@ -20,6 +16,7 @@ test "composition" do |app|
     end
   end
 
+  app = Tynn::Test.new
   app.get("/foo")
 
   assert_equal 200, app.res.status
