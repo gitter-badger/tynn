@@ -1,4 +1,3 @@
-require_relative "helper"
 require_relative "../lib/tynn/secure_headers"
 
 test "secure headers" do

@@ -1,5 +1,3 @@
-require_relative "helper"
-
 test "captures" do
   Tynn.define do
     on :foo do

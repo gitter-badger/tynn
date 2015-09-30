@@ -1,5 +1,3 @@
-require_relative "helper"
-
 test "composition" do
   class Foo < Tynn
   end

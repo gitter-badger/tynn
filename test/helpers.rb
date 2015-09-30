@@ -1,5 +1,3 @@
-require_relative "helper"
-
 module Helper
   def clean(str)
     return str.strip

@@ -1,4 +1,3 @@
-require_relative "helper"
 require_relative "../lib/tynn/environment"
 
 test "default" do

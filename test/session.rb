@@ -1,5 +1,4 @@
 require "securerandom"
-require_relative "helper"
 require_relative "../lib/tynn/session"
 
 test "session" do

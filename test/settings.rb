@@ -1,5 +1,3 @@
-require_relative "helper"
-
 test "use settings inside the application" do
   Tynn.settings[:message] = "hello"
 

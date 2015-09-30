@@ -1,5 +1,3 @@
-require_relative "helper"
-
 class Shrimp
   def initialize(app)
     @app = app

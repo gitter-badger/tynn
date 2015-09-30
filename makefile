@@ -1,2 +1,2 @@
 default:
-	cutest ./test/*.rb
+	cutest -r ./test/helper.rb ./test/*.rb
