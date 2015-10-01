@@ -1,7 +1,8 @@
-cutest -v 1.2.2
-hmote -v 1.4.0
-rack -v 1.6.4
-rack-test -v 0.6.3
-seteable -v 1.0.0
-syro -v 0.0.7
-tilt -v 2.0.1
+cutest:1.2.2
+erubis:2.7.0
+hmote:1.4.0
+rack:1.6.4
+rack-test:0.6.3
+seteable:1.0.0
+syro:0.0.7
+tilt:2.0.1
