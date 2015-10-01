@@ -8,10 +8,12 @@ class Tynn
       options[:engine]  ||= "erb"
       options[:layout]  ||= "layout"
       options[:views]   ||= File.expand_path("views", Dir.pwd)
-      options[:options] ||= {
+
+      options[:options] ||= {}
+      options[:options] = {
         default_encoding: Encoding.default_external,
         outvar: "@_output"
-      }
+      }.merge!(options[:options])
 
       app.settings[:render] ||= options
     end
