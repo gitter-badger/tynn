@@ -1,6 +1,7 @@
 cutest -v 1.2.2
-syro -v 0.0.7
+hmote -v 1.4.0
 rack -v 1.6.4
 rack-test -v 0.6.3
 seteable -v 1.0.0
+syro -v 0.0.7
 tilt -v 2.0.1
