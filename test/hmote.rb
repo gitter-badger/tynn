@@ -15,7 +15,7 @@ test "partial" do |app|
 
   app.get("/partial")
 
-  assert_equal "mote\n", app.res.body
+  assert_equal "mote", app.res.body.strip
 end
 
 test "view" do |app|
@@ -27,7 +27,7 @@ test "view" do |app|
 
   app.get("/view")
 
-  assert_equal "tynn / mote\n\n\n", app.res.body
+  assert_equal "tynn / mote", app.res.body.strip
 end
 
 test "render" do |app|
@@ -41,7 +41,7 @@ test "render" do |app|
 
   assert_equal 200, app.res.status
   assert_equal "text/html", app.res.headers["Content-Type"]
-  assert_equal "tynn / mote\n\n\n", app.res.body
+  assert_equal "tynn / mote", app.res.body.strip
 end
 
 test "404" do |app|
@@ -57,7 +57,7 @@ test "404" do |app|
 
   assert_equal 404, app.res.status
   assert_equal "text/html", app.res.headers["Content-Type"]
-  assert_equal "tynn / mote\n\n\n", app.res.body
+  assert_equal "tynn / mote", app.res.body.strip
 end
 
 test "custom layout" do
@@ -74,5 +74,5 @@ test "custom layout" do
   app = Tynn::Test.new(App)
   app.get("/")
 
-  assert_equal "custom / tynn / mote\n\n\n", app.res.body
+  assert_equal "custom / tynn / mote", app.res.body.strip
 end
