@@ -9,6 +9,8 @@ class Tynn < Syro::Deck
   end
 
   def self.to_app
+    fail("Missing application handler. Try #{ self }.define") unless @syro
+
     if middleware.empty?
       return @syro
     else

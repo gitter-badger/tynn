@@ -66,6 +66,14 @@ test "settings" do
   assert_equal "hello", app.res.body
 end
 
+test "raise unless application handler is set" do
+  app = Tynn::Test.new
+
+  assert_raise(RuntimeError) do
+    app.get("/")
+  end
+end
+
 scope "middleware" do
   class Shrimp
     def initialize(app)
