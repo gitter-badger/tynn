@@ -1,9 +1,9 @@
 require "erb"
 require_relative "../lib/tynn/render"
 
-Tynn.helpers(Tynn::Render, views: File.expand_path("./test/views"))
-
 setup do
+  Tynn.helpers(Tynn::Render, views: File.expand_path("./test/views"))
+
   Tynn::Test.new
 end
 
@@ -59,4 +59,21 @@ test "404" do |app|
   assert_equal 404, app.res.status
   assert_equal "text/html", app.res.headers["Content-Type"]
   assert_equal "tynn / bob", app.res.body
+end
+
+test "custom layout" do
+  class App < Tynn
+    layout("custom_layout")
+  end
+
+  App.define do
+    root do
+      render("view", title: "tynn", name: "bob")
+    end
+  end
+
+  app = Tynn::Test.new(App)
+  app.get("/")
+
+  assert_equal "custom / tynn / bob\n", app.res.body
 end

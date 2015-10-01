@@ -16,6 +16,12 @@ class Tynn
       app.settings[:render] ||= options
     end
 
+    module ClassMethods
+      def layout(layout)
+        settings[:render][:layout] = layout
+      end
+    end
+
     def render(template, locals = {}, layout = settings[:render][:layout])
       res.headers[Rack::CONTENT_TYPE] ||= Syro::Response::DEFAULT
 
