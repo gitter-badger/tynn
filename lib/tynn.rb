@@ -21,6 +21,7 @@ class Tynn < Syro::Deck
   end
 
   def self.reset!
+    @syro = nil
     @middleware = []
   end
 
