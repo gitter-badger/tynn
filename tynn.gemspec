@@ -14,7 +14,7 @@ Gem::Specification.new do |s|
 
   s.add_dependency "rack", "~> 1.6"
   s.add_dependency "seteable", "1.0.0"
-  s.add_dependency "syro", "~> 0.0.7"
+  s.add_dependency "syro", "~> 0.0.8"
 
   s.add_development_dependency "cutest", "1.2.2"
   s.add_development_dependency "hmote", "1.4.0"
