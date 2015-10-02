@@ -1,7 +1,7 @@
 require "tilt"
 
 module Tynn::Render
-  def self.setup(app, options = {})
+  def self.setup(app, options = {}) # :nodoc:
     options = options.dup
 
     options[:engine]  ||= "erb"

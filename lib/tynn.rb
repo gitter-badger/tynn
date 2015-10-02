@@ -4,29 +4,6 @@ require "syro"
 class Tynn < Syro::Deck
   include Seteable
 
-  def self.call(env)
-    return to_app.call(env)
-  end
-
-  def self.to_app
-    fail("Missing application handler. Try #{ self }.define") unless @syro
-
-    if middleware.empty?
-      return @syro
-    else
-      return middleware.inject(@syro) { |a, m| m.call(a) }
-    end
-  end
-
-  def self.middleware
-    return @middleware ||= []
-  end
-
-  def self.reset!
-    @syro = nil
-    @middleware = []
-  end
-
   def self.define(&block)
     @syro = Syro.new(self, &block)
   end
@@ -45,6 +22,29 @@ class Tynn < Syro::Deck
     if helper.respond_to?(:setup)
       helper.setup(self, *args)
     end
+  end
+
+  def self.call(env) # :nodoc:
+    return to_app.call(env)
+  end
+
+  def self.to_app # :nodoc:
+    fail("Missing application handler. Try #{ self }.define") unless @syro
+
+    if middleware.empty?
+      return @syro
+    else
+      return middleware.inject(@syro) { |a, m| m.call(a) }
+    end
+  end
+
+  def self.middleware # :nodoc:
+    return @middleware ||= []
+  end
+
+  def self.reset! # :nodoc:
+    @syro = nil
+    @middleware = []
   end
 end
 

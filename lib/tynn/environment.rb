@@ -1,5 +1,5 @@
 module Tynn::Environment
-  def self.setup(app, env: ENV["RACK_ENV"])
+  def self.setup(app, env: ENV["RACK_ENV"]) # :nodoc:
     app.settings[:environment] = (env || :development).to_sym
   end
 

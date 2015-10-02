@@ -1,7 +1,7 @@
 module Tynn::Session
-  RACK_SESSION = "rack.session".freeze
+  RACK_SESSION = "rack.session".freeze # :nodoc:
 
-  def self.setup(app, options = {})
+  def self.setup(app, options = {}) # :nodoc:
     app.use(Rack::Session::Cookie, options)
   end
 

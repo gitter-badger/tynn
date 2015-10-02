@@ -1,11 +1,11 @@
 require "json"
 
 module Tynn::JSONParser
-  def self.setup(app)
+  def self.setup(app) # :nodoc:
     app.use(Middleware)
   end
 
-  class Middleware
+  class Middleware # :nodoc:
     CONTENT_TYPE = "application/json".freeze
     FORM_HASH = "rack.request.form_hash".freeze
     FORM_INPUT = "rack.request.form_input".freeze

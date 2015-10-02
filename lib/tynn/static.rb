@@ -1,5 +1,5 @@
 module Tynn::Static
-  def self.setup(app, urls, options = {})
+  def self.setup(app, urls, options = {}) # :nodoc:
     options = options.dup
 
     options[:urls] ||= urls

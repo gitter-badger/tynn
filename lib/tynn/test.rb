@@ -3,11 +3,11 @@ require "rack/test"
 class Tynn::Test
   include Rack::Test::Methods
 
-  def initialize(app = Tynn)
+  def initialize(app = Tynn) # :nodoc:
     @app = app
   end
 
-  def app
+  def app # :nodoc:
     return @app
   end
 

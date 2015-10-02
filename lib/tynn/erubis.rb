@@ -2,7 +2,7 @@ require "erubis"
 require_relative "render"
 
 module Tynn::Erubis
-  def self.setup(app, options = {})
+  def self.setup(app, options = {}) # :nodoc:
     options = options.dup
 
     options[:options] ||= {}

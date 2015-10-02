@@ -1,8 +1,12 @@
 module Tynn::HSTS
-  HSTS_HEADER = "Strict-Transport-Security".freeze
-  HSTS_EXPIRE = 15_552_000 # 180 days
+  HSTS_HEADER = "Strict-Transport-Security".freeze # :nodoc:
+  HSTS_EXPIRE = 15_552_000 # 180 days # :nodoc:
 
-  def self.setup(app, max_age: HSTS_EXPIRE, subdomains: true, preload: false)
+  def self.setup(app, options = {}) # :nodoc:
+    max_age = options.fetch(:max_age, HSTS_EXPIRE)
+    subdomains = options.fetch(:subdomains, true)
+    preload = options.fetch(:preload, false)
+
     header = sprintf("max-age=%i", max_age)
     header << "; includeSubdomains" if subdomains
     header << "; preload" if preload
@@ -10,7 +14,7 @@ module Tynn::HSTS
     app.settings[:hsts] = header
   end
 
-  def call(env, inbox)
+  def call(env, inbox) # :nodoc:
     result = super(env, inbox)
     result[1][HSTS_HEADER] = settings[:hsts]
 

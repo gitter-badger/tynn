@@ -3,7 +3,7 @@ require "hmote"
 module Tynn::HMote
   include ::HMote::Helpers
 
-  def self.setup(app, options = {})
+  def self.setup(app, options = {}) # :nodoc:
     options = options.dup
 
     options[:layout] ||= "layout"
