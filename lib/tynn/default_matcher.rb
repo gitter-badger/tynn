@@ -1,9 +1,7 @@
-class Tynn
-  module DefaultMatcher
-    def default
-      yield
+module Tynn::DefaultMatcher
+  def default
+    yield
 
-      halt(res.finish)
-    end
+    halt(res.finish)
   end
 end

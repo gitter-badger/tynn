@@ -1,17 +1,15 @@
-class Tynn
-  module SecureHeaders
-    HEADERS = {
-      "X-Content-Type-Options" => "nosniff",
-      "X-Frame-Options" => "SAMEORIGIN",
-      "X-Permitted-Cross-Domain-Policies" => "none",
-      "X-XSS-Protection" => "1; mode=block"
-    }
+module Tynn::SecureHeaders
+  HEADERS = {
+    "X-Content-Type-Options" => "nosniff",
+    "X-Frame-Options" => "SAMEORIGIN",
+    "X-Permitted-Cross-Domain-Policies" => "none",
+    "X-XSS-Protection" => "1; mode=block"
+  }
 
-    def call(env, inbox)
-      result = super(env, inbox)
-      result[1].merge!(HEADERS)
+  def call(env, inbox)
+    result = super(env, inbox)
+    result[1].merge!(HEADERS)
 
-      return result
-    end
+    return result
   end
 end
