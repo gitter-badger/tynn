@@ -28,11 +28,27 @@ test "adds hsts header if ssl option is true" do
   end
 
   app = Tynn::Test.new
-  app.get("/")
+  app.get("/", {}, "HTTPS" => "on")
 
   hsts = app.res.headers["Strict-Transport-Security"]
 
   assert_equal "max-age=15552000; includeSubdomains", hsts
+end
+
+test "supports hsts options" do
+  hsts = { expires: 100, subdomains: false, preload: true }
+
+  Tynn.helpers(Tynn::Protection, ssl: true, hsts: hsts)
+
+  Tynn.define do
+  end
+
+  app = Tynn::Test.new
+  app.get("/", {}, "HTTPS" => "on")
+
+  hsts = app.res.headers["Strict-Transport-Security"]
+
+  assert_equal "max-age=100; preload", hsts
 end
 
 test "adds secure flag to cookies if ssl option is true" do
@@ -43,7 +59,7 @@ test "adds secure flag to cookies if ssl option is true" do
   end
 
   app = Tynn::Test.new
-  app.get("/")
+  app.get("/", {}, "HTTPS" => "on")
 
   session = app.req.env["rack.session.options"]
 
