@@ -9,7 +9,7 @@ class Tynn < Syro::Deck
   end
 
   def self.use(_middleware, *args, &block)
-    middleware.unshift(Proc.new { |app| _middleware.new(app, *args, &block) })
+    middleware << (Proc.new { |app| _middleware.new(app, *args, &block) })
   end
 
   def self.helpers(helper, *args)
@@ -34,7 +34,7 @@ class Tynn < Syro::Deck
     if middleware.empty?
       return @syro
     else
-      return middleware.inject(@syro) { |a, m| m.call(a) }
+      return middleware.reverse.inject(@syro) { |a, m| m.call(a) }
     end
   end
 
