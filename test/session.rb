@@ -15,7 +15,7 @@ test "session" do
   app = Tynn::Test.new
   app.get("/")
 
-  env = app.last_request.env
+  env = app.req.env
 
   assert_equal "foo", app.res.body
   assert_equal "foo", env["rack.session"]["foo"]
