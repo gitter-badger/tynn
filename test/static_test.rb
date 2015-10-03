@@ -7,7 +7,7 @@ test "static" do
   end
 
   app = Tynn::Test.new
-  app.get("/test/static.rb")
+  app.get("/test/static_test.rb")
 
   assert_equal File.read(__FILE__), app.res.body
 end
