@@ -1,3 +1,10 @@
+# Adds security related HTTP headers.
+#
+#   require "tynn"
+#   require "tynn/secure_headers"
+#
+#   Tynn.helpers(Tynn::SecureHeaders)
+#
 module Tynn::SecureHeaders
   HEADERS = {
     "X-Content-Type-Options" => "nosniff",
