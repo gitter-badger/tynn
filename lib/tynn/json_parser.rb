@@ -27,6 +27,8 @@ module Tynn::JSONParser
       return @app.call(request.env)
     end
 
+    private
+
     def json?(request)
       return request.media_type == CONTENT_TYPE
     end
