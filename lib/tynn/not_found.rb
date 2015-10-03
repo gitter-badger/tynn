@@ -2,9 +2,7 @@ module Tynn::NotFound
   def call(env, inbox) # :nodoc:
     result = super(env, inbox)
 
-    status, _, body = result
-
-    if status == 404 && body.empty?
+    if result[0] == 404 && result[2].empty?
       not_found
 
       return res.finish
