@@ -25,4 +25,16 @@ module Tynn::Matchers
 
     halt(res.finish)
   end
+
+  # Match if the given `params` are present.
+  #
+  #     Tynn.define do
+  #       on param?(:token) do
+  #         # ...
+  #       end
+  #     end
+  #
+  def param?(*params)
+    return params.all? { |param| (v = req[param]) && !v.empty? }
+  end
 end
