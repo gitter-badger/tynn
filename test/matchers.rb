@@ -1,8 +1,10 @@
-require_relative "../lib/tynn/default_matcher"
+require_relative "../lib/tynn/matchers"
+
+setup do
+  Tynn.helpers(Tynn::Matchers)
+end
 
 test "default" do
-  Tynn.helpers(Tynn::DefaultMatcher)
-
   Tynn.define do
     default do
       res.write("foo")
