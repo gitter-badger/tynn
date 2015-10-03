@@ -16,7 +16,10 @@ test "session" do
   app.get("/")
 
   env = app.req.env
+  session = env["rack.session"]
+  session_options = env["rack.session.options"]
 
   assert_equal "foo", app.res.body
-  assert_equal "foo", env["rack.session"]["foo"]
+  assert_equal "foo", session["foo"]
+  assert_equal true, session_options[:http_only]
 end

@@ -3,13 +3,7 @@ module Tynn::Session
 
   def self.setup(app, options = {}) # :nodoc:
     options = options.dup
-
-    if protection = app.settings[:protection]
-      options = {
-        http_only: true,
-        secure: !!protection[:ssl]
-      }.merge!(options)
-    end
+    options[:http_only] ||= true
 
     app.use(Rack::Session::Cookie, options)
   end
