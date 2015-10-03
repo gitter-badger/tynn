@@ -2,7 +2,7 @@ require "json"
 
 module Tynn::JSONParser
   def self.setup(app) # :nodoc:
-    app.use(Middleware)
+    app.use(Tynn::JSONParser::Middleware)
   end
 
   class Middleware # :nodoc:
