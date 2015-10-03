@@ -1,5 +1,8 @@
 default: test
 
+docs:
+	@rdoc --markup markdown ./lib/
+
 install:
 	@cat .gems | xargs gem install
 
