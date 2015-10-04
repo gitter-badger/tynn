@@ -19,7 +19,7 @@ module Tynn::HMote
   end
 
   def render(template, locals = {}, layout = settings[:hmote][:layout])
-    res.headers[Rack::CONTENT_TYPE] ||= Syro::Response::DEFAULT
+    res.headers[Rack::CONTENT_TYPE] ||= Tynn::Response::DEFAULT_CONTENT_TYPE
 
     res.write(view(template, locals, layout))
   end

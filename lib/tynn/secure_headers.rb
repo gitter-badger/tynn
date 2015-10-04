@@ -13,7 +13,7 @@ module Tynn::SecureHeaders
     "X-XSS-Protection" => "1; mode=block"
   } # :nodoc:
 
-  def call(env, inbox) # :nodoc:
+  def call(env) # :nodoc:
     result = super(env, inbox)
     result[1].merge!(HEADERS)
 

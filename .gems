@@ -3,5 +3,5 @@ erubis:2.7.0
 hmote:1.4.0
 rack:1.6.4
 rack-test:0.6.3
-syro:0.0.8
+seg:0.0.1
 tilt:2.0.1

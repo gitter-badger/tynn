@@ -1,17 +1,9 @@
-require "syro"
+require "rack"
+require_relative "tynn/base"
+require_relative "tynn/settings"
+require_relative "tynn/version"
 
-class Tynn < Syro::Deck
-  require_relative "tynn/version"
-  require_relative "tynn/settings"
-
-  def self.define(&block)
-    @syro = Syro.new(self, &block)
-  end
-
-  def self.use(_middleware, *args, &block)
-    middleware << (Proc.new { |app| _middleware.new(app, *args, &block) })
-  end
-
+class Tynn
   def self.helpers(helper, *args, &block)
     self.include(helper)
 
@@ -24,28 +16,6 @@ class Tynn < Syro::Deck
     end
   end
 
-  def self.call(env) # :nodoc:
-    return to_app.call(env)
-  end
-
-  def self.to_app # :nodoc:
-    fail("Missing application handler. Try #{ self }.define") unless @syro
-
-    if middleware.empty?
-      return @syro
-    else
-      return middleware.reverse.inject(@syro) { |a, m| m.call(a) }
-    end
-  end
-
-  def self.middleware # :nodoc:
-    return @middleware ||= []
-  end
-
-  def self.reset! # :nodoc:
-    @syro = nil
-    @middleware = []
-  end
-
+  helpers(Tynn::Base)
   helpers(Tynn::Settings)
 end

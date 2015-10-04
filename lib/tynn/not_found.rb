@@ -1,6 +1,6 @@
 module Tynn::NotFound
-  def call(env, inbox) # :nodoc:
-    result = super(env, inbox)
+  def call(env) # :nodoc:
+    result = super(env)
 
     if result[0] == 404 && result[2].empty?
       not_found
