@@ -45,6 +45,11 @@ Contributing
 - Use `make test` to run the test suite.
 - Create a pull request with your changes.
 
+You can install the gems globally, but we recommend [gs][gs] (or
+[gst][gst] if you're using chruby) to keep things isolated.
+
 [cuba]: https://github.com/soveran/cuba
 [rack]: https://github.com/rack/rack
 [syro]: https://github.com/soveran/syro
+[gs]: https://github.com/soveran/gs
+[gst]: https://github.com/tonchis/gst
