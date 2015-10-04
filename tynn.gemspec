@@ -19,4 +19,5 @@ Gem::Specification.new do |s|
   s.add_development_dependency "hmote", "1.4.0"
   s.add_development_dependency "rack-test", "0.6.3"
   s.add_development_dependency "tilt", "~> 2.0"
+  s.add_development_dependency "erubis", "~> 2.7"
 end
