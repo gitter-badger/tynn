@@ -27,10 +27,14 @@ class Tynn
       return @tynn_inbox
     end
 
+    def default_headers
+      return {}
+    end
+
     def call(env, inbox = env.fetch(INBOX, {}))
       @tynn_env = env
       @tynn_req = Tynn::Request.new(env)
-      @tynn_res = Tynn::Response.new
+      @tynn_res = Tynn::Response.new(default_headers)
       @tynn_path = Seg.new(env.fetch(Rack::PATH_INFO))
       @tynn_inbox = inbox
 
