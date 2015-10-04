@@ -1,8 +1,8 @@
-require "seteable"
 require "syro"
 
 class Tynn < Syro::Deck
-  include Seteable
+  require_relative "tynn/version"
+  require_relative "tynn/settings"
 
   def self.define(&block)
     @syro = Syro.new(self, &block)
@@ -46,6 +46,6 @@ class Tynn < Syro::Deck
     @syro = nil
     @middleware = []
   end
-end
 
-require_relative "tynn/version"
+  helpers(Tynn::Settings)
+end
