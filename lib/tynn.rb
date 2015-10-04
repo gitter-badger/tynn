@@ -12,7 +12,7 @@ class Tynn < Syro::Deck
     middleware << (Proc.new { |app| _middleware.new(app, *args, &block) })
   end
 
-  def self.helpers(helper, *args)
+  def self.helpers(helper, *args, &block)
     self.include(helper)
 
     if defined?(helper::ClassMethods)
@@ -20,7 +20,7 @@ class Tynn < Syro::Deck
     end
 
     if helper.respond_to?(:setup)
-      helper.setup(self, *args)
+      helper.setup(self, *args, &block)
     end
   end
 
