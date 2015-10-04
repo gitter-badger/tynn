@@ -12,6 +12,19 @@ test "hello" do
   assert_equal "hello", app.res.body
 end
 
+test "methods" do
+  [:get, :post, :put, :patch, :delete].each do |method|
+    Tynn.define do
+      send(method) { res.write "" }
+    end
+
+    app = Tynn::Test.new
+    app.send(method, "/")
+
+    assert_equal 200, app.res.status
+  end
+end
+
 test "captures" do
   Tynn.define do
     on :foo do
