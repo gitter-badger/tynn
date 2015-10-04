@@ -47,7 +47,7 @@ test "composition" do
 
   Foo.define do
     get do
-      res.write(inbox[:foo])
+      res.write(vars[:foo])
     end
   end
 

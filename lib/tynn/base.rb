@@ -5,6 +5,7 @@ require_relative "response"
 class Tynn
   module Base
     INBOX = "tynn.inbox".freeze # :nodoc:
+    VARS = "tynn.vars".freeze # :nodoc:
 
     def initialize(code)
       @tynn_code = code
@@ -27,6 +28,10 @@ class Tynn
       return @tynn_inbox
     end
 
+    def vars
+      return env[VARS]
+    end
+
     def default_headers
       return {}
     end
@@ -45,12 +50,12 @@ class Tynn
       end
     end
 
-    def run(app, inbox = {})
+    def run(app, vars = {})
       path, script = env[Rack::PATH_INFO], env[Rack::SCRIPT_NAME]
 
       env[Rack::PATH_INFO] = @tynn_path.curr
       env[Rack::SCRIPT_NAME] = @tynn_path.prev
-      env[INBOX] = inbox
+      env[VARS] = vars
 
       halt(app.call(env))
     ensure
