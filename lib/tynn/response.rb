@@ -68,6 +68,19 @@ class Tynn
       @headers[key] = value
     end
 
+    # Appends `str` to `body and updates the `Content-Length` header.
+    #
+    #     res.body # => []
+    #
+    #     res.write("foo")
+    #     res.write("bar")
+    #
+    #     res.body
+    #     # => ["foo", "bar"]
+    #
+    #     res["Content-Length"]
+    #     # => 6
+    #
     def write(str)
       s = str.to_s
 
