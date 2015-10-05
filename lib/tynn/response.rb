@@ -3,7 +3,7 @@ class Tynn
     LOCATION = "Location".freeze # :nodoc:
     DEFAULT_CONTENT_TYPE = "text/html".freeze # :nodoc:
 
-    def initialize(headers = {})
+    def initialize(headers = {}) # :nodoc:
       @status  = nil
       @headers = headers
       @body    = []
