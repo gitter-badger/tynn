@@ -4,9 +4,7 @@ class Users < Tynn
 end
 
 Users.define do
-  on(:id) do
-    id = inbox[:id]
-
+  on(:id) do |id|
     get do
       res.write("GET /users/#{ id }")
     end
