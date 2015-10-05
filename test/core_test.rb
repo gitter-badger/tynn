@@ -27,9 +27,9 @@ end
 
 test "captures" do
   Tynn.define do
-    on :foo do
-      on :bar do
-        res.write(sprintf("%s:%s", inbox[:foo], inbox[:bar]))
+    on :foo do |foo|
+      on :bar do |bar|
+        res.write(sprintf("%s:%s", foo, bar))
       end
     end
   end

@@ -4,12 +4,10 @@ require_relative "response"
 
 class Tynn
   module Base
-    INBOX = "tynn.inbox".freeze # :nodoc:
     VARS = "tynn.vars".freeze # :nodoc:
 
     def initialize(code)
       @__code = code
-      @tynn_inbox = {}
     end
 
     def env
@@ -24,10 +22,6 @@ class Tynn
       return @__res
     end
 
-    def inbox
-      return @tynn_inbox
-    end
-
     def vars
       return env[VARS]
     end
@@ -36,12 +30,12 @@ class Tynn
       return {}
     end
 
-    def call(env, inbox = env.fetch(INBOX, {}))
+    def call(env)
       @__env = env
       @__req = Tynn::Request.new(env)
       @__res = Tynn::Response.new(default_headers)
       @__seg = Seg.new(env.fetch(Rack::PATH_INFO))
-      @tynn_inbox = inbox
+      @__inbox = {}
 
       catch(:halt) do
         instance_eval(&@__code)
@@ -69,7 +63,7 @@ class Tynn
     def match(arg)
       case arg
       when String then @__seg.consume(arg)
-      when Symbol then @__seg.capture(arg, inbox)
+      when Symbol then @__seg.capture(arg, @__inbox)
       when true   then true
       else false
       end
@@ -77,7 +71,7 @@ class Tynn
 
     def on(arg)
       if match(arg)
-        yield
+        yield(@__inbox[arg])
 
         halt(res.finish)
       end
