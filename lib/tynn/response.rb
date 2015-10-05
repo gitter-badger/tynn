@@ -108,6 +108,20 @@ class Tynn
       @status = status
     end
 
+    # Returns an array with three elements: the status, headers and body.
+    #
+    #   res.finish
+    #   # => [404, {}, []]
+    #
+    #   res.status = 200
+    #   res.finish
+    #   # => [200, {}, []]
+    #
+    #   res.status = nil
+    #   res.write("yo!")
+    #   res.finish
+    #   # => [200, { "Content-Type" => "text/html" }, ["yo!"]]
+    #
     def finish
       if @status.nil?
         if @body.empty?
