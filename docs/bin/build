@@ -1,0 +1,38 @@
+#!/usr/bin/env ruby
+
+require "redcarpet"
+
+LAYOUT = File.read("./docs/layout.html")
+
+def markdown(text)
+  options = {
+    autolink: true,
+    fenced_code_blocks: true,
+    tables: true
+  }
+
+  renderer = Redcarpet::Render::HTML.new
+  markdown = Redcarpet::Markdown.new(renderer, options)
+
+  return markdown.render(text)
+end
+
+def title(content)
+  return content.match(/<h1>(.*)<\/h1>/)[1]
+end
+
+def render(content)
+  markdown = markdown(content)
+  title = title(markdown)
+
+  return sprintf(LAYOUT, content: markdown, title: title)
+end
+
+Dir["./docs/**/*.md"].each do |file|
+  _, name = file.split("./docs")
+
+  name = name.sub(".md", ".html")
+  output = File.join("./docs/public", name)
+
+  File.write(output, render(File.read(file)))
+end
