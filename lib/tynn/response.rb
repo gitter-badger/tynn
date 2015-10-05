@@ -68,7 +68,7 @@ class Tynn
       @headers[key] = value
     end
 
-    # Appends `str` to `body and updates the `Content-Length` header.
+    # Appends `str` to `body` and updates the `Content-Length` header.
     #
     #     res.body # => []
     #
