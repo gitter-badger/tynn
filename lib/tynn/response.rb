@@ -62,7 +62,6 @@ class Tynn
     # Sets the given `value` with the header corresponding to `key`.
     #
     #     res["Content-Type"] = "application/json"
-    #
     #     res["Content-Type"] # => "application/json"
     #
     def []=(key, value)
@@ -78,6 +77,19 @@ class Tynn
       @body << s
     end
 
+    # Sets the `Location` header to `path` and updates the status to
+    # `status`. By default, `status` is `302`.
+    #
+    #     res.redirect("/path")
+    #
+    #     res["Location"] # => "/path"
+    #     res.status      # => 302
+    #
+    #     res.redirect("http://tynn.ru", 303)
+    #
+    #     res["Location"] # => "http://tynn.ru"
+    #     res.status      # => 303
+    #
     def redirect(path, status = 302)
       @headers[LOCATION] = path
       @status = status
