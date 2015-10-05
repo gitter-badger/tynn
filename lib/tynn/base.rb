@@ -8,20 +8,20 @@ class Tynn
     VARS = "tynn.vars".freeze # :nodoc:
 
     def initialize(code)
-      @tynn_code = code
+      @__code = code
       @tynn_inbox = {}
     end
 
     def env
-      return @tynn_env
+      return @__env
     end
 
     def req
-      return @tynn_req
+      return @__req
     end
 
     def res
-      return @tynn_res
+      return @__res
     end
 
     def inbox
@@ -37,24 +37,24 @@ class Tynn
     end
 
     def call(env, inbox = env.fetch(INBOX, {}))
-      @tynn_env = env
-      @tynn_req = Tynn::Request.new(env)
-      @tynn_res = Tynn::Response.new(default_headers)
-      @tynn_path = Seg.new(env.fetch(Rack::PATH_INFO))
+      @__env = env
+      @__req = Tynn::Request.new(env)
+      @__res = Tynn::Response.new(default_headers)
+      @__seg = Seg.new(env.fetch(Rack::PATH_INFO))
       @tynn_inbox = inbox
 
       catch(:halt) do
-        instance_eval(&@tynn_code)
+        instance_eval(&@__code)
 
-        return @tynn_res.finish
+        return @__res.finish
       end
     end
 
     def run(app, vars = {})
       path, script = env[Rack::PATH_INFO], env[Rack::SCRIPT_NAME]
 
-      env[Rack::PATH_INFO] = @tynn_path.curr
-      env[Rack::SCRIPT_NAME] = @tynn_path.prev
+      env[Rack::PATH_INFO] = @__seg.curr
+      env[Rack::SCRIPT_NAME] = @__seg.prev
       env[VARS] = vars
 
       halt(app.call(env))
@@ -68,8 +68,8 @@ class Tynn
 
     def match(arg)
       case arg
-      when String then @tynn_path.consume(arg)
-      when Symbol then @tynn_path.capture(arg, inbox)
+      when String then @__seg.consume(arg)
+      when Symbol then @__seg.capture(arg, inbox)
       when true   then true
       else false
       end
@@ -84,7 +84,7 @@ class Tynn
     end
 
     def root?
-      return @tynn_path.root?
+      return @__seg.root?
     end
 
     def root
