@@ -1,7 +1,7 @@
 class Tynn
   class Response
-    LOCATION = "Location".freeze
-    DEFAULT_CONTENT_TYPE = "text/html".freeze
+    LOCATION = "Location".freeze # :nodoc:
+    DEFAULT_CONTENT_TYPE = "text/html".freeze # :nodoc:
 
     def initialize(headers = {})
       @status  = nil
@@ -10,26 +10,61 @@ class Tynn
       @length  = 0
     end
 
+    # Sets the status of the response.
+    #
+    #     res.status = 200
+    #
     def status=(status)
       @status = status
     end
 
+    # Returns the status of the response.
+    #
+    #     res.status # => 200
+    #
     def status
       return @status
     end
 
+    # Returns a hash with the response headers.
+    #
+    #     res.headers
+    #     # => { "Content-Type" => "text/html", "Content-Length" => "42" }
+    #
     def headers
       return @headers
     end
 
+    # Returns the body of the response.
+    #
+    #     res.body
+    #     # => []
+    #
+    #     res.write("there is")
+    #     res.write("no try")
+    #
+    #     res.body
+    #     # => ["there is", "no try"]
+    #
     def body
       return @body
     end
 
+    # Returns the response header corresponding to `key`.
+    #
+    #     res["Content-Type"]   # => "text/html"
+    #     res["Content-Length"] # => "42"
+    #
     def [](key)
       return @headers[key]
     end
 
+    # Sets the given `value` with the header corresponding to `key`.
+    #
+    #     res["Content-Type"] = "application/json"
+    #
+    #     res["Content-Type"] # => "application/json"
+    #
     def []=(key, value)
       @headers[key] = value
     end
