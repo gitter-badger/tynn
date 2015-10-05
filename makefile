@@ -1,9 +1,6 @@
 default: test
 
-clean:
-	@rm -rf ./docs/public/*.html
-
-docs: clean
+docs:
 	@./docs/bin/build
 
 install:
