@@ -64,21 +64,6 @@ test "composition" do
   assert_equal "42", app.res.body
 end
 
-test "settings" do
-  Tynn.settings[:message] = "hello"
-
-  Tynn.define do
-    get do
-      res.write(settings[:message])
-    end
-  end
-
-  app = Tynn::Test.new
-  app.get("/")
-
-  assert_equal "hello", app.res.body
-end
-
 test "raise unless application handler is set" do
   app = Tynn::Test.new
 
