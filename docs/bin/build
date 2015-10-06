@@ -5,12 +5,6 @@ if [ "$#" -ne 2 ]; then
   exit 1
 fi
 
-file=$1
-template=$2
-markdown="./docs/public/tmp.md"
+title=`sed -n '/<h1>\(.*\)<\/h1>/s//\1/p' $1`
 
-./docs/bin/markdown $file > $markdown
-
-title=`sed -n '/<h1>\(.*\)<\/h1>/s//\1/p' $markdown`
-
-m4 -P -DTITLE="$title" -DCONTENT=$markdown $template
+m4 -P -DTITLE="$title" -DCONTENT=$1 $2

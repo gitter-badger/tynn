@@ -1,13 +1,17 @@
 default: test
 
-docs: clean pages
+docs: clean markdown pages
 
 clean:
 	@rm -f docs/public/*.{html,md}
 
+markdown: $(patsubst docs/%.md, docs/public/%.md, $(wildcard docs/*.md))
 pages: $(patsubst docs/%.md, docs/public/%.html, $(wildcard docs/*.md))
 
-docs/public/%.html: docs/%.md docs/layout.html
+docs/public/%.md: docs/%.md
+	@./docs/bin/markdown $< > $@
+
+docs/public/%.html: docs/public/%.md docs/layout.html
 	@./docs/bin/build $< docs/layout.html > $@
 
 install:
