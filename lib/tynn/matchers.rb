@@ -26,17 +26,21 @@ module Tynn::Matchers
     halt(res.finish)
   end
 
-  # Match if the given `param` is present.
+  # Match if the given `key` is present in `req.params`.
   #
   #     Tynn.define do
   #       param(:user) do |params|
   #         user = User.create(params)
+  #
+  #         # ...
   #       end
   #
   #       default do
   #         res.write("missing param")
   #       end
   #     end
+  #
+  # :call-seq: param(key, &block)
   #
   def param(key)
     if (v = req[key]) && !v.empty?
