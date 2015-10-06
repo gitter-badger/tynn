@@ -109,18 +109,22 @@ class Tynn
     end
 
     # Returns an array with three elements: the status, headers and body.
+    # If the status is not set, the status is set to 404 if empty body,
+    # otherwise the status is set to 200 and updates the `Content-Type`
+    # header to `text/html`.
     #
-    #   res.finish
-    #   # => [404, {}, []]
+    #     res.status = 200
+    #     res.finish
+    #     # => [200, {}, []]
     #
-    #   res.status = 200
-    #   res.finish
-    #   # => [200, {}, []]
+    #     res.status = nil
+    #     res.finish
+    #     # => [404, {}, []]
     #
-    #   res.status = nil
-    #   res.write("yo!")
-    #   res.finish
-    #   # => [200, { "Content-Type" => "text/html" }, ["yo!"]]
+    #     res.status = nil
+    #     res.write("yo!")
+    #     res.finish
+    #     # => [200, { "Content-Type" => "text/html" }, ["yo!"]]
     #
     def finish
       if @status.nil?
