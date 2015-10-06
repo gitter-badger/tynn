@@ -6,8 +6,8 @@ Simple library to create [Rack][rack] applications.
 Description
 -----------
 
-Tynn is a very simple and very fast router for web applications inspired by
-[Cuba][cuba] and [Syro][syro].
+Tynn is a thin abstraction on top of [Syro][syro], a very simple and fast
+router for web applications.
 
 Usage
 -----
