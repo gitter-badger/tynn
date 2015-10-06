@@ -3,6 +3,8 @@ tynn
 
 Simple library to create [Rack][rack] applications.
 
+Version: [![Gem Version](https://badge.fury.io/rb/tynn.svg)](http://badge.fury.io/rb/tynn)
+
 Description
 -----------
 
