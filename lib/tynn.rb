@@ -1,9 +1,12 @@
-require "rack"
 require "seteable"
-require_relative "tynn/base"
-require_relative "tynn/version"
+require "syro"
 
-class Tynn
+class Tynn < Syro::Deck
+  include Seteable
+
+  require_relative "tynn/base"
+  require_relative "tynn/version"
+
   def self.helpers(helper, *args, &block)
     self.include(helper)
 
@@ -17,5 +20,4 @@ class Tynn
   end
 
   helpers(Tynn::Base)
-  helpers(Seteable)
 end

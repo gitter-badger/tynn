@@ -6,4 +6,5 @@ rack-test:0.6.3
 redcarpet:3.3.3
 seg:0.0.1
 seteable:1.1.0
+syro:1.0.0
 tilt:2.0.1

@@ -13,8 +13,8 @@ Gem::Specification.new do |s|
   s.files = `git ls-files`.split("\n")
 
   s.add_dependency "rack", "~> 1.6"
-  s.add_dependency "seg", "0.0.1"
   s.add_dependency "seteable", "1.1.0"
+  s.add_dependency "syro", "~> 1.0"
 
   s.add_development_dependency "cutest", "1.2.2"
   s.add_development_dependency "erubis", "~> 2.7"
