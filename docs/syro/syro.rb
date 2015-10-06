@@ -1,0 +1,112 @@
+class Syro::Response
+  ##
+  # :method: []
+  #
+  # Returns the response header corresponding to `key`.
+  #
+  #     res["Content-Type"]   # => "text/html"
+  #     res["Content-Length"] # => "42"
+
+  ##
+  # :method: []=
+  # :call-seq: []=(value)
+  #
+  # Sets the given `value` with the header corresponding to `key`.
+  #
+  #     res["Content-Type"] = "application/json"
+  #     res["Content-Type"] # => "application/json"
+
+  ##
+  # :method: body
+  #
+  # Returns the body of the response.
+  #
+  #     res.body
+  #     # => []
+  #
+  #     res.write("there is")
+  #     res.write("no try")
+  #
+  #     res.body
+  #     # => ["there is", "no try"]
+
+  ##
+  # :method: finish
+  #
+  # Returns an array with three elements: the status, headers and body.
+  # If the status is not set, the status is set to 404 if empty body,
+  # otherwise the status is set to 200 and updates the `Content-Type`
+  # header to `text/html`.
+  #
+  #     res.status = 200
+  #     res.finish
+  #     # => [200, {}, []]
+  #
+  #     res.status = nil
+  #     res.finish
+  #     # => [404, {}, []]
+  #
+  #     res.status = nil
+  #     res.write("yo!")
+  #     res.finish
+  #     # => [200, { "Content-Type" => "text/html" }, ["yo!"]]
+
+  ##
+  # :method: headers
+  #
+  # Returns a hash with the response headers.
+  #
+  #     res.headers
+  #     # => { "Content-Type" => "text/html", "Content-Length" => "42" }
+
+  ##
+  # :method: redirect
+  # :call-seq: redirect(path, 302)
+  #
+  # Sets the `Location` header to `path` and updates the status to
+  # `status`. By default, `status` is `302`.
+  #
+  #     res.redirect("/path")
+  #
+  #     res["Location"] # => "/path"
+  #     res.status      # => 302
+  #
+  #     res.redirect("http://tynn.ru", 303)
+  #
+  #     res["Location"] # => "http://tynn.ru"
+  #     res.status      # => 303
+
+  ##
+  # :method: status
+  #
+  # Returns the status of the response.
+  #
+  #     res.status # => 200
+  #
+
+  ##
+  # :method: status=
+  # :call-seq: status=(status)
+  #
+  # Sets the status of the response.
+  #
+  #     res.status = 200
+  #
+
+  ##
+  # :method: write
+  # :call-seq: write(str)
+  #
+  # Appends `str` to `body` and updates the `Content-Length` header.
+  #
+  #     res.body # => []
+  #
+  #     res.write("foo")
+  #     res.write("bar")
+  #
+  #     res.body
+  #     # => ["foo", "bar"]
+  #
+  #     res["Content-Length"]
+  #     # => 6
+end
