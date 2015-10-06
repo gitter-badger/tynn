@@ -2,17 +2,13 @@
 
 require "redcarpet"
 
-def markdown(text)
-  options = {
-    autolink: true,
-    fenced_code_blocks: true,
-    tables: true
-  }
+options = {
+  autolink: true,
+  fenced_code_blocks: true,
+  tables: true
+}
 
-  renderer = Redcarpet::Render::HTML.new
-  markdown = Redcarpet::Markdown.new(renderer, options)
+renderer = Redcarpet::Render::HTML.new
+markdown = Redcarpet::Markdown.new(renderer, options)
 
-  return markdown.render(text)
-end
-
-puts(markdown(File.read(ARGV[0])))
+puts(markdown.render(File.read(ARGV[0])))
