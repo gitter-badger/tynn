@@ -1,6 +1,6 @@
 require "rack"
+require "seteable"
 require_relative "tynn/base"
-require_relative "tynn/settings"
 require_relative "tynn/version"
 
 class Tynn
@@ -17,5 +17,5 @@ class Tynn
   end
 
   helpers(Tynn::Base)
-  helpers(Tynn::Settings)
+  helpers(Seteable)
 end
