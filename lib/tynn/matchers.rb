@@ -26,15 +26,23 @@ module Tynn::Matchers
     halt(res.finish)
   end
 
-  # Match if the given `params` are present.
+  # Match if the given `param` is present.
   #
   #     Tynn.define do
-  #       on param?(:token) do
-  #         # ...
+  #       param(:user) do |params|
+  #         user = User.create(params)
+  #       end
+  #
+  #       default do
+  #         res.write("missing param")
   #       end
   #     end
   #
-  def param?(*params)
-    return params.all? { |param| (v = req[param]) && !v.empty? }
+  def param(key)
+    if (v = req[key]) && !v.empty?
+      yield(v)
+
+      halt(res.finish)
+    end
   end
 end

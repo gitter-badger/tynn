@@ -19,19 +19,22 @@ test "default" do |app|
   assert_equal "foo", app.res.body
 end
 
-test "param?" do |app|
+test "param" do |app|
   Tynn.define do
-    on param?(:key) do
-      res.write(req[:key])
+    param(:foo) do |foo|
+      res.write(foo)
+    end
+
+    param("bar") do |bar|
+      res.write(bar)
     end
   end
 
-  app.get("/")
+  app.get("/", foo: "foo")
 
-  assert_equal 404, app.res.status
-
-  app.get("/", key: "foo")
-
-  assert_equal 200, app.res.status
   assert_equal "foo", app.res.body
+
+  app.get("/", foo: "bar")
+
+  assert_equal "bar", app.res.body
 end
