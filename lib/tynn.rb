@@ -8,8 +8,31 @@ class Tynn < Syro::Deck
     @syro = Syro.new(self, &block)
   end
 
-  def self.use(_middleware, *args, &block)
-    middleware << proc { |app| _middleware.new(app, *args, &block) }
+  # Adds given Rack `middleware` to the stack.
+  #
+  #     require "rack/show_exceptions"
+  #
+  #     class ForceSSL
+  #       def initialize(app)
+  #         @app = app
+  #       end
+  #
+  #       def call(env)
+  #         request = Rack::Request.new(env)
+  #
+  #         unless request.ssl?
+  #           return [301, { "Location" => "https://safe.app" }, []]
+  #         end
+  #
+  #         return @app.call(env)
+  #       end
+  #     end
+  #
+  #     Tynn.use(ForceSSL)
+  #     Tynn.use(Rack::ShowExceptions)
+  #
+  def self.use(middleware, *args, &block)
+    __middleware << proc { |app| middleware.new(app, *args, &block) }
   end
 
   def self.call(env) # :nodoc:
@@ -19,14 +42,14 @@ class Tynn < Syro::Deck
   def self.to_app # :nodoc:
     fail("Missing application handler. Try #{ self }.define") unless @syro
 
-    if middleware.empty?
+    if __middleware.empty?
       return @syro
     else
-      return middleware.reverse.inject(@syro) { |a, m| m.call(a) }
+      return __middleware.reverse.inject(@syro) { |a, m| m.call(a) }
     end
   end
 
-  def self.middleware # :nodoc:
+  def self.__middleware # :nodoc:
     return @middleware ||= []
   end
 
