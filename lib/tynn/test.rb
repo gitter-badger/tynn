@@ -1,6 +1,7 @@
 require "rack/test"
 
 # Tynn::Test is a simple helper class to test your application.
+# It uses [rack-test][rack-test] helper methods to simulate requests.
 #
 #     require "tynn"
 #     require "tynn/test"
@@ -17,16 +18,28 @@ require "rack/test"
 #     200   == app.res.status # => true
 #     "hei" == app.res.body   # => true
 #
+#     app.req == app.last_request  # => true
+#     app.res == app.last_response # => true
+#
 # **NOTE:** Tynn doesn't ship with [rack-test][rack-test]. In order to
-# use this plugin, you need to install it.
+# use this plugin, you need to install it first.
 #
 # [rack-test]: http://rubygems.org/gems/rack-test
 #
 class Tynn::Test
   include Rack::Test::Methods
 
-  def initialize(app = Tynn) # :nodoc:
-    @app = app
+  # Instantiates a new Tynn::Test object with the given `application` to
+  # test. Passes Tynn by default.
+  #
+  #     class API < Tynn
+  #     end
+  #
+  #     app = Tynn::Test.new(API)
+  #     app.get("/json")
+  #
+  def initialize(application = Tynn)
+    @app = application
   end
 
   def app # :nodoc:
@@ -35,16 +48,4 @@ class Tynn::Test
 
   alias_method :res, :last_response
   alias_method :req, :last_request
-
-  ##
-  # :method: res
-  # :call-seq: res
-  #
-  # Alias for `last_response`.
-
-  ##
-  # :method: req
-  # :call-seq: req
-  #
-  # Alias for `last_request`.
 end
