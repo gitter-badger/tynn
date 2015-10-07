@@ -8,7 +8,7 @@ clean:
 markdown: $(patsubst docs/%.md, docs/public/%.md, $(wildcard docs/*.md))
 
 docs/public/%.md: docs/%.md
-	@./docs/bin/markdown $< > $@
+	@redcarpet --parse tables --parse fenced_code_blocks $< > $@
 
 pages: $(patsubst docs/%.md, docs/public/%.html, $(wildcard docs/*.md))
 
