@@ -28,17 +28,17 @@ class RDoc::Generator::Tynn
     end
   end
 
+  private
+
   def render(klass)
     return ERB.new(TEMPLATE).result(binding)
   end
 
-  def class_dir
-    return "classes".freeze
+  def classfile(klass)
+    return sprintf("%s.html", klass.full_name.gsub("::", "-"))
   end
 
-  def classfile(klass)
-    return File.join(klass.full_name.gsub("::", "-") + ".html")
-  end
+  def class_dir; end # required by RDoc
 end
 
 rdoc = RDoc::RDoc.new
