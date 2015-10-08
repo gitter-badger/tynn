@@ -4,7 +4,7 @@ module Tynn::CSRF
   end
 
   class Helper
-    CSRF_HEADER = "HTTP_X_CSRF_TOKEN".freeze
+    CSRF_HEADER = "HTTP_X_CSRF_TOKEN".freeze # :nodoc:
 
     def initialize(app)
       @app = app
