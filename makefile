@@ -19,6 +19,9 @@ docs/public/%.html: docs/public/%.md docs/layout.html
 install:
 	@cat .gems | xargs gem install
 
+publish:
+	@./docs/bin/publish ./docs/public/
+
 rdoc:
 	@./docs/bin/api -o ./docs/public/api/ lib/
 
