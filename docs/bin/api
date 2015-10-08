@@ -1,0 +1,83 @@
+#!/usr/bin/env ruby
+
+require "erb"
+require "rdoc/rdoc"
+require "rdoc/generator"
+
+class RDoc::Generator::Tynn
+  RDoc::RDoc.add_generator(self)
+
+  LAYOUT = File.read(File.expand_path("../layout.html", __dir__))
+  TEMPLATE = DATA.read
+
+  def initialize(store, options)
+    @store = store
+  end
+
+  def generate
+    classes = @store.all_classes_and_modules.sort
+
+    classes.each do |klass|
+      content = render(klass)
+      title = content[/<h1.*>(.*)<\/h1>/, 1]
+
+      output = LAYOUT.gsub("TITLE", title)
+      output = output.gsub("m4_include(CONTENT)", content)
+
+      File.write(classfile(klass), output)
+    end
+  end
+
+  def render(klass)
+    return ERB.new(TEMPLATE).result(binding)
+  end
+
+  def class_dir
+    return "classes".freeze
+  end
+
+  def classfile(klass)
+    return File.join(klass.full_name.gsub("::", "-") + ".html")
+  end
+end
+
+rdoc = RDoc::RDoc.new
+
+rdoc.document([
+  *ARGV,
+  "--markup", "markdown",
+  "-q", "-f", "tynn"
+])
+
+__END__
+<h1><%= klass.full_name %></h1>
+<p><%= klass.description %></p>
+
+<% klass.methods_by_type.each do |type, visibilities| %>
+  <% next if visibilities.empty? %>
+  <% visibilities.each do |visibility, methods| %>
+    <% next if methods.empty? %>
+
+    <h2>
+      <%= visibility.to_s.capitalize %>
+      <%= type.capitalize %>
+      methods
+    </h2>
+
+    <% methods.each do |method| %>
+      <% next if method.is_alias_for %>
+
+      <h3 id="<%= method.aref %>">
+        <% if method.call_seq %>
+          <%= method.call_seq.strip %>
+        <% else %>
+          <%= method.name %><%= method.params %>
+        <% end %>
+      </h3>
+
+      <% if method.comment %>
+        <p><%= method.description.strip %></p>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>

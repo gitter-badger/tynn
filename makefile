@@ -1,8 +1,9 @@
 default: test
 
-docs: clean markdown pages
+docs: clean markdown pages rdoc
 
 clean:
+	@rm -rf docs/public/api
 	@rm -f docs/public/*.{html,md}
 
 markdown: $(patsubst docs/%.md, docs/public/%.md, $(wildcard docs/*.md))
@@ -17,6 +18,9 @@ docs/public/%.html: docs/public/%.md docs/layout.html
 
 install:
 	@cat .gems | xargs gem install
+
+rdoc:
+	@./docs/bin/api -o ./docs/public/api/ lib/
 
 server:
 	@ruby -run -e httpd ./docs/public -p 4000

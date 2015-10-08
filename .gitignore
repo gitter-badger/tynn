@@ -1,4 +1,5 @@
 /doc
+/docs/public/api
 /docs/public/*.html
 /docs/public/*.md
 
