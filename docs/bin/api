@@ -38,7 +38,7 @@ class RDoc::Generator::Tynn
     return sprintf("%s.html", klass.full_name.gsub("::", "-"))
   end
 
-  def class_dir; end # required by RDoc
+  public def class_dir; end # required by RDoc
 end
 
 rdoc = RDoc::RDoc.new
