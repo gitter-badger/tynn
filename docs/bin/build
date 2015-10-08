@@ -5,6 +5,6 @@ if [ "$#" -ne 2 ]; then
   exit 1
 fi
 
-title=`sed -n '/<h1>\(.*\)<\/h1>/s//\1/p' $1`
+title=`sed -n '/<h1.*>\(.*\)<\/h1>/s//\1/p' $1`
 
 m4 -P -DTITLE="$title" -DCONTENT=$1 $2
