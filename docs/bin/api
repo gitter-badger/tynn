@@ -7,22 +7,19 @@ require "rdoc/generator"
 class RDoc::Generator::Tynn
   RDoc::RDoc.add_generator(self)
 
+  CONTENT = "m4_include(CONTENT)".freeze
   LAYOUT = File.read(File.expand_path("../layout.html", __dir__))
+  TITLE = "TITLE".freeze
   TEMPLATE = DATA.read
 
   def initialize(store, options)
-    @store = store
+    @classes = store.all_classes_and_modules.sort
   end
 
   def generate
-    classes = @store.all_classes_and_modules.sort
-
-    classes.each do |klass|
-      content = render(klass)
-      title = content[/<h1.*>(.*)<\/h1>/, 1]
-
-      output = LAYOUT.gsub("TITLE", title)
-      output = output.gsub("m4_include(CONTENT)", content)
+    @classes.each do |klass|
+      output = LAYOUT.gsub(TITLE, klass.full_name)
+      output = output.gsub(CONTENT, render(klass))
 
       File.write(classfile(klass), output)
     end
