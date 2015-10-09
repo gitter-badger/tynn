@@ -1,0 +1,27 @@
+code, pre {
+  font-family: Monaco, monospace;
+  font-size: 0.95em;
+}
+
+code {
+  background-color: #F8F8F8;
+  border: 1px solid #DDD;
+  border-radius: 3px;
+  padding: 1px 4px;
+}
+
+pre {
+  background: #F8F8F8;
+  padding: 1em;
+}
+
+pre code {
+  color: #333333;
+}
+
+pre .ruby-keyword { color: #a71d5d; }
+pre .ruby-constant { color: #795da3; }
+pre .ruby-ivar { }
+pre .ruby-operator { color: #795da3; }
+pre .ruby-string { color: #388e3c; }
+pre .ruby-value { color: #0086b3; }

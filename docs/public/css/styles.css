@@ -25,22 +25,6 @@ header {
   text-align: right;
 }
 
-h1 {
-  color: rgba(0, 0, 0, 0.54);
-  font-size: 34px;
-  font-weight: 400;
-}
-
-h2 {
-  font-size: 24px;
-  font-weight: 400;
-}
-
-h3 {
-  font-size: 16px;
-  font-weight: 500;
-}
-
 .wrap {
   width: 960px;
   margin-left: auto;
@@ -104,8 +88,19 @@ header a {
   padding-left: 20px;
 }
 
+.nav-docs-section h3 {
+  font-size: 16px;
+  font-weight: 500;
+}
+
 .inner-content {
   float: right;
   line-height: 24px;
   width: 67.7083%;
+}
+
+.inner-content h1 {
+  color: rgba(0, 0, 0, 0.54);
+  font-size: 34px;
+  font-weight: 400;
 }

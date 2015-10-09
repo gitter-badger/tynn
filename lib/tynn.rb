@@ -10,25 +10,10 @@ class Tynn < Syro::Deck
 
   # Adds given Rack `middleware` to the stack.
   #
+  #     require "rack/common_logger"
   #     require "rack/show_exceptions"
   #
-  #     class ForceSSL
-  #       def initialize(app)
-  #         @app = app
-  #       end
-  #
-  #       def call(env)
-  #         request = Rack::Request.new(env)
-  #
-  #         unless request.ssl?
-  #           return [301, { "Location" => "https://safe.app" }, []]
-  #         end
-  #
-  #         return @app.call(env)
-  #       end
-  #     end
-  #
-  #     Tynn.use(ForceSSL)
+  #     Tynn.use(Rack::CommonLogger)
   #     Tynn.use(Rack::ShowExceptions)
   #
   def self.use(middleware, *args, &block)
