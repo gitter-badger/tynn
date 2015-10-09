@@ -28,7 +28,11 @@ class RDoc::Generator::Tynn
   private
 
   def render(klass)
-    return ERB.new(TEMPLATE).result(binding)
+    return renderer.result(binding)
+  end
+
+  def renderer
+    return @renderer ||= ERB.new(TEMPLATE)
   end
 
   def classfile(klass)
