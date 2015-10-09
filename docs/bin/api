@@ -7,10 +7,11 @@ require "rdoc/generator"
 class RDoc::Generator::Tynn
   RDoc::RDoc.add_generator(self)
 
-  CONTENT = "m4_include(CONTENT)".freeze
-  LAYOUT = File.read(File.expand_path("../layout.html", __dir__))
-  TITLE = "TITLE".freeze
   TEMPLATE = DATA.read
+  LAYOUT = File.read(File.expand_path("../layout.html", __dir__))
+
+  TITLE = "TITLE".freeze
+  CONTENT = "m4_include(CONTENT)".freeze
 
   def initialize(store, options)
     @classes = store.all_classes_and_modules.sort
