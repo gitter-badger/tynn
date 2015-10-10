@@ -21,9 +21,6 @@
 #   into IE, Chrome and Safari. This filter is usually enabled by default,
 #   the use of this header is to re-enable it if it was disabled by the user.
 #
-# You can use <https://securityheaders.io> to asses the security related
-# HTTP headers used by your site.
-#
 # [clickjacking]: https://www.owasp.org/index.php/Clickjacking
 # [mime-sniffing]: https://msdn.microsoft.com/library/gg622941(v=vs.85).aspx
 # [pcdp]: https://www.adobe.com/devnet/adobe-media-server/articles/cross-domain-xml-for-streaming.html
