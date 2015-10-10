@@ -4,6 +4,12 @@ require "erb"
 require "rdoc/rdoc"
 require "rdoc/generator"
 
+class RDoc::ClassModule
+  def as_href(*)
+    return sprintf("/api/%s.html", full_name.gsub("::", "-"))
+  end
+end
+
 class RDoc::Generator::Tynn
   RDoc::RDoc.add_generator(self)
 
