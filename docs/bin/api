@@ -66,21 +66,23 @@ __END__
   <% visibilities.each do |visibility, methods| %>
     <% next if methods.empty? %>
 
+    <hr>
+
     <h2>
-      <%= visibility.to_s.capitalize %>
-      <%= type.capitalize %>
-      methods
+      <%= type.capitalize %> methods:
     </h2>
 
     <% methods.each do |method| %>
       <% next if method.is_alias_for %>
 
       <h3 id="<%= method.aref %>">
-        <% if method.call_seq %>
-          <%= method.call_seq.strip %>
-        <% else %>
-          <%= method.name %><%= method.params %>
-        <% end %>
+        <a href="#<%= method.aref %>">
+          <% if method.call_seq %>
+            <%= method.call_seq.strip %>
+          <% else %>
+            <%= method.name %><%= method.params %>
+          <% end %>
+        </a>
       </h3>
 
       <% if method.comment %>

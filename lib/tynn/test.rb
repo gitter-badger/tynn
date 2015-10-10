@@ -26,8 +26,7 @@ require "rack/test"
 class Tynn::Test
   include Rack::Test::Methods
 
-  # Instantiates a new Tynn::Test object with the given `application` to
-  # test. Passes Tynn by default.
+  # Instantiates a new Tynn::Test object with the given `application` to test.
   #
   #     class API < Tynn
   #     end
