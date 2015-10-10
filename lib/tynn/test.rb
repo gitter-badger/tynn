@@ -1,7 +1,7 @@
 require "rack/test"
 
-# Tynn::Test is a simple helper class to test your application.
-# It uses [rack-test][rack-test] helper methods to simulate requests.
+# A simple helper class that uses [rack-test][rack-test] to simulate requests
+# to your application.
 #
 #     require "tynn"
 #     require "tynn/test"
