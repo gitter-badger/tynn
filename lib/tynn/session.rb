@@ -3,7 +3,7 @@ module Tynn::Session
 
   def self.setup(app, options = {}) # :nodoc:
     options = options.dup
-    options[:http_only] ||= true
+    options[:httponly] ||= true
 
     app.use(Rack::Session::Cookie, options)
   end
