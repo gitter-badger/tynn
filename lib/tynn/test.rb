@@ -18,9 +18,6 @@ require "rack/test"
 #     200   == app.res.status # => true
 #     "hei" == app.res.body   # => true
 #
-#     app.req == app.last_request  # => true
-#     app.res == app.last_response # => true
-#
 # **NOTE:** Tynn doesn't ship with [rack-test][rack-test]. In order to
 # use this plugin, you need to install it first.
 #
