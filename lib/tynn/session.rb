@@ -8,6 +8,13 @@ module Tynn::Session
     app.use(Rack::Session::Cookie, options)
   end
 
+  # Returns session hash.
+  #
+  #     session # => {}
+  #
+  #     session[:foo] = "foo"
+  #     session[:foo] # => "foo"
+  #
   def session
     return env[RACK_SESSION]
   end
