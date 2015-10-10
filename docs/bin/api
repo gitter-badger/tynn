@@ -85,7 +85,7 @@ __END__
         <% if method.comment %>
           <p><%= method.description.strip %></p>
         <% end %>
-      </div>
-    <% end %>
+      <% end %>
+    </div>
   <% end %>
 <% end %>
