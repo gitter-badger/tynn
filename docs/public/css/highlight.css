@@ -20,9 +20,9 @@ pre code {
 }
 
 pre .ruby-comment  { color: #969896; }
-pre .ruby-constant { color: #0086b3; }
+pre .ruby-constant { color: #a71d5d; }
 pre .ruby-ivar     { }
 pre .ruby-keyword  { color: #a71d5d; }
-pre .ruby-operator { color: #0086b3; }
-pre .ruby-string   { color: #388e3c; }
-pre .ruby-value    { color: #0086b3; }
+pre .ruby-operator { color: #a71d5d; }
+pre .ruby-string   { color: #0091ea; }
+pre .ruby-value    { color: #0091ea; }
