@@ -15,11 +15,7 @@ test "session" do
   app = Tynn::Test.new
   app.get("/")
 
-  env = app.req.env
-  session = env["rack.session"]
-  session_options = env["rack.session.options"]
-
   assert_equal "foo", app.res.body
-  assert_equal "foo", session["foo"]
-  assert_equal true, session_options[:http_only]
+  assert_equal "foo", app.req.env["rack.session"]["foo"]
+  assert(/; HttpOnly$/ === app.res.headers["Set-Cookie"])
 end
