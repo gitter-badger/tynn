@@ -104,3 +104,11 @@ header a {
   font-size: 34px;
   font-weight: 400;
 }
+
+.inner-content a {
+  color: rgba(0, 0, 0, 0.87);
+}
+
+.inner-content a:hover {
+  color: #FF4081;
+}
