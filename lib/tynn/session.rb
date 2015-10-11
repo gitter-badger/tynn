@@ -38,6 +38,9 @@
 # middleware. Thus, supports all the options available for this middleware.
 #
 # * `:key` - the name of the cookie. Defaults to `"rack.session"`.
+# * `:expire_after` - sets the expiration time of the cookie. If `nil`,
+#     the cookie will be deleted after the user close the browser.
+#     Defaults to `nil`.
 # * `:httponly` - if `true`, sets the [HttpOnly][cookie-httponly] attribute.
 #   This mitigates the risk of client side scripting accessing the cookie.
 #   Defaults to `true`.
