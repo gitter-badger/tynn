@@ -6,7 +6,7 @@
 #     require "tynn"
 #     require "tynn/session"
 #
-#     Tynn.helpers(Tynn::Session, secret: "__insecure_secret__")
+#     Tynn.helpers(Tynn::Session, secret: "__change_me__")
 #
 # The following command generates a cryptographically secure secret ready
 # to use:
