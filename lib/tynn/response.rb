@@ -1,4 +1,4 @@
-class Syro::Response
+class Tynn::Response < Syro::Response
   ##
   # :method: []
   #

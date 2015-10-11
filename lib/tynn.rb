@@ -4,7 +4,7 @@ require "syro"
 class Tynn < Syro::Deck
   include Seteable
 
-  # Sets application handler.
+  # Sets the application handler.
   #
   # ```
   # class Users < Tynn
