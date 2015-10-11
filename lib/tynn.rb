@@ -10,11 +10,13 @@ class Tynn < Syro::Deck
 
   # Adds given Rack `middleware` to the stack.
   #
-  #     require "rack/common_logger"
-  #     require "rack/show_exceptions"
+  # ```
+  # require "rack/common_logger"
+  # require "rack/show_exceptions"
   #
-  #     Tynn.use(Rack::CommonLogger)
-  #     Tynn.use(Rack::ShowExceptions)
+  # Tynn.use(Rack::CommonLogger)
+  # Tynn.use(Rack::ShowExceptions)
+  # ```
   #
   def self.use(middleware, *args, &block)
     __middleware << proc { |app| middleware.new(app, *args, &block) }

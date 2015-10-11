@@ -69,10 +69,12 @@ module Tynn::Session
 
   # Returns the session hash.
   #
-  #     session # => {}
+  # ```
+  # session # => {}
   #
-  #     session[:foo] = "foo"
-  #     session[:foo] # => "foo"
+  # session[:foo] = "foo"
+  # session[:foo] # => "foo"
+  # ```
   #
   def session
     return env[RACK_SESSION]

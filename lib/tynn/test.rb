@@ -3,20 +3,22 @@ require "rack/test"
 # A simple helper class that uses [rack-test][rack-test] to simulate requests
 # to your application.
 #
-#     require "tynn"
-#     require "tynn/test"
+# ```
+# require "tynn"
+# require "tynn/test"
 #
-#     Tynn.define do
-#       root do
-#         res.write("hei")
-#       end
-#     end
+# Tynn.define do
+#   root do
+#     res.write("hei")
+#   end
+# end
 #
-#     app = Tynn::Test.new
-#     app.get("/")
+# app = Tynn::Test.new
+# app.get("/")
 #
-#     200   == app.res.status # => true
-#     "hei" == app.res.body   # => true
+# 200   == app.res.status # => true
+# "hei" == app.res.body   # => true
+# ```
 #
 # **NOTE:** Tynn doesn't ship with [rack-test][rack-test]. In order to
 # use this plugin, you need to install it first.
@@ -28,11 +30,13 @@ class Tynn::Test
 
   # Instantiates a new Tynn::Test object with the given `application` to test.
   #
-  #     class API < Tynn
-  #     end
+  # ```
+  # class API < Tynn
+  # end
   #
-  #     app = Tynn::Test.new(API)
-  #     app.get("/json")
+  # app = Tynn::Test.new(API)
+  # app.get("/json")
+  # ```
   #
   def initialize(application = Tynn)
     @app = application

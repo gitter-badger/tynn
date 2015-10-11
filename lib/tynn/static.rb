@@ -1,20 +1,26 @@
 # Adds support for static files (javascript files, images, stylesheets, etc).
 #
-#     require "tynn"
-#     require "tynn/static"
+# ```
+# require "tynn"
+# require "tynn/static"
 #
-#     Tynn.helpers(Tynn::Static, ["/js", "/css"])
+# Tynn.helpers(Tynn::Static, ["/js", "/css"])
+# ```
 #
 # By default, serve all requests beginning with the given paths from the folder
 # `public` in the current directory (e.g. `public/js/*`, `public/css/*`). You
 # can change the default by passing the `:root` option.
 #
-#     Tynn.helpers(Tynn::Static, ["/js", "/css"], root: "assets")
+# ```
+# Tynn.helpers(Tynn::Static, ["/js", "/css"], root: "assets")
+# ```
 #
 # Under the hood, it uses the [Rack::Static][rack-static] middleware.
 # Thus, supports all the options available for this middleware.
 #
-#     Tynn.helpers(Tynn::Static, ["/js", "/css"], index: "index.html")
+# ```
+# Tynn.helpers(Tynn::Static, ["/js", "/css"], index: "index.html")
+# ```
 #
 # [rack-static]: http://www.rubydoc.info/gems/rack/Rack/Static
 #

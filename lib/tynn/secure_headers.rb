@@ -1,9 +1,11 @@
 # Adds security related HTTP headers.
 #
-#     require "tynn"
-#     require "tynn/secure_headers"
+# ```
+# require "tynn"
+# require "tynn/secure_headers"
 #
-#     Tynn.helpers(Tynn::SecureHeaders)
+# Tynn.helpers(Tynn::SecureHeaders)
+# ```
 #
 # This helper applies the following headers:
 #

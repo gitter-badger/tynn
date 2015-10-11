@@ -1,19 +1,23 @@
 # Adds helper methods to get and check the current environment.
 #
-#     require "tynn"
-#     require "tynn/environment"
+# ```
+# require "tynn"
+# require "tynn/environment"
 #
-#     Tynn.helpers(Tynn::Environment)
+# Tynn.helpers(Tynn::Environment)
 #
-#     Tynn.environment  # => :development
+# Tynn.environment  # => :development
 #
-#     Tynn.development? # => true
-#     Tynn.production?  # => false
-#     Tynn.test?        # => false
+# Tynn.development? # => true
+# Tynn.production?  # => false
+# Tynn.test?        # => false
+# ```
 #
 # By default, the environment is based on `ENV["RACK_ENV"]`.
 #
-#     Tynn.helpers(Tynn::Environment, env: ENV["RACK_ENV"])
+# ```
+# Tynn.helpers(Tynn::Environment, env: ENV["RACK_ENV"])
+# ```
 #
 module Tynn::Environment
   def self.setup(app, env: ENV["RACK_ENV"]) # :nodoc:
