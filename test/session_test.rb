@@ -17,5 +17,4 @@ test "session" do
 
   assert_equal "foo", app.res.body
   assert_equal "foo", app.req.env["rack.session"]["foo"]
-  assert(/; HttpOnly$/ === app.res.headers["Set-Cookie"])
 end
