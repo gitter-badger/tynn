@@ -1,3 +1,4 @@
+require "securerandom"
 require_relative "../lib/tynn"
 require_relative "../lib/tynn/environment"
 require_relative "../lib/tynn/protection"
