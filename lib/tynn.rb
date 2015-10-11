@@ -4,6 +4,25 @@ require "syro"
 class Tynn < Syro::Deck
   include Seteable
 
+  # Sets application handler.
+  #
+  # ```
+  # class Users < Tynn
+  # end
+  #
+  # Users.define do
+  #   on(:id) do |id|
+  #     get do
+  #       res.write("GET /users")
+  #     end
+  #
+  #     post do
+  #       res.write("POST /users")
+  #     end
+  #   end
+  # end
+  # ```
+  #
   def self.define(&block)
     @syro = Syro.new(self, &block)
   end
