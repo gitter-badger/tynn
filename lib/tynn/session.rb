@@ -1,6 +1,6 @@
-# Adds a simple cookie based session management. If a secret token is given,
-# it signs the cookie data to ensure that cannot be altered by unauthorized
-# means.
+# Adds simple cookie based session management. If a secret token is
+# given, it signs the cookie data to ensure that it cannot be altered
+# by unauthorized means.
 #
 #
 #     require "tynn"
