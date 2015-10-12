@@ -153,6 +153,10 @@ header a {
   border-top: 1px solid #ccc;
 }
 
+.inner-content table tr:nth-child(2n) {
+  background-color: #f8f8f8;
+}
+
 .inner-content .docs-header {
   padding-bottom: 15px;
 }
