@@ -4,6 +4,14 @@ class Users < Tynn
 end
 
 Users.define do
+  get do
+    res.write("GET /users")
+  end
+
+  post do
+    res.write("POST /users")
+  end
+
   on(:id) do |id|
     get do
       res.write("GET /users/#{ id }")
@@ -20,14 +28,6 @@ Users.define do
     delete do
       res.write("DELETE /users/#{ id }")
     end
-  end
-
-  get do
-    res.write("GET /users")
-  end
-
-  post do
-    res.write("POST /users")
   end
 end
 
