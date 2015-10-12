@@ -1,13 +1,12 @@
 # Getting Started
 
-To get started, use the `gem` command to install Tynn:
+To get started, install Tynn:
 
 ```no-highlight
 $ gem install tynn
 ```
 
-Now that Tynn is installed, it's easy to create an application. Open
-your preferred text editor and create a file called `config.ru` with the
+Open your preferred text editor and create a file called `config.ru` with the
 following code:
 
 ```ruby
@@ -22,9 +21,8 @@ end
 run(Tynn)
 ```
 
-You already have a functional Tynn application! To see it in action, you need
-to start a web server. You can do this by typing `rackup config.ru` in the
-command line.
+You already have a functional application. To see it in action, start a web
+server by typing `rackup config.ru` in the command line.
 
 ```no-highlight
 $ rackup config.ru
