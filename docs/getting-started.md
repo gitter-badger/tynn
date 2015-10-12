@@ -15,7 +15,7 @@ require "tynn"
 
 Tynn.define do
   root do
-    res.write("hei world")
+    res.write("Hei World!")
   end
 end
 
