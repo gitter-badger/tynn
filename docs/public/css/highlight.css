@@ -1,5 +1,5 @@
 code, pre {
-  font-family: Monaco, monospace;
+  font-family: Menlo, monospace;
   font-size: 0.95em;
 }
 
@@ -15,9 +15,14 @@ pre {
   padding: 1em;
 }
 
+pre span {
+  font-size: 0.95em;
+}
+
 pre code {
   color: #333333;
   border: 0;
+  padding: 0;
 }
 
 .ruby .hljs-comment,

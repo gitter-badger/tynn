@@ -125,6 +125,7 @@ header a {
 
 .inner-content a:hover {
   color: #FF4081;
+  text-decoration: underline;
 }
 
 .inner-content blockquote {
@@ -132,6 +133,24 @@ header a {
   color: #777;
   margin: 0;
   padding: 0px 15px;
+}
+
+.inner-content table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  overflow: auto;
+  width: 100%;
+}
+
+.inner-content table th,
+.inner-content table td {
+  border: 1px solid #ddd;
+  padding: 6px 13px;
+}
+
+.inner-content table tr {
+  background-color: #fff;
+  border-top: 1px solid #ccc;
 }
 
 .inner-content .docs-header {
