@@ -28,4 +28,16 @@ directory.
 | ./public/css/application.css | http://localhost:9292/css/application.css |
 | ./public/images/logo.png     | http://localhost:9292/images/logo.png     |
 
+It's important to mention that the path of the static directory path is
+relative to the directory where you run the application. If you run the
+application from another directory, it's safer to use an absolute path:
+
+```ruby
+Tynn.helpers(
+  Tynn::Static,
+  ["/js", "/css", "/images"],
+  root: File.expand_path("public", __dir__)
+)
+```
+
 [static]: /api/Tynn-Static.html
