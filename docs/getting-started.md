@@ -6,8 +6,7 @@ To get started, install Tynn:
 $ gem install tynn
 ```
 
-Open your preferred text editor and create a file called `config.ru` with the
-following code:
+Now, create a file named `config.ru` and add the following code to it:
 
 ```ruby
 require "tynn"
@@ -33,5 +32,4 @@ $ rackup config.ru
 
 > **NOTE:** To stop the web server, press `Ctrl+C`.
 
-Open the browser and navigate to <http://localhost:9292> to see the
-greeting message.
+Then, load <http://localhost:9292> in a browser to see the greeting message.
