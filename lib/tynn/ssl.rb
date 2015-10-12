@@ -1,6 +1,6 @@
 module Tynn::SSL
-  def self.setup(app, options = {}) # :nodoc:
-    app.use(Tynn::SSL::Middleware, options)
+  def self.setup(app, hsts: {}) # :nodoc:
+    app.use(Tynn::SSL::Middleware, hsts: hsts)
   end
 
   class Middleware # :nodoc:
