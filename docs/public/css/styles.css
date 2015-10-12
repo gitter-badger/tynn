@@ -127,6 +127,13 @@ header a {
   color: #FF4081;
 }
 
+.inner-content blockquote {
+  border-left: 4px solid #DDD;
+  color: #777;
+  margin: 0;
+  padding: 0px 15px;
+}
+
 .inner-content .docs-header {
   padding-bottom: 15px;
 }

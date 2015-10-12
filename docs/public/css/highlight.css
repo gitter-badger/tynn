@@ -17,12 +17,24 @@ pre {
 
 pre code {
   color: #333333;
+  border: 0;
 }
 
-pre .ruby-comment  { color: #969896; }
-pre .ruby-constant { color: #a71d5d; }
-pre .ruby-ivar     { }
-pre .ruby-keyword  { color: #a71d5d; }
-pre .ruby-operator { color: #a71d5d; }
-pre .ruby-string   { color: #0091ea; }
-pre .ruby-value    { color: #0091ea; }
+.ruby .hljs-comment,
+.ruby-comment  {
+  color: #969896;
+}
+
+.ruby .hljs-constant,
+.ruby .hljs-keyword,
+.ruby-constant,
+.ruby-keyword,
+.ruby-operator {
+  color: #a71d5d;
+}
+
+.ruby .hljs-string,
+.ruby-string,
+.ruby-value {
+  color: #0091ea;
+}
