@@ -5,7 +5,7 @@ channels:
 
 ## Slack
 
-Get your invite <a href="https://tynn-slack.herokuapp.com/" target="_blank">here</a>.
+Join us! Get your invite <a href="https://tynn-slack.herokuapp.com/" target="_blank">here</a>.
 
 ## IRC
 
