@@ -1,6 +1,5 @@
 require "seteable"
 require "syro"
-
 require_relative "tynn/request"
 require_relative "tynn/response"
 require_relative "tynn/version"
