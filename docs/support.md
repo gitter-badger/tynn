@@ -3,6 +3,10 @@
 If you need help or have questions about Tynn, you can use the following
 channels:
 
+## Slack
+
+Get your invite <a href="https://tynn-slack.herokuapp.com/" target="_blank">here</a>.
+
 ## IRC
 
 Meet us at [#tynn on freenode][irc].
