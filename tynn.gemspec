@@ -15,7 +15,7 @@ Gem::Specification.new do |s|
 
   s.add_dependency "rack", "~> 1.6"
   s.add_dependency "seteable", "~> 1.1"
-  s.add_dependency "syro", "~> 1.0"
+  s.add_dependency "syro", "~> 1.1"
 
   s.add_development_dependency "cutest", "~> 1.2"
   s.add_development_dependency "erubis", "~> 2.7"

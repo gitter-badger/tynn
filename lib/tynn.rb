@@ -1,8 +1,13 @@
 require "seteable"
 require "syro"
 
-class Tynn < Syro::Deck
+require_relative "tynn/request"
+require_relative "tynn/response"
+require_relative "tynn/version"
+
+class Tynn
   include Seteable
+  include Syro::Deck::API
 
   # Sets the application handler.
   #
@@ -116,6 +121,12 @@ class Tynn < Syro::Deck
       helper.setup(self, *args, &block)
     end
   end
-end
 
-require_relative "tynn/version"
+  def request_class # :nodoc:
+    return Tynn::Request
+  end
+
+  def response_class # :nodoc:
+    return Tynn::Response
+  end
+end
