@@ -10,7 +10,8 @@ Gem::Specification.new do |s|
   s.homepage    = "https://github.com/harmoni/tynn"
   s.license     = "MIT"
 
-  s.files = `git ls-files`.split("\n")
+  s.files      = Dir["LICENSE", "README.md", "lib/**/*.rb"]
+  s.test_files = Dir["test/**/*.rb"]
 
   s.add_dependency "rack", "~> 1.6"
   s.add_dependency "seteable", "1.1.0"
