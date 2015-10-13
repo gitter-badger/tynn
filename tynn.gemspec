@@ -14,12 +14,12 @@ Gem::Specification.new do |s|
   s.test_files = Dir["test/**/*.rb"]
 
   s.add_dependency "rack", "~> 1.6"
-  s.add_dependency "seteable", "1.1.0"
+  s.add_dependency "seteable", "~> 1.1"
   s.add_dependency "syro", "~> 1.0"
 
-  s.add_development_dependency "cutest", "1.2.2"
+  s.add_development_dependency "cutest", "~> 1.2"
   s.add_development_dependency "erubis", "~> 2.7"
-  s.add_development_dependency "hmote", "1.4.0"
-  s.add_development_dependency "rack-test", "0.6.3"
+  s.add_development_dependency "hmote", "~> 1.4"
+  s.add_development_dependency "rack-test", "~> 0.6"
   s.add_development_dependency "tilt", "~> 2.0"
 end
