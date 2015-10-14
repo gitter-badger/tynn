@@ -7,7 +7,7 @@ Gem::Specification.new do |s|
   s.description = s.summary
   s.authors     = ["Francesco Rodríguez"]
   s.email       = ["frodsan@protonmail.ch"]
-  s.homepage    = "https://github.com/harmoni/tynn"
+  s.homepage    = "https://github.com/frodsan/tynn"
   s.license     = "MIT"
 
   s.files      = Dir["LICENSE", "README.md", "lib/**/*.rb"]

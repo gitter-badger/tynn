@@ -107,7 +107,7 @@ class Tynn
   #
   # Check the [helpers][examples] that come with tynn for more examples.
   #
-  # [examples]: https://github.com/harmoni/tynn/tree/master/lib/tynn
+  # [examples]: https://github.com/frodsan/tynn/tree/master/lib/tynn
   #
   def self.helpers(helper, *args, &block)
     self.include(helper)
