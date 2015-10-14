@@ -128,4 +128,45 @@ class Tynn
   def response_class # :nodoc:
     return Tynn::Response
   end
+
+  ##
+  # :method: req
+  #
+  # Returns the incoming request object. This object is an instance
+  # of Tynn::Request.
+  #
+  # ```
+  # Tynn.define do
+  #   on("login") do
+  #     post do
+  #       username = req[:username]
+  #       password = req[:password]
+  #
+  #       # ...
+  #     end
+  #   end
+  # end
+  # ```
+  #
+
+  ##
+  # :method: res
+  #
+  # Returns the current response object. This object is an instance
+  # of Tynn::Response.
+  #
+  # ```
+  # Tynn.define do
+  #   on("me") do
+  #     if current_user
+  #       res.status = 200
+  #       res.write("Welcome back!")
+  #     else
+  #       res.status = 401
+  #       res.write("Unauthorized")
+  #     end
+  #   end
+  # end
+  # ```
+  #
 end
