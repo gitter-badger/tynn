@@ -1,36 +1,38 @@
 require "json"
 
-module Tynn::JSONParser
-  def self.setup(app) # :nodoc:
-    app.use(Tynn::JSONParser::Middleware)
-  end
-
-  class Middleware # :nodoc:
-    CONTENT_TYPE = "application/json".freeze
-    FORM_HASH = "rack.request.form_hash".freeze
-    FORM_INPUT = "rack.request.form_input".freeze
-
-    def initialize(app)
-      @app = app
+class Tynn
+  module JSONParser
+    def self.setup(app) # :nodoc:
+      app.use(Tynn::JSONParser::Middleware)
     end
 
-    def call(env)
-      request = Rack::Request.new(env)
+    class Middleware # :nodoc:
+      CONTENT_TYPE = "application/json".freeze
+      FORM_HASH = "rack.request.form_hash".freeze
+      FORM_INPUT = "rack.request.form_input".freeze
 
-      if json?(request) && !(body = request.body.read).empty?
-        request.body.rewind
-
-        request.env[FORM_HASH] = JSON.parse(body)
-        request.env[FORM_INPUT] = request.body
+      def initialize(app)
+        @app = app
       end
 
-      return @app.call(request.env)
-    end
+      def call(env)
+        request = Rack::Request.new(env)
 
-    private
+        if json?(request) && !(body = request.body.read).empty?
+          request.body.rewind
 
-    def json?(request)
-      return request.media_type == CONTENT_TYPE
+          request.env[FORM_HASH] = JSON.parse(body)
+          request.env[FORM_INPUT] = request.body
+        end
+
+        return @app.call(request.env)
+      end
+
+      private
+
+      def json?(request)
+        return request.media_type == CONTENT_TYPE
+      end
     end
   end
 end

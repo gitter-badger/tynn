@@ -1,40 +1,42 @@
 require "hmote"
 
-module Tynn::HMote
-  include ::HMote::Helpers
+class Tynn
+  module HMote
+    include ::HMote::Helpers
 
-  def self.setup(app, options = {}) # :nodoc:
-    options = options.dup
+    def self.setup(app, options = {}) # :nodoc:
+      options = options.dup
 
-    options[:layout] ||= "layout"
-    options[:views]  ||= File.expand_path("views", Dir.pwd)
+      options[:layout] ||= "layout"
+      options[:views]  ||= File.expand_path("views", Dir.pwd)
 
-    app.settings[:hmote] ||= options
-  end
-
-  module ClassMethods
-    def layout(layout)
-      settings[:hmote][:layout] = layout
+      app.settings[:hmote] ||= options
     end
-  end
 
-  def render(template, locals = {}, layout = settings[:hmote][:layout])
-    res.headers[Rack::CONTENT_TYPE] ||= Syro::Response::DEFAULT
+    module ClassMethods
+      def layout(layout)
+        settings[:hmote][:layout] = layout
+      end
+    end
 
-    res.write(view(template, locals, layout))
-  end
+    def render(template, locals = {}, layout = settings[:hmote][:layout])
+      res.headers[Rack::CONTENT_TYPE] ||= Syro::Response::DEFAULT
 
-  def view(template, locals = {}, layout = settings[:hmote][:layout])
-    return partial(layout, locals.merge(content: partial(template, locals)))
-  end
+      res.write(view(template, locals, layout))
+    end
 
-  def partial(template, locals = {})
-    return hmote(template_path(template), locals.merge(app: self), TOPLEVEL_BINDING)
-  end
+    def view(template, locals = {}, layout = settings[:hmote][:layout])
+      return partial(layout, locals.merge(content: partial(template, locals)))
+    end
 
-  private
+    def partial(template, locals = {})
+      return hmote(template_path(template), locals.merge(app: self), TOPLEVEL_BINDING)
+    end
 
-  def template_path(template)
-    return File.join(settings[:hmote][:views], "#{ template }.mote")
+    private
+
+    def template_path(template)
+      return File.join(settings[:hmote][:views], "#{ template }.mote")
+    end
   end
 end
