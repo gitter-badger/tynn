@@ -69,7 +69,9 @@ __END__
     <% next if methods.empty? %>
 
     <div class="docs-section">
-      <h2><%= type.capitalize %> methods:</h2>
+      <h2 id="<%= type %>-methods">
+        <%= type.capitalize %> methods:
+      </h2>
 
       <% methods.each do |method| %>
         <% next if method.is_alias_for %>

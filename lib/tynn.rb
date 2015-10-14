@@ -130,24 +130,28 @@ class Tynn
   end
 
   ##
+  # :method: halt(response)
+  #
+  # Immediately stops the request and returns `response` as per
+  # Rack's specification.
+  #
+  # ```
+  # halt([200, { "Content-Type" => "text/html" }, ["hello"]])
+  # halt([res.status, res.headers, res.body])
+  # halt(res.finish)
+  # ```
+
+  ##
   # :method: req
   #
   # Returns the incoming request object. This object is an instance
   # of Tynn::Request.
   #
   # ```
-  # Tynn.define do
-  #   on("login") do
-  #     post do
-  #       username = req[:username]
-  #       password = req[:password]
-  #
-  #       # ...
-  #     end
-  #   end
-  # end
+  # req.post?      # => true
+  # req.params     # => { "username" => "bob", "password" => "secret" }
+  # req[:username] # => "bob"
   # ```
-  #
 
   ##
   # :method: res
@@ -156,17 +160,8 @@ class Tynn
   # of Tynn::Response.
   #
   # ```
-  # Tynn.define do
-  #   on("me") do
-  #     if current_user
-  #       res.status = 200
-  #       res.write("Welcome back!")
-  #     else
-  #       res.status = 401
-  #       res.write("Unauthorized")
-  #     end
-  #   end
-  # end
+  # res.status = 200
+  # res["Content-Type"] = "text/html"
+  # res.write("<h1>Welcome back!</h1>")
   # ```
-  #
 end
