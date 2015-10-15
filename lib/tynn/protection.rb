@@ -10,6 +10,24 @@ class Tynn
   # Tynn.helpers(Tynn::Protection)
   # ```
   #
+  # If you are using SSL/TLS (HTTPS), it's recommended to set
+  # the `:ssl` option:
+  #
+  # ```
+  # require "tynn"
+  # require "tynn/protection"
+  #
+  # Tynn.helpers(Tynn::Protection, ssl: true)
+  # ```
+  #
+  # By default, it includes the following security helpers:
+  #
+  # * Tynn::SecureHeaders
+  #
+  # If the `:ssl` option is `true`, includes:
+  #
+  # * Tynn::SSL
+  #
   module Protection
     def self.setup(app, ssl: false, hsts: {}) # :nodoc:
       app.helpers(Tynn::SecureHeaders)
