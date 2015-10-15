@@ -13,13 +13,11 @@ limitations. Unfortunately, it installs all gems globally. This means
 that if you have different versions of a gem installed, you have to
 make sure that you require the right version for your project.
 
-We need a way to keep track of the dependencies and install the right version
-of each one. This is where tools like [gs](https://github.com/soveran/gs) and
-[dep](https://github.com/cyx/dep) come to the rescue.
+Here are some alternatives that solve this problem:
 
-## gs
+## gs + dep
 
-With gs you can create a *gemset* for each project. A gemset is an
+With [gs][gs] you can create a gemset for each project. A gemset is an
 isolated space to install gems. By providing each project with its own
 gemset, you can be sure that the right version of a gem is loaded.
 
@@ -38,14 +36,10 @@ $ gs init
 This command creates a directory `.gs` and starts a shell session. In this
 session, all gems will be installed locally in the `.gs` folder.
 
-## dep
-
-Now that we created a gemset, you can use `dep` to keep track of the project
-dependencies.
-
-dep uses a `.gems` file to list the required gems with their version
-number. This file will be created automatically the first time you add a
-gem to the list.
+Now that we created a gemset, you can use [dep][dep] to keep track of the
+project dependencies. dep uses a `.gems` file to list the required gems with
+their version number. This file will be created automatically the first time
+you add a gem to the list.
 
 To add tynn to this list, use:
 
@@ -75,3 +69,5 @@ dep: all cool
 
 If all is cool, you're good to go!
 
+[gs]: https://github.com/soveran/gs
+[dep]: https://github.com/cyx/dep
