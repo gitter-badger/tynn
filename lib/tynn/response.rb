@@ -1,4 +1,20 @@
 class Tynn
+  # It provides convenience methods to construct a Rack response.
+  #
+  # ```
+  # response = Tynn::Response.new
+  # response.status = 200
+  # response["Content-Type"] = "text/html"
+  # response.write("foo")
+  # ```
+  #
+  # Tynn::Response#finish returns a response as per Rack's specification.
+  #
+  # ```
+  # response.finish
+  # # => [200, { "Content-Type" => "text/html", "Content-Length" => 3 }, ["foo"]]
+  # ```
+  #
   class Response < Syro::Response
     ##
     # :method: []
@@ -48,9 +64,9 @@ class Tynn
     #     # => [404, {}, []]
     #
     #     res.status = nil
-    #     res.write("yo!")
+    #     res.write("yo")
     #     res.finish
-    #     # => [200, { "Content-Type" => "text/html" }, ["yo!"]]
+    #     # => [200, { "Content-Type" => "text/html", "Content-Length" => 2 }, ["yo"]]
 
     ##
     # :method: headers
