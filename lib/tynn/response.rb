@@ -8,7 +8,8 @@ class Tynn
   # response.write("foo")
   # ```
   #
-  # [Tynn::Response#finish][finish] returns a response as per Rack's specification.
+  # [Tynn::Response#finish][finish] returns a response as per
+  # [Rack's specification][rack-spec].
   #
   # ```
   # response.finish
@@ -16,6 +17,7 @@ class Tynn
   # ```
   #
   # [finish]: #method-i-finish
+  # [rack-spec]: http://www.rubydoc.info/github/rack/rack/master/file/SPEC
   #
   class Response < Syro::Response
     ##
