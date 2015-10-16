@@ -2,17 +2,17 @@ class Tynn
   # It provides convenience methods to construct a Rack response.
   #
   # ```
-  # response = Tynn::Response.new
-  # response.status = 200
-  # response["Content-Type"] = "text/html"
-  # response.write("foo")
+  # res = Tynn::Response.new
+  # res.status = 200
+  # res["Content-Type"] = "text/html"
+  # res.write("foo")
   # ```
   #
   # [Tynn::Response#finish][finish] returns a response as per
   # [Rack's specification][rack-spec].
   #
   # ```
-  # response.finish
+  # res.finish
   # # => [200, { "Content-Type" => "text/html", "Content-Length" => 3 }, ["foo"]]
   # ```
   #
