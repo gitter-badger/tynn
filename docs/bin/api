@@ -58,36 +58,32 @@ rdoc.document([
 ])
 
 __END__
-<div class="docs-header">
-  <h1><%= klass.full_name %></h1>
-  <p><%= klass.description %></p>
-</div>
+<h1><%= klass.full_name %></h1>
+<p><%= klass.description %></p>
 
 <% klass.methods_by_type.each do |type, visibilities| %>
   <% next if visibilities.empty? %>
   <% visibilities.each do |visibility, methods| %>
     <% next if methods.empty? %>
 
-    <div class="docs-section">
-      <h2 id="<%= type %>-methods">
-        <%= type.capitalize %> methods:
-      </h2>
+    <h2 id="<%= type %>-methods">
+      <%= type.capitalize %> methods:
+    </h2>
 
-      <% methods.each do |method| %>
-        <% next if method.is_alias_for %>
+    <% methods.each do |method| %>
+      <% next if method.is_alias_for %>
 
-        <h3 id="<%= method.aref %>">
-          <% if method.call_seq %>
-            <%= method.call_seq.strip %>
-          <% else %>
-            <%= method.name %><%= method.params %>
-          <% end %>
-        </h3>
-
-        <% if method.comment %>
-          <p><%= method.description.strip %></p>
+      <h3 id="<%= method.aref %>">
+        <% if method.call_seq %>
+          <%= method.call_seq.strip %>
+        <% else %>
+          <%= method.name %><%= method.params %>
         <% end %>
+      </h3>
+
+      <% if method.comment %>
+        <p><%= method.description.strip %></p>
       <% end %>
-    </div>
+    <% end %>
   <% end %>
 <% end %>

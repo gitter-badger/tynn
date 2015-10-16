@@ -106,9 +106,12 @@ header a {
 }
 
 .inner-content h2 {
-  color: rgba(0, 0, 0, 0.87);
-  font-size: 24px;
+  border-bottom: 1px solid #eee;
+  font-size: 26px;
   font-weight: 400;
+  margin-top: 1em;
+  line-height: 1.225;
+  padding-bottom: 0.3em;
 }
 
 .inner-content h3 {
@@ -155,13 +158,4 @@ header a {
 
 .inner-content table tr:nth-child(2n) {
   background-color: #f8f8f8;
-}
-
-.inner-content .docs-header {
-  padding-bottom: 15px;
-}
-
-.inner-content .docs-section {
-  border-top: 1px solid rgba(0, 0, 0, 0.12);
-  padding-top: 15px;
 }
