@@ -8,12 +8,14 @@ class Tynn
   # response.write("foo")
   # ```
   #
-  # Tynn::Response#finish returns a response as per Rack's specification.
+  # [Tynn::Response#finish][finish] returns a response as per Rack's specification.
   #
   # ```
   # response.finish
   # # => [200, { "Content-Type" => "text/html", "Content-Length" => 3 }, ["foo"]]
   # ```
+  #
+  # [finish]: #method-i-finish
   #
   class Response < Syro::Response
     ##
