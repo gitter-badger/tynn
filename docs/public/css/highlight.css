@@ -13,6 +13,7 @@ code {
 pre {
   background: #F8F8F8;
   padding: 1em;
+  overflow: auto;
 }
 
 pre span {
