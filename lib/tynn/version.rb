@@ -1,4 +1,4 @@
-class Tynn # :nodoc:
+class Tynn # :nodoc: all
   VERSION = [
     MAJOR_VERSION = 1,
     MINOR_VERSION = 0,
