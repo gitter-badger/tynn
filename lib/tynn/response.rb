@@ -21,6 +21,20 @@ class Tynn
   #
   class Response < Syro::Response
     ##
+    # :method: new
+    # :call-seq: new(headers = {})
+    #
+    # Initializes a new response object with the given `headers`.
+    #
+    # ```
+    # Tynn::Response.new.headers
+    # # => {}
+    #
+    # Tynn::Response.new("Content-Type" => "text/plain").headers
+    # # => { "Content-Type" => "text/plain" }
+    # ```
+
+    ##
     # :method: []
     #
     # Returns the response header corresponding to `key`.
