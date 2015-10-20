@@ -73,7 +73,7 @@ class Tynn
   # ```
   # module AppName
   #   def self.setup(app, name)
-  #     app.settings[:app_name] = name
+  #     app.set(:app_name, name)
   #   end
   #
   #   def app_name
@@ -81,10 +81,6 @@ class Tynn
   #   end
   #
   #   module ClassMethods
-  #     def app_name=(new_name)
-  #       settings[:app_name] = new_name
-  #     end
-  #
   #     def app_name
   #       return settings[:app_name]
   #     end
@@ -95,7 +91,7 @@ class Tynn
   #
   # Tynn.app_name # => "MyApplication"
   #
-  # Tynn.app_name = "MyGreatestApp"
+  # Tynn.set(:app_name, "MyGreatestApp")
   # Tynn.app_name # => "MyGreatestApp"
   #
   # Tynn.define do
