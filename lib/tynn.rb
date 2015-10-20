@@ -121,6 +121,10 @@ class Tynn
     end
   end
 
+  def self.set(key, value)
+    settings[key] = value
+  end
+
   def request_class # :nodoc:
     return Tynn::Request
   end

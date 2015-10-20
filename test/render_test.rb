@@ -63,7 +63,7 @@ end
 
 test "custom layout" do
   class App < Tynn
-    layout("custom_layout")
+    set :layout, "custom_layout"
   end
 
   App.define do

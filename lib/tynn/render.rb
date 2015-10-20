@@ -3,39 +3,29 @@ require "tilt"
 class Tynn
   module Render
     def self.setup(app, options = {}) # :nodoc:
-      options = options.dup
-
-      options[:engine]  ||= "erb"
-      options[:layout]  ||= "layout"
-      options[:views]   ||= File.expand_path("views", Dir.pwd)
-
-      options[:options] ||= {}
-      options[:options] = {
-        default_encoding: Encoding.default_external,
-        outvar: "@_output"
-      }.merge!(options[:options])
-
-      app.settings[:render] ||= options
+      app.settings.update(
+        layout: options.fetch(:layout, "layout"),
+        views: options.fetch(:views, File.expand_path("views", Dir.pwd)),
+        engine: options.fetch(:engine, "erb"),
+        engine_opts: {
+          default_encoding: Encoding.default_external,
+          outvar: "@_output"
+        }.merge!(options.fetch(:options, {}))
+      )
     end
 
-    module ClassMethods
-      def layout(layout)
-        settings[:render][:layout] = layout
-      end
-    end
-
-    def render(template, locals = {}, layout = settings[:render][:layout])
+    def render(template, locals = {}, layout = settings[:layout])
       res.headers[Rack::CONTENT_TYPE] ||= Syro::Response::DEFAULT
 
       res.write(view(template, locals, layout))
     end
 
-    def view(template, locals = {}, layout = settings[:render][:layout])
+    def view(template, locals = {}, layout = settings[:layout])
       return partial(layout, locals.merge(content: partial(template, locals)))
     end
 
     def partial(template, locals = {})
-      return tilt(template_path(template), locals, settings[:render][:options])
+      return tilt(template_path(template), locals, settings[:engine_opts])
     end
 
     private
@@ -49,8 +39,8 @@ class Tynn
     end
 
     def template_path(template)
-      dir = settings[:render][:views]
-      ext = settings[:render][:engine]
+      dir = settings[:views]
+      ext = settings[:engine]
 
       return File.join(dir, "#{ template }.#{ ext }")
     end
