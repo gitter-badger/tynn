@@ -63,11 +63,3 @@ test "composition" do
   assert_equal 200, app.res.status
   assert_equal "42", app.res.body
 end
-
-test "raise unless application handler is set" do
-  app = Tynn::Test.new
-
-  assert_raise(RuntimeError) do
-    app.get("/")
-  end
-end

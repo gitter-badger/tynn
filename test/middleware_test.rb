@@ -54,14 +54,14 @@ test "middleware with composition" do
 end
 
 test "middleware only in child application" do
+  class API < Tynn
+    use(Shrimp)
+  end
+
   Tynn.define do
     on "api" do
       run(API)
     end
-  end
-
-  class API < Tynn
-    use(Shrimp)
   end
 
   API.define do

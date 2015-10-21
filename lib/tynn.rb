@@ -28,7 +28,7 @@ class Tynn
   # ```
   #
   def self.define(&block)
-    @syro = Syro.new(self, &block)
+    build_app(Syro.new(self, &block))
   end
 
   # Adds given Rack `middleware` to the stack.
@@ -46,16 +46,14 @@ class Tynn
   end
 
   def self.call(env) # :nodoc:
-    return to_app.call(env)
+    return @app.call(env)
   end
 
-  def self.to_app # :nodoc:
-    fail("Missing application handler. Try #{ self }.define") unless @syro
-
+  def self.build_app(syro) # :nodoc:
     if __middleware.empty?
-      return @syro
+      @app = syro
     else
-      return __middleware.reverse.inject(@syro) { |a, m| m.call(a) }
+      @app = __middleware.reverse.inject(syro) { |a, m| m.call(a) }
     end
   end
 
@@ -64,7 +62,7 @@ class Tynn
   end
 
   def self.reset! # :nodoc:
-    @syro = nil
+    @app = nil
     @middleware = []
   end
 
