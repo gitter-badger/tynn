@@ -1,7 +1,7 @@
 tynn [![Gem Version](https://badge.fury.io/rb/tynn.svg)](https://rubygems.org/gems/tynn)
 ====
 
-Simple library to create [Rack][rack] applications.
+A thin library for web development.
 
 Description
 -----------

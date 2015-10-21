@@ -3,7 +3,7 @@ require_relative "lib/tynn/version"
 Gem::Specification.new do |s|
   s.name        = "tynn"
   s.version     = Tynn::VERSION
-  s.summary     = "Simple library to create Rack applications"
+  s.summary     = "Thin library to create web applications"
   s.description = s.summary
   s.authors     = ["Francesco Rodríguez"]
   s.email       = ["frodsan@protonmail.ch"]
