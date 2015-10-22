@@ -3,7 +3,7 @@ unreleased
 
 - Remove `Tynn::Erubis` extension. Use `Tynn::Render` instead.
 
-  ```
+  ```ruby
   require "erubis"
   require "tynn"
   require "tynn/render"
