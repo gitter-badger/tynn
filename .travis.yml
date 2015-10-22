@@ -11,7 +11,7 @@ cache:
 install:
   - export GEM_HOME=$PWD/gems/$RUBY_VERSION
   - export GEM_PATH=$GEM_HOME:$GEM_PATH
-  - export PATH=$GEM_HOME/bin
+  - export PATH=$GEM_HOME/bin:$PATH
   - make install
 script:
   - make test
