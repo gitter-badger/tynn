@@ -8,8 +8,6 @@ cache:
   bundler: false
   directories:
     - gems
-env:
-  - RACK_ENV=
 install:
   - export GEM_HOME=$PWD/gems/$RUBY_VERSION
   - export GEM_PATH=$GEM_HOME:$GEM_PATH

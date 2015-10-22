@@ -3,7 +3,9 @@ require_relative "../lib/tynn/environment"
 test "default" do
   Tynn.helpers(Tynn::Environment)
 
-  assert_equal(:development, Tynn.environment)
+  default = ENV.fetch("RACK_ENV", :development)
+
+  assert_equal(default, Tynn.environment)
 end
 
 test "helpers" do
