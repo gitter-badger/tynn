@@ -1,33 +1,27 @@
 require_relative "../lib/tynn/environment"
 
-test "default" do
-  Tynn.helpers(Tynn::Environment)
-
-  default = ENV.fetch("RACK_ENV", :development)
-
-  assert_equal(default, Tynn.environment)
-end
-
-test "helpers" do
-  Tynn.helpers(Tynn::Environment)
-
-  assert Tynn.development?
-  assert !Tynn.test?
-  assert !Tynn.production?
-end
-
 test "use RACK_ENV by default" do
-  ENV["RACK_ENV"] = "production"
+  begin
+    old, ENV["RACK_ENV"] = ENV["RACK_ENV"], "production"
 
-  Tynn.helpers(Tynn::Environment)
+    Tynn.helpers(Tynn::Environment)
 
-  assert_equal(:production, Tynn.environment)
+    assert_equal(:production, Tynn.environment)
 
-  ENV.delete("RACK_ENV")
+    assert !Tynn.development?
+    assert !Tynn.test?
+    assert Tynn.production?
+
+  ensure
+    ENV["RACK_ENV"] = old
+  end
 end
 
 test "use custom value" do
   Tynn.helpers(Tynn::Environment, env: "development")
 
   assert_equal(:development, Tynn.environment)
+  assert Tynn.development?
+  assert !Tynn.test?
+  assert !Tynn.production?
 end
