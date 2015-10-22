@@ -9,6 +9,7 @@ class Tynn
         engine: options.fetch(:engine, "erb"),
         engine_opts: {
           default_encoding: Encoding.default_external,
+          escape_html: true,
           outvar: "@_output"
         }.merge!(options.fetch(:options, {}))
       )

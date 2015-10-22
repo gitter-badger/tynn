@@ -1,4 +1,4 @@
-require "erb"
+require "erubis"
 require_relative "../lib/tynn/render"
 
 setup do
@@ -76,4 +76,17 @@ test "custom layout" do
   app.get("/")
 
   assert_equal "custom / tynn / erb", app.res.body.strip
+end
+
+test "escapes by default" do
+  Tynn.define do
+    root do
+      res.write(partial("partial", name: "<a></a>"))
+    end
+  end
+
+  app = Tynn::Test.new
+  app.get("/")
+
+  assert_equal "&lt;a&gt;&lt;/a&gt;", app.res.body.strip
 end

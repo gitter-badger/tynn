@@ -1,8 +1,7 @@
-require "erb"
 require_relative "../lib/tynn"
-require_relative "../lib/tynn/render"
+require_relative "../lib/tynn/hmote"
 
-Tynn.helpers(Tynn::Render, views: File.expand_path("views/erb", __dir__))
+Tynn.helpers(Tynn::HMote, views: File.expand_path("views/hmote", __dir__))
 
 Tynn.define do
   root do
