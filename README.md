@@ -1,4 +1,4 @@
-tynn [![Gem Version](https://badge.fury.io/rb/tynn.svg)](https://rubygems.org/gems/tynn)
+tynn [![Gem Version](https://badge.fury.io/rb/tynn.svg)](https://rubygems.org/gems/tynn) [![Build Status](https://travis-ci.org/frodsan/tynn.svg)](https://travis-ci.org/frodsan/tynn)
 ====
 
 A thin library for web development.
