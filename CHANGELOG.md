@@ -27,3 +27,8 @@ unreleased
 
 [hmote]: https://github.com/harmoni/hmote
 [hmote-docs]: http://tynn.xyz/api/Tynn-HMote.html
+
+1.0.0.rc2
+---------
+
+- Public release.
