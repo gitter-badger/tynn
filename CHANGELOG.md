@@ -1,8 +1,8 @@
 unreleased
 ----------
 
-- Add `Tynn:HMote` extension to render HMote. It renders x2 faster than using
-  Erubis and Tilt.
+- Add `Tynn:HMote` extension to render HMote templates.
+  It's x2 faster than Erubis and Tilt.
 
   ```ruby
   require "tynn"
