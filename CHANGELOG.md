@@ -1,6 +1,16 @@
 unreleased
 ----------
 
+- Remove `Tynn::Erubis` extension. Use `Tynn::Render` instead.
+
+  ```
+  require "erubis"
+  require "tynn"
+  require "tynn/render"
+
+  Tynn.helpers(Tynn::Render)
+  ```
+
 - Add `Tynn:HMote` extension to render HMote templates.
   It's x2 faster than Erubis and Tilt.
 
