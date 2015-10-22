@@ -1,5 +1,6 @@
-/doc
+/.yardoc
 /docs/public/api
+/docs/public/presentations
 /docs/public/*.html
 /docs/public/*.md
 
