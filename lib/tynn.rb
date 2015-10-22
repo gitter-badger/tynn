@@ -115,8 +115,21 @@ class Tynn
     end
   end
 
-  def self.set(key, value)
-    settings[key] = value
+  # Sets an `option` to the given `value`.
+  #
+  # ```
+  # require "tynn"
+  # require "tynn/environment"
+  #
+  # Tynn.helpers(Tynn::Environment)
+  #
+  # Tynn.set(:environment, :staging)
+  # Tynn.environment
+  # # => :staging
+  # ```
+  #
+  def self.set(option, value)
+    settings[option] = value
   end
 
   def request_class # :nodoc:
