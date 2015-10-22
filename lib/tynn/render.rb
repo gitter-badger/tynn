@@ -8,9 +8,7 @@ class Tynn
         views: options.fetch(:views, File.expand_path("views", Dir.pwd)),
         engine: options.fetch(:engine, "erb"),
         engine_opts: {
-          default_encoding: Encoding.default_external,
-          escape_html: true,
-          outvar: "@_output"
+          escape_html: true
         }.merge!(options.fetch(:options, {}))
       )
     end
