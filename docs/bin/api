@@ -74,11 +74,13 @@ __END__
       <% next if method.is_alias_for %>
 
       <h3 id="<%= method.aref %>">
-        <% if method.call_seq %>
-          <%= method.call_seq.strip %>
-        <% else %>
-          <%= method.name %><%= method.params %>
-        <% end %>
+        <a href="#<%= method.aref %>">
+          <% if method.call_seq %>
+            <%= method.call_seq.strip %>
+          <% else %>
+            <%= method.name %><%= method.params %>
+          <% end %>
+        </a>
       </h3>
 
       <% if method.comment %>
