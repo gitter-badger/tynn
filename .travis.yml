@@ -6,6 +6,8 @@ rvm:
 sudo: false
 cache:
   bundler: false
+  directories:
+    - gems
 install:
   - export GEM_HOME=$PWD/gems/$RUBY_VERSION
   - export GEM_PATH=$GEM_HOME:$GEM_PATH
