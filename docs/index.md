@@ -1,35 +1,39 @@
-# Getting Started
+<h1 style="display: none">A thin library for web development.</h1>
 
-To get started, install Tynn:
+tynn [![Gem Version](https://badge.fury.io/rb/tynn.svg)](https://rubygems.org/gems/tynn) [![Build Status](https://travis-ci.org/frodsan/tynn.svg)](https://travis-ci.org/frodsan/tynn) [![Code Climate](https://codeclimate.com/github/frodsan/tynn/badges/gpa.svg)](https://codeclimate.com/github/frodsan/tynn)
+====
 
-```no-highlight
-$ gem install tynn
-```
+A thin library for web development.
 
-Now, create a file named `config.ru` and add the following code to it:
+Description
+-----------
+
+Tynn is a thin abstraction on top of [Syro][syro], a very simple and fast
+router for web applications.
+
+Usage
+-----
+
+Here's a minimal application:
 
 ```ruby
+# config.ru
 require "tynn"
 
 Tynn.define do
   root do
-    res.write("Hei World!")
+    res.write("Hello World!")
   end
 end
 
 run(Tynn)
 ```
 
-You already have a functional application. To see it in action, start a web
-server by typing `rackup config.ru` in the command line.
+Check [Getting Started](/getting-started.html) for more information.
 
-```no-highlight
-$ rackup config.ru
-[2015-10-12 19:16:31] INFO  WEBrick 1.3.1
-[2015-10-12 19:16:31] INFO  ruby 2.2.3 (2015-08-18) [x86_64-darwin13]
-[2015-10-12 19:16:31] INFO  WEBrick::HTTPServer#start: pid=71406 port=9292
-```
+License
+-------
 
-> **NOTE:** To stop the web server, press `Ctrl+C`.
+MIT.
 
-Then, load <http://localhost:9292> in a browser to see the greeting message.
+[syro]: https://github.com/soveran/syro
