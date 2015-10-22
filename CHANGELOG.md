@@ -12,7 +12,7 @@ unreleased
   ```
 
 - Add `Tynn:HMote` extension to render HMote templates.
-  It's x2 faster than Erubis and Tilt.
+  It's [x2 faster][hmote-bench] than Erubis and Tilt.
 
   ```ruby
   require "tynn"
@@ -37,6 +37,7 @@ unreleased
 
 [hmote]: https://github.com/harmoni/hmote
 [hmote-docs]: http://tynn.xyz/api/Tynn-HMote.html
+[hmote-bench]: https://github.com/frodsan/tynn/blob/master/benchmarks/render.rb
 
 1.0.0.rc2
 ---------
