@@ -1,0 +1,15 @@
+language: ruby
+rvm:
+  - 2.2
+  - 2.1
+  - 2.0
+sudo: false
+cache:
+  bundler: false
+install:
+  - export GEM_HOME=$PWD/gems/$RUBY_VERSION
+  - export GEM_PATH=$GEM_HOME:$GEM_PATH
+  - export PATH=$GEM_HOME/bin
+  - make install
+script:
+  - make test
