@@ -1,8 +1,8 @@
 class Tynn
-  # Sets the `Strict-Transport-Security` HTTP header. This header
-  # ensures the browser never visits the http version of a website.
-  # This reduces the impact of leaking session data through cookies
-  # and external links, and defends against Man-in-the-middle attacks.
+  # Sets the [Strict-Transport-Security][hsts] header. This ensures the
+  # browser never visits the http version of a website. This reduces the
+  # impact of leaking session data through cookies and external links, and
+  # defends against Man-in-the-middle attacks.
   #
   # ```
   # require "tynn"
@@ -46,6 +46,13 @@ class Tynn
   # # => "max-age=31536000; includeSubdomains; preload"
   # ```
   #
+  # To disable HSTS, you will need to tell the browser to expire it immediately.
+  #
+  # ```
+  # Tynn.helpers(Tynn::HSTS, expires: 0)
+  # ```
+  #
+  # [hsts]: https://www.owasp.org/index.php/HTTP_Strict_Transport_Security
   # [hsts-form]: https://hstspreload.appspot.com/
   #
   module HSTS
