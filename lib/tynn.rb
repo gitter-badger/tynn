@@ -132,6 +132,12 @@ class Tynn
     settings[option] = value
   end
 
+  set(:default_headers, {})
+
+  def default_headers # :nodoc:
+    return Hash[settings[:default_headers]]
+  end
+
   def request_class # :nodoc:
     return Tynn::Request
   end

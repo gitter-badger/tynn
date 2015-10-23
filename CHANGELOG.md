@@ -1,6 +1,17 @@
 unreleased
 ----------
 
+- Add ability to set default headers.
+
+  ```ruby
+  require "tynn"
+
+  class API < Tynn
+  end
+
+  API.set(:default_headers, "Content-Type" => "application/json")
+  ```
+
 - Remove `Tynn::Erubis` extension. Use `Tynn::Render` instead.
 
   ```ruby
