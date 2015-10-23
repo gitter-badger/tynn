@@ -37,6 +37,8 @@ class Tynn
         require_relative "hsts"
         require_relative "ssl"
 
+        app.settings[:ssl] = true
+
         app.helpers(Tynn::HSTS, hsts)
         app.helpers(Tynn::SSL)
       end

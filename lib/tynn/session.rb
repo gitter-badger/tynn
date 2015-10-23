@@ -66,7 +66,9 @@ class Tynn
   #
   module Session
     def self.setup(app, options = {}) # :nodoc:
-      app.use(Rack::Session::Cookie, options)
+      defaults = { secure: app.settings[:ssl] }
+
+      app.use(Rack::Session::Cookie, defaults.merge(options))
     end
 
     # Returns the session hash.

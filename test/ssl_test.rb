@@ -27,24 +27,6 @@ test "https request" do |app|
 
   app.get("/", {}, "HTTPS" => "on")
 
+  assert_equal 200, app.res.status
   assert_equal "secure", app.res.body
-end
-
-test "secure cookies" do |app|
-  Tynn.helpers(Tynn::SSL)
-
-  Tynn.define do
-    get do
-      res.set_cookie("first", "cookie")
-      res.set_cookie("other", "cookie")
-    end
-  end
-
-  app = Tynn::Test.new
-  app.get("/", {}, "HTTPS" => "on")
-
-  first, other = app.res.headers["Set-Cookie"].split("\n")
-
-  assert_equal "first=cookie; secure", first
-  assert_equal "other=cookie; secure", other
 end
