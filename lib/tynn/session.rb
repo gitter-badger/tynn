@@ -65,8 +65,6 @@ class Tynn
   # [rack-session]: http://www.rubydoc.info/gems/rack/Rack/Session/Cookie
   #
   module Session
-    RACK_SESSION = "rack.session".freeze # :nodoc:
-
     def self.setup(app, options = {}) # :nodoc:
       app.use(Rack::Session::Cookie, options)
     end
@@ -81,7 +79,7 @@ class Tynn
     # ```
     #
     def session
-      return env[RACK_SESSION]
+      return env["rack.session".freeze]
     end
   end
 end
