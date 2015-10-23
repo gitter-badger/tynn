@@ -1,13 +1,12 @@
 class Tynn
   module SSL
-    def self.setup(app, hsts: {}) # :nodoc:
-      app.use(Tynn::SSL::Middleware, hsts: hsts)
+    def self.setup(app) # :nodoc:
+      app.use(Tynn::SSL::Middleware)
     end
 
     class Middleware # :nodoc:
-      def initialize(app, hsts: {})
+      def initialize(app)
         @app = app
-        @hsts_header = build_hsts_header(hsts)
       end
 
       def call(env)
@@ -19,24 +18,12 @@ class Tynn
 
         result = @app.call(env)
 
-        set_hsts_header(result[1])
         set_cookies_as_secure(result[1])
 
         return result
       end
 
       private
-
-      HSTS_HEADER = "Strict-Transport-Security".freeze
-      HSTS_EXPIRE = 15_552_000 # 180 days
-
-      def build_hsts_header(options)
-        header = sprintf("max-age=%i", options.fetch(:expires, HSTS_EXPIRE))
-        header << "; includeSubdomains" if options.fetch(:subdomains, true)
-        header << "; preload" if options[:preload]
-
-        return header
-      end
 
       def redirect_headers(request)
         return {
@@ -49,10 +36,6 @@ class Tynn
 
       def https_location(request)
         return sprintf(HTTPS_LOCATION, request.host, request.fullpath)
-      end
-
-      def set_hsts_header(headers)
-        headers[HSTS_HEADER] = @hsts_header
       end
 
       COOKIE_HEADER = "Set-Cookie".freeze

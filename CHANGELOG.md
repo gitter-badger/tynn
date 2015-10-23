@@ -1,6 +1,17 @@
 unreleased
 ----------
 
+- Add `Tynn::HSTS` extension. This allows advanced users to set the
+  `Strict-Transport-Security` header separately. This helper is still
+  included if the `:ssl` option in `Tynn::Protection` is `true`.
+
+  ```ruby
+  require "tynn"
+  require "tynn/hsts"
+
+  Tynn.helpers(Tynn::HSTS)
+  ```
+
 - Add ability to set default headers.
 
   ```ruby

@@ -7,9 +7,10 @@ test "includes secure headers" do
   assert Tynn.include?(Tynn::SecureHeaders)
 end
 
-test "includes ssl helper if ssl is true" do
+test "includes ssl helpers if ssl is true" do
   Tynn.helpers(Tynn::Protection, ssl: true)
 
+  assert Tynn.include?(Tynn::HSTS)
   assert Tynn.include?(Tynn::SSL)
 end
 

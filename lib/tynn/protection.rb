@@ -26,6 +26,7 @@ class Tynn
   #
   # If the `:ssl` option is `true`, includes:
   #
+  # * Tynn::HSTS
   # * Tynn::SSL
   #
   module Protection
@@ -33,9 +34,11 @@ class Tynn
       app.helpers(Tynn::SecureHeaders)
 
       if ssl
+        require_relative "hsts"
         require_relative "ssl"
 
-        app.helpers(Tynn::SSL, hsts: hsts)
+        app.helpers(Tynn::HSTS, hsts)
+        app.helpers(Tynn::SSL)
       end
     end
   end
