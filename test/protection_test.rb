@@ -8,10 +8,21 @@ test "includes secure headers" do
 end
 
 test "includes ssl helpers if ssl is true" do
-  Tynn.helpers(Tynn::Protection, ssl: true)
+  Foo = Class.new(Tynn)
 
-  assert Tynn.include?(Tynn::HSTS)
-  assert Tynn.include?(Tynn::SSL)
+  Foo.helpers(Tynn::Protection, ssl: true)
+
+  assert Foo.include?(Tynn::HSTS)
+  assert Foo.include?(Tynn::ForceSSL)
+end
+
+test "doesn't include ssl redirect if force_ssl is false" do
+  Bar = Class.new(Tynn)
+
+  Bar.helpers(Tynn::Protection, ssl: true, force_ssl: false)
+
+  assert Bar.include?(Tynn::HSTS)
+  assert !Bar.include?(Tynn::ForceSSL)
 end
 
 test "supports hsts options" do

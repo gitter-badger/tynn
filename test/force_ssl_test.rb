@@ -1,11 +1,11 @@
-require_relative "../lib/tynn/ssl"
+require_relative "../lib/tynn/force_ssl"
 
 setup do
   Tynn::Test.new
 end
 
 test "redirects to https" do |app|
-  Tynn.helpers(Tynn::SSL)
+  Tynn.helpers(Tynn::ForceSSL)
 
   Tynn.define do
   end
@@ -17,7 +17,7 @@ test "redirects to https" do |app|
 end
 
 test "https request" do |app|
-  Tynn.helpers(Tynn::SSL)
+  Tynn.helpers(Tynn::ForceSSL)
 
   Tynn.define do
     root do

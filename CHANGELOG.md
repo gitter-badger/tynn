@@ -1,6 +1,14 @@
 unreleased
 ----------
 
+- Add `:force_ssl` option to enable/disable TLS redirect.
+
+  ```ruby
+  Tynn.helpers(Tynn::Protection, ssl: true, force_ssl: false)
+  ```
+
+- Rename `Tynn::SSL` to `Tynn::ForceSSL`.
+
 - Add `Tynn::HSTS` extension. This allows advanced users to set the
   `Strict-Transport-Security` header separately. This helper is still
   included if the `:ssl` option in `Tynn::Protection` is `true`.

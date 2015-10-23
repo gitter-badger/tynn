@@ -27,20 +27,30 @@ class Tynn
   # If the `:ssl` option is `true`, includes:
   #
   # * Tynn::HSTS
-  # * Tynn::SSL
+  # * Tynn::ForceSSL
+  #
+  # You can disable TLS redirect by:
+  #
+  # ```
+  # Tynn.helpers(Tynn::Protection, ssl: true, force_ssl: false)
+  # ```
   #
   module Protection
-    def self.setup(app, ssl: false, hsts: {}) # :nodoc:
+    def self.setup(app, ssl: false, force_ssl: ssl, hsts: {}) # :nodoc:
       app.helpers(Tynn::SecureHeaders)
 
       if ssl
-        require_relative "hsts"
-        require_relative "ssl"
-
         app.settings[:ssl] = true
 
+        require_relative "hsts"
+
         app.helpers(Tynn::HSTS, hsts)
-        app.helpers(Tynn::SSL)
+      end
+
+      if force_ssl
+        require_relative "force_ssl"
+
+        app.helpers(Tynn::ForceSSL)
       end
     end
   end
