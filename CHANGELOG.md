@@ -1,7 +1,7 @@
 unreleased
 ----------
 
-- Now, `Tynn::helpers` includes instance methods from `helper::InstanceMethods`.
+- `Tynn::helpers` only includes instance methods from `helper::InstanceMethods`.
 
   ```ruby
   # Before
@@ -10,7 +10,7 @@ unreleased
     end
   end
 
-  # After
+  # Now
   module Helper
     module InstanceMethods
       def helper
@@ -21,7 +21,8 @@ unreleased
   Tynn.helpers(Helper)
   ```
 
-- Add `:force_ssl` option to enable/disable TLS redirect.
+- Add `:force_ssl` option to enable/disable TLS redirect. Defaults to the
+  same value as `:ssl`.
 
   ```ruby
   Tynn.helpers(Tynn::Protection, ssl: true, force_ssl: false)
