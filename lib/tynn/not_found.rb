@@ -1,18 +1,20 @@
 class Tynn
   module NotFound
-    def call(*) # :nodoc:
-      result = super
+    module InstanceMethods
+      def call(*) # :nodoc:
+        result = super
 
-      if result[0] == 404 && result[2].empty?
-        not_found
+        if result[0] == 404 && result[2].empty?
+          not_found
 
-        return res.finish
-      else
-        return result
+          return res.finish
+        else
+          return result
+        end
       end
-    end
 
-    def not_found # :nodoc:
+      def not_found # :nodoc:
+      end
     end
   end
 end

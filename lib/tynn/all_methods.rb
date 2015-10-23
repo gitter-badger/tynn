@@ -1,18 +1,20 @@
 class Tynn
   module AllMethods
-    def head
-      if root? && req.head?
-        yield
+    module InstanceMethods
+      def head
+        if root? && req.head?
+          yield
 
-        halt(res.finish)
+          halt(res.finish)
+        end
       end
-    end
 
-    def options
-      if root? && req.options?
-        yield
+      def options
+        if root? && req.options?
+          yield
 
-        halt(res.finish)
+          halt(res.finish)
+        end
       end
     end
   end

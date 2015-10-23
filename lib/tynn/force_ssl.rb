@@ -1,35 +1,35 @@
 class Tynn
   module ForceSSL
     def self.setup(app) # :nodoc:
-      app.use(Tynn::ForceSSLMiddleware)
-    end
-  end
-
-  class ForceSSLMiddleware # :nodoc:
-    def initialize(app)
-      @app = app
+      app.use(Tynn::ForceSSL::Middleware)
     end
 
-    def call(env)
-      request = Rack::Request.new(env)
-
-      if request.ssl?
-        return @app.call(env)
-      else
-        return [301, redirect_headers(request), []]
+    class Middleware # :nodoc:
+      def initialize(app)
+        @app = app
       end
-    end
 
-    private
+      def call(env)
+        request = Rack::Request.new(env)
 
-    def redirect_headers(request)
-      return { "Location" => https_location(request) }
-    end
+        if request.ssl?
+          return @app.call(env)
+        else
+          return [301, redirect_headers(request), []]
+        end
+      end
 
-    HTTPS_LOCATION = "https://%s%s".freeze
+      private
 
-    def https_location(request)
-      return sprintf(HTTPS_LOCATION, request.host, request.fullpath)
+      def redirect_headers(request)
+        return { "Location" => https_location(request) }
+      end
+
+      HTTPS_LOCATION = "https://%s%s".freeze
+
+      def https_location(request)
+        return sprintf(HTTPS_LOCATION, request.host, request.fullpath)
+      end
     end
   end
 end

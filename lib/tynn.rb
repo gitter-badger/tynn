@@ -1,12 +1,67 @@
-require "seteable"
 require "syro"
 require_relative "tynn/request"
 require_relative "tynn/response"
+require_relative "tynn/settings"
 require_relative "tynn/version"
 
 class Tynn
-  include Seteable
   include Syro::Deck::API
+
+  # Extends Tynn functionality with the given `helper` module.
+  #
+  # ```
+  # module AppName
+  #   def self.setup(app, name)
+  #     app.set(:app_name, name)
+  #   end
+  #
+  #   module InstanceMethods
+  #     def app_name
+  #       return self.class.app_name
+  #     end
+  #   end
+  #
+  #   module ClassMethods
+  #     def app_name
+  #       return settings[:app_name]
+  #     end
+  #   end
+  # end
+  #
+  # Tynn.helpers(AppName, "MyApplication")
+  #
+  # Tynn.app_name # => "MyApplication"
+  #
+  # Tynn.set(:app_name, "MyGreatestApp")
+  # Tynn.app_name # => "MyGreatestApp"
+  #
+  # Tynn.define do
+  #   root do
+  #     res.write(app_name)
+  #   end
+  # end
+  # ```
+  #
+  # Check the [helpers][examples] that come with tynn for more examples.
+  #
+  # [examples]: https://github.com/frodsan/tynn/tree/master/lib/tynn
+  #
+  def self.helpers(helper, *args, &block)
+    if defined?(helper::InstanceMethods)
+      self.include(helper::InstanceMethods)
+    end
+
+    if defined?(helper::ClassMethods)
+      self.extend(helper::ClassMethods)
+    end
+
+    if helper.respond_to?(:setup)
+      helper.setup(self, *args, &block)
+    end
+  end
+
+  # Default extensions.
+  helpers(Tynn::Settings)
 
   # Sets the application handler.
   #
@@ -64,55 +119,6 @@ class Tynn
   def self.reset! # :nodoc:
     @app = nil
     @middleware = []
-  end
-
-  # Extends Tynn functionality with the given `helper` module.
-  #
-  # ```
-  # module AppName
-  #   def self.setup(app, name)
-  #     app.set(:app_name, name)
-  #   end
-  #
-  #   def app_name
-  #     return self.class.app_name
-  #   end
-  #
-  #   module ClassMethods
-  #     def app_name
-  #       return settings[:app_name]
-  #     end
-  #   end
-  # end
-  #
-  # Tynn.helpers(AppName, "MyApplication")
-  #
-  # Tynn.app_name # => "MyApplication"
-  #
-  # Tynn.set(:app_name, "MyGreatestApp")
-  # Tynn.app_name # => "MyGreatestApp"
-  #
-  # Tynn.define do
-  #   root do
-  #     res.write(app_name)
-  #   end
-  # end
-  # ```
-  #
-  # Check the [helpers][examples] that come with tynn for more examples.
-  #
-  # [examples]: https://github.com/frodsan/tynn/tree/master/lib/tynn
-  #
-  def self.helpers(helper, *args, &block)
-    self.include(helper)
-
-    if defined?(helper::ClassMethods)
-      self.extend(helper::ClassMethods)
-    end
-
-    if helper.respond_to?(:setup)
-      helper.setup(self, *args, &block)
-    end
   end
 
   # Sets an `option` to the given `value`.

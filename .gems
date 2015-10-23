@@ -4,6 +4,5 @@ hmote:1.4.0
 rack:1.6.4
 rack-test:0.6.3
 seg:0.0.1
-seteable:1.1.0
 syro:1.1.0
 tilt:2.0.1

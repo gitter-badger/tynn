@@ -71,17 +71,19 @@ class Tynn
       app.use(Rack::Session::Cookie, defaults.merge(options))
     end
 
-    # Returns the session hash.
-    #
-    # ```
-    # session # => {}
-    #
-    # session[:foo] = "foo"
-    # session[:foo] # => "foo"
-    # ```
-    #
-    def session
-      return env["rack.session".freeze]
+    module InstanceMethods
+      # Returns the session hash.
+      #
+      # ```
+      # session # => {}
+      #
+      # session[:foo] = "foo"
+      # session[:foo] # => "foo"
+      # ```
+      #
+      def session
+        return env["rack.session".freeze]
+      end
     end
   end
 end
