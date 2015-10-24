@@ -1,0 +1,58 @@
+<div class="nav-docs">
+  <div class="nav-docs-section">
+    <h3>Quick Start</h3>
+    <ul>
+      <li>
+        <a href="/getting-started.html">
+          Getting Started
+        </a>
+      </li>
+
+      <li>
+        <a href="/tutorial.html">
+          Tutorial
+        </a>
+      </li>
+    </ul>
+  </div>
+
+  <div class="nav-docs-section">
+    <h3>Guides</h3>
+    <ul>
+      <li>
+        <a href="/guides/static-files.html">
+          Serving Static Files
+        </a>
+      </li>
+
+      <li>
+        <a href="/guides/managing-dependencies.html">
+          Managing Dependencies
+        </a>
+      </li>
+    </ul>
+  </div>
+
+  <div class="nav-docs-section">
+    <h3>Community</h3>
+    <ul>
+      <li>
+        <a href="/support.html">
+          Support
+        </a>
+      </li>
+
+      <li>
+        <a href="/examples.html">
+          Examples
+        </a>
+      </li>
+
+      <li>
+        <a href="/presentations.html">
+          Presentations
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>
