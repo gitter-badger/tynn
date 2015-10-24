@@ -1,73 +1,45 @@
 #!/usr/bin/env ruby
 
-require "erb"
+require "mote"
 require "rdoc/rdoc"
 require "rdoc/generator"
 
-class RDoc::ClassModule
-  def as_href(*)
-    return sprintf("/api/%s.html", full_name.gsub("::", "-"))
-  end
-end
-
 class RDoc::Generator::Tynn
+  include Mote::Helpers
+
   RDoc::RDoc.add_generator(self)
-
-  TEMPLATE = DATA.read
-  LAYOUT = File.read(File.expand_path("../layout.html", __dir__))
-
-  TITLE = "TITLE".freeze
-  CONTENT = "m4_include(CONTENT)".freeze
 
   def initialize(store, options)
     @classes = store.all_classes_and_modules.sort
   end
 
   def generate
-    klasses = Hash.new do |h, k|
-      h[k] = {
-        self: nil,
-        class: [],
-        instance: []
-      }
-    end
-
     @classes.each do |klass|
-      case klass.name
-        when "ClassMethods"
-          klasses[klass.parent.full_name][:class].concat(klass.class_method_list)
-        when "InstanceMethods"
-          klasses[klass.parent.full_name][:instance].concat(klass.instance_method_list)
-        else
-          klasses[klass.full_name][:self] = klass
-          klasses[klass.full_name][:class] = klass.class_method_list
-          klasses[klass.full_name][:instance] = klass.instance_method_list
-      end
-    end
+      content = render("api", doc: klass, classes: @classes)
 
-    klasses.each do |full_name, klass|
-      output = LAYOUT.gsub(TITLE, full_name)
-      output = output.gsub(CONTENT, render(klass))
-
-      File.write(classfile(full_name), output)
+      File.write(classfile(klass), content)
     end
   end
 
-  private
-
-  def render(klass)
-    return renderer.result(binding)
+  def render(template, params = {})
+    return mote(template_path(template), params.merge(app: self))
   end
 
-  def renderer
-    return @renderer ||= ERB.new(TEMPLATE)
+  def template_path(template)
+    return File.join(File.expand_path("../templates", __dir__), "#{ template }.mote")
   end
 
-  def classfile(full_name)
-    return sprintf("%s.html", full_name.gsub("::", "-"))
+  def classfile(klass)
+    return sprintf("%s.html", klass.full_name.gsub("::", "-"))
   end
 
   public def class_dir; end # required by RDoc
+end
+
+class RDoc::ClassModule
+  def as_href(*)
+    return sprintf("/api/%s.html", full_name.gsub("::", "-"))
+  end
 end
 
 rdoc = RDoc::RDoc.new
@@ -77,33 +49,3 @@ rdoc.document([
   "--markup", "markdown",
   "-q", "-f", "tynn"
 ])
-
-__END__
-<h1><%= klass[:self].full_name %></h1>
-<p><%= klass[:self].description %></p>
-
-<% [:class, :instance].each do |type| %>
-  <% next if klass[type].empty? %>
-
-  <h2 id="<%= type %>-methods">
-    <%= type.capitalize %> methods:
-  </h2>
-
-  <% klass[type].each do |method| %>
-    <% next if method.is_alias_for %>
-
-    <h3 id="<%= method.aref %>">
-      <a href="#<%= method.aref %>">
-        <% if method.call_seq %>
-          <%= method.call_seq.strip %>
-        <% else %>
-          <%= method.name %><%= method.params %>
-        <% end %>
-      </a>
-    </h3>
-
-    <% if method.comment %>
-      <p><%= method.description.strip %></p>
-    <% end %>
-  <% end %>
-<% end %>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>tynn | Tynn API Documentation</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet">
+    <link href="//fonts.googleapis.com/css?family=Roboto:400,500" rel="stylesheet">
+    <link href="/css/styles.css" rel="stylesheet" media="screen">
+    <link href="/css/highlight.css" rel="stylesheet" media="screen">
+  </head>
+  <body>
+    <div class="container">
+      {{ app.render("header") }}
+
+      <section class="content wrap">
+        <div class="nav-docs">
+          <div class="nav-docs-section">
+            <h3>API Reference</h3>
+
+            <ul>
+              % classes.each do |klass|
+                <li>
+                  <a href="/api/{{ app.classfile(klass) }}">
+                    {{ klass.full_name }}
+                  </a>
+                </li>
+              % end
+            </ul>
+          </div>
+        </div>
+
+        <div class="inner-content">
+          <h1>{{ doc.full_name }}</h1>
+          <p>{{ doc.description }}</p>
+
+          % doc.methods_by_type.each do |type, visibilities|
+            % next if visibilities.empty?
+
+            % visibilities.each do |visibility, methods|
+              % next if methods.empty?
+
+              <h2 id="{{ type }}-methods">
+                {{ type.capitalize }} methods:
+              </h2>
+
+              % methods.each do |method|
+                % next if method.is_alias_for
+
+                <h3 id="{{ method.aref }}">
+                  <a href="#{{ method.aref }}">
+                    % if method.call_seq
+                      {{ method.call_seq.strip }}
+                    % else
+                      {{ method.name }}{{ method.params }}
+                    % end
+                  </a>
+                </h3>
+
+                % if method.comment
+                  <p>{{ method.description.strip }}</p>
+                % end
+              % end
+            % end
+          % end
+        </div>
+      </section>
+    </div>
+  </body>
+</html>
