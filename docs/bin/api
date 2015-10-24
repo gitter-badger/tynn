@@ -10,7 +10,7 @@ class RDoc::Generator::Tynn
   RDoc::RDoc.add_generator(self)
 
   def initialize(store, options)
-    @classes = store.all_classes_and_modules.sort
+    @classes = merge_classes(store.all_classes_and_modules.sort)
   end
 
   def generate
@@ -34,6 +34,22 @@ class RDoc::Generator::Tynn
   end
 
   public def class_dir; end # required by RDoc
+
+  def merge_classes(classes)
+    classes.map { |c| merge_class(c, c.parent) }.compact
+  end
+
+  def merge_class(c, parent)
+    if c.name == "ClassMethods"
+      parent.class_method_list.concat(c.class_method_list)
+      return
+    elsif c.name == "InstanceMethods"
+      parent.instance_method_list.concat(c.instance_method_list)
+      return
+    else
+      return c
+    end
+  end
 end
 
 class RDoc::ClassModule
