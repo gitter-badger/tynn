@@ -14,11 +14,11 @@ class RDoc::Generator::Tynn
   end
 
   def generate
-    @classes.each do |klass|
-      content = render("api", doc: klass, classes: @classes)
+    @classes.each { |c| generate_page(c) }
+  end
 
-      File.write(classfile(klass), content)
-    end
+  def generate_page(c)
+    File.write(classfile(c), render("api", doc: c, classes: @classes))
   end
 
   def render(template, params = {})
