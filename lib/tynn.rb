@@ -7,44 +7,14 @@ require_relative "tynn/version"
 class Tynn
   include Syro::Deck::API
 
-  # Extends Tynn functionality with the given `helper` module.
+  # Public: Extends Tynn functionality with the given +helper+ module.
   #
-  # ```
-  # module AppName
-  #   def self.setup(app, name)
-  #     app.set(:app_name, name)
-  #   end
+  # Examples
   #
-  #   module InstanceMethods
-  #     def app_name
-  #       return self.class.app_name
-  #     end
-  #   end
+  #   require "tynn"
+  #   require "tynn/protection"
   #
-  #   module ClassMethods
-  #     def app_name
-  #       return settings[:app_name]
-  #     end
-  #   end
-  # end
-  #
-  # Tynn.helpers(AppName, "MyApplication")
-  #
-  # Tynn.app_name # => "MyApplication"
-  #
-  # Tynn.set(:app_name, "MyGreatestApp")
-  # Tynn.app_name # => "MyGreatestApp"
-  #
-  # Tynn.define do
-  #   root do
-  #     res.write(app_name)
-  #   end
-  # end
-  # ```
-  #
-  # Check the [helpers][examples] that come with tynn for more examples.
-  #
-  # [examples]: https://github.com/frodsan/tynn/tree/master/lib/tynn
+  #   Tynn.helpers(Tynn::Protection)
   #
   def self.helpers(helper, *args, &block)
     if defined?(helper::InstanceMethods)
@@ -60,41 +30,41 @@ class Tynn
     end
   end
 
-  # Default extensions.
+  # Internal: Default helpers.
   helpers(Tynn::Settings)
 
-  # Sets the application handler.
+  # Public: Sets the application handler.
   #
-  # ```
-  # class Users < Tynn
-  # end
+  # Examples
   #
-  # Users.define do
-  #   on(:id) do |id|
-  #     get do
-  #       res.write("GET /users")
-  #     end
+  #   class Users < Tynn
+  #   end
   #
-  #     post do
-  #       res.write("POST /users")
+  #   Users.define do
+  #     on(:id) do |id|
+  #       get do
+  #         res.write("GET /users")
+  #       end
+  #
+  #       post do
+  #         res.write("POST /users")
+  #       end
   #     end
   #   end
-  # end
-  # ```
   #
   def self.define(&block)
     build_app(Syro.new(self, &block))
   end
 
-  # Adds given Rack `middleware` to the stack.
+  # Public: Adds given Rack +middleware+ to the stack.
   #
-  # ```
-  # require "rack/common_logger"
-  # require "rack/show_exceptions"
+  # Examples
   #
-  # Tynn.use(Rack::CommonLogger)
-  # Tynn.use(Rack::ShowExceptions)
-  # ```
+  #   require "rack/common_logger"
+  #   require "rack/show_exceptions"
+  #
+  #   Tynn.use(Rack::CommonLogger)
+  #   Tynn.use(Rack::ShowExceptions)
   #
   def self.use(middleware, *args, &block)
     __middleware << proc { |app| middleware.new(app, *args, &block) }
@@ -121,18 +91,18 @@ class Tynn
     @middleware = []
   end
 
-  # Sets an `option` to the given `value`.
+  # Public: Sets an +option+ to the given +value+.
   #
-  # ```
-  # require "tynn"
-  # require "tynn/environment"
+  # Examples
   #
-  # Tynn.helpers(Tynn::Environment)
+  #   require "tynn"
+  #   require "tynn/environment"
   #
-  # Tynn.set(:environment, :staging)
-  # Tynn.environment
-  # # => :staging
-  # ```
+  #   Tynn.helpers(Tynn::Environment)
+  #
+  #   Tynn.set(:environment, :staging)
+  #   Tynn.environment
+  #   # => :staging
   #
   def self.set(option, value)
     settings[option] = value

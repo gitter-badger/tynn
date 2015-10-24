@@ -1,33 +1,36 @@
 class Tynn
-  # Adds support for static files (javascript files, images, stylesheets, etc).
+  # Public: Adds support for static files (javascript files, images,
+  # stylesheets, etc).
   #
-  # ```
-  # require "tynn"
-  # require "tynn/static"
+  # Examples
   #
-  # Tynn.helpers(Tynn::Static, ["/js", "/css"])
-  # ```
+  #   require "tynn"
+  #   require "tynn/static"
   #
-  # By default, serve all requests beginning with the given paths from the folder
-  # `public` in the current directory (e.g. `public/js/*`, `public/css/*`). You
-  # can change the default by passing the `:root` option.
+  #   Tynn.helpers(Tynn::Static, ["/js", "/css"])
   #
-  # ```
-  # Tynn.helpers(Tynn::Static, ["/js", "/css"], root: "assets")
-  # ```
+  # By default, serves all requests beginning with the given paths from
+  # the folder +public+ in the current directory (e.g. +public/js/*+,
+  # +public/css/*+). You can change the default by passing the +:root+
+  # option.
   #
-  # Under the hood, it uses the [Rack::Static][rack-static] middleware.
-  # Thus, supports all the options available for this middleware.
+  # Examples
   #
-  # ```
-  # Tynn.helpers(Tynn::Static, ["/js", "/css"], index: "index.html")
-  # ```
+  #   Tynn.helpers(Tynn::Static, ["/js", "/css"], root: "assets")
   #
-  # [rack-static]: http://www.rubydoc.info/gems/rack/Rack/Static
+  # Under the hood, it uses the +Rack::Static+ middleware. Thus,
+  # supports all the options available by the middleware. Check
+  # {Rack::Static}[http://www.rubydoc.info/gems/rack/Rack/Static]
+  # for more information.
+  #
+  # Examples
+  #
+  #   Tynn.helpers(Tynn::Static, ["/js", "/css"], index: "index.html")
   #
   module Static
-    def self.setup(app, urls, options = {}) # :nodoc:
-      options = options.dup
+    # Internal: Configures Rack::Static middleware.
+    def self.setup(app, urls, opts = {})
+      options = opts.dup
 
       options[:urls] ||= urls
       options[:root] ||= File.expand_path("public", Dir.pwd)

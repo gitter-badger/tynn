@@ -1,185 +1,197 @@
 class Tynn
-  # It provides convenience methods to construct a Rack response.
+  # Public: It provides convenience methods to construct a Rack response.
   #
-  # ```
-  # res = Tynn::Response.new
-  # res.status = 200
-  # res["Content-Type"] = "text/html"
-  # res.write("foo")
-  # ```
+  # Examples
   #
-  # [Tynn::Response#finish][finish] returns a response as per
-  # [Rack's specification][rack-spec].
+  #   res = Tynn::Response.new
   #
-  # ```
-  # res.finish
-  # # => [200, { "Content-Type" => "text/html", "Content-Length" => 3 }, ["foo"]]
-  # ```
+  #   res.status = 200
+  #   res["Content-Type"] = "text/html"
+  #   res.write("foo")
   #
-  # [finish]: #method-i-finish
-  # [rack-spec]: http://www.rubydoc.info/github/rack/rack/master/file/SPEC
+  #   res.finish
+  #   # => [200, { "Content-Type" => "text/html", "Content-Length" => 3 }, ["foo"]]
   #
   class Response < Syro::Response
-    ##
-    # :method: new
-    # :call-seq: new(headers = {})
+    # Public: Initializes a new response object.
     #
-    # Initializes a new response object with the given `headers`.
+    # headers - A Hash of initial headers. Defaults to <tt>{}</tt>.
     #
-    # ```
-    # Tynn::Response.new.headers
-    # # => {}
+    # Examples
     #
-    # Tynn::Response.new("Content-Type" => "text/plain").headers
-    # # => { "Content-Type" => "text/plain" }
-    # ```
+    #   Tynn::Response.new.headers
+    #   # => {}
+    #
+    #   Tynn::Response.new("Content-Type" => "text/plain").headers
+    #   # => { "Content-Type" => "text/plain" }
+    #
+    # Signature
+    #
+    #   new(headers = {})
+    #
+    # Inherited by Syro::Response.
 
-    ##
-    # :method: []
+    # Public: Returns the response header corresponding to +key+.
     #
-    # Returns the response header corresponding to `key`.
+    # key - A String HTTP header field name.
+    #
+    # Examples
     #
     #     res["Content-Type"]   # => "text/html"
     #     res["Content-Length"] # => "42"
-
-    ##
-    # :method: []=
-    # :call-seq: []=(value)
     #
-    # Sets the given `value` with the header corresponding to `key`.
+    # Signature
+    #
+    #   [](key)
+    #
+    # Inherited by Syro::Response.
+
+    # Public: Sets the given +value+ with the header corresponding to +key+.
+    #
+    # key   - A String HTTP header field name.
+    # value - A String HTTP header field value.
+    #
+    # Examples
     #
     #     res["Content-Type"] = "application/json"
     #     res["Content-Type"] # => "application/json"
+    #
+    # Signature
+    #
+    #   []=(key, value)
+    #
+    # Inherited by Syro::Response.
 
-    ##
-    # :method: body
+    # Public: Returns the body of the response.
     #
-    # Returns the body of the response.
+    # Examples
     #
-    #     res.body
-    #     # => []
+    #   res.body
+    #   # => []
     #
-    #     res.write("there is")
-    #     res.write("no try")
+    #   res.write("there is")
+    #   res.write("no try")
     #
-    #     res.body
-    #     # => ["there is", "no try"]
+    #   res.body
+    #   # => ["there is", "no try"]
+    #
+    # Signature
+    #
+    #   body()
+    #
+    # Inherited by Syro::Response.
 
-    ##
-    # :method: finish
+    # Public: Returns an Array with three elements: the status, headers
+    # and body. If the status is not set, the status is set to +404+ if
+    # empty body, otherwise the status is set to +200+ and updates the
+    # +Content-Type+ header to +text/html+.
     #
-    # Returns an array with three elements: the status, headers and body.
-    # If the status is not set, the status is set to 404 if empty body,
-    # otherwise the status is set to 200 and updates the `Content-Type`
-    # header to `text/html`.
+    # Examples
     #
-    #     res.status = 200
-    #     res.finish
-    #     # => [200, {}, []]
+    #   res.status = 200
+    #   res.finish
+    #   # => [200, {}, []]
     #
-    #     res.status = nil
-    #     res.finish
-    #     # => [404, {}, []]
+    #   res.status = nil
+    #   res.finish
+    #   # => [404, {}, []]
     #
-    #     res.status = nil
-    #     res.write("yo")
-    #     res.finish
-    #     # => [200, { "Content-Type" => "text/html", "Content-Length" => 2 }, ["yo"]]
+    #   res.status = nil
+    #   res.write("yo")
+    #   res.finish
+    #   # => [200, { "Content-Type" => "text/html", "Content-Length" => 2 }, ["yo"]]
+    #
+    # Signature
+    #
+    #   finish()
+    #
+    # Inherited by Syro::Response.
 
-    ##
-    # :method: headers
+    # Public: Returns a Hash with the response headers.
     #
-    # Returns a hash with the response headers.
+    # Examples
     #
-    #     res.headers
-    #     # => { "Content-Type" => "text/html", "Content-Length" => "42" }
+    #   res.headers
+    #   # => { "Content-Type" => "text/html", "Content-Length" => "42" }
+    #
+    # Signature
+    #
+    #   headers()
+    #
+    # Inherited by Syro::Response.
 
-    ##
-    # :method: redirect
-    # :call-seq: redirect(path, 302)
+    # Public: Sets the +Location+ header to +url+ and updates the status
+    # to +status+.
     #
-    # Sets the `Location` header to `path` and updates the status to
-    # `status`. By default, `status` is `302`.
+    # url    - A String URL (relative or absolute) to redirect to.
+    # status - An Integer status code. Defaults to +302+.
     #
-    #     res.redirect("/path")
+    # Examples
     #
-    #     res["Location"] # => "/path"
-    #     res.status      # => 302
+    #   res.redirect("/path")
     #
-    #     res.redirect("http://tynn.ru", 303)
+    #   res["Location"] # => "/path"
+    #   res.status      # => 302
     #
-    #     res["Location"] # => "http://tynn.ru"
-    #     res.status      # => 303
+    #   res.redirect("http://tynn.ru", 303)
+    #
+    #   res["Location"] # => "http://tynn.ru"
+    #   res.status      # => 303
+    #
+    # Signature
+    #
+    #   redirect(url, status = 302)
+    #
+    # Inherited by Syro::Response.
 
-    ##
-    # :method: status
+    # Public: Returns the status of the response.
     #
-    # Returns the status of the response.
+    # Examples
     #
     #     res.status # => 200
     #
+    # Signature
+    #
+    #   status()
+    #
+    # Inherited by Syro::Response.
 
-    ##
-    # :method: status=
-    # :call-seq: status=(status)
+    # Public: Sets the status of the response.
     #
-    # Sets the status of the response.
+    # status - An Integer HTTP status code.
     #
-    #     res.status = 200
+    # Examples
     #
+    #   res.status = 200
+    #
+    # Signature
+    #
+    #   status=(status)
+    #
+    # Inherited by Syro::Response.
 
-    ##
-    # :method: write
-    # :call-seq: write(str)
+    # Public: Appends +str+ to the response body and updates the
+    # +Content-Length+ header.
     #
-    # Appends `str` to `body` and updates the `Content-Length` header.
+    # str - Any object that responds to +to_s+.
     #
-    #     res.body # => []
+    # Examples
     #
-    #     res.write("foo")
-    #     res.write("bar")
+    #   res.body # => []
     #
-    #     res.body
-    #     # => ["foo", "bar"]
+    #   res.write("foo")
+    #   res.write("bar")
     #
-    #     res["Content-Length"]
-    #     # => 6
-
-    ##
-    # :method: set_cookie
-    # :call-seq: set_cookie(key, value)
+    #   res.body
+    #   # => ["foo", "bar"]
     #
-    # Sets a cookie into the response.
+    #   res["Content-Length"]
+    #   # => 6
     #
-    #     res.set_cookie("foo", "bar")
-    #     res["Set-Cookie"] # => "foo=bar"
+    # Signature
     #
-    #     res.set_cookie("foo2", "bar2")
-    #     res["Set-Cookie"] # => "foo=bar\nfoo2=bar2"
+    #   write(str)
     #
-    #     res.set_cookie("bar", {
-    #       domain: ".example.com",
-    #       path: "/",
-    #       # max_age: 0,
-    #       # expires: Time.now + 10_000,
-    #       secure: true,
-    #       httponly: true,
-    #       value: "bar"
-    #     })
-    #
-    #     res["Set-Cookie"].split("\n").last
-    #     # => "bar=bar; domain=.example.com; path=/; secure; HttpOnly
-    #
-    # **NOTE:** This method doesn't sign and/or encrypt the value of the cookie.
-
-    ##
-    # :method: delete_cookie
-    # :call-seq: delete_cookie(key, value = {})
-    #
-    # Deletes cookie.
-    #
-    #     res.set_cookie("foo", "bar")
-    #     res["Set-Cookie"]
-    #     # => "foo=; max-age=0; expires=Thu, 01 Jan 1970 00:00:00 -0000"
+    # Inherited by Syro::Response.
   end
 end

@@ -1,37 +1,38 @@
 class Tynn
-  # Adds security related HTTP headers.
+  # Public: Adds security related HTTP headers.
   #
-  # ```
-  # require "tynn"
-  # require "tynn/secure_headers"
+  # Examples
   #
-  # Tynn.helpers(Tynn::SecureHeaders)
-  # ```
+  #   require "tynn"
+  #   require "tynn/secure_headers"
+  #
+  #   Tynn.helpers(Tynn::SecureHeaders)
   #
   # This helper applies the following headers:
   #
-  # * **X-Content-Type-Options:** Prevents IE and Chrome from
-  #   [content type sniffing][mime-sniffing].
+  # *X-Content-Type-Options:* <tt>"nosniff"</tt>
   #
-  # * **X-Frame-Options (XFO):** Provides [Clickjacking][clickjacking]
-  #   protection. Check the [X-Frame-Options draft][x-frame-options] for
-  #   more information.
+  # Prevents IE and Chrome from
+  # {content type sniffing}[https://msdn.microsoft.com/library/gg622941(v=vs.85).aspx]
   #
-  # * **X-Permitted-Cross-Domain-Policies:** Restricts Adobe Flash Player's
-  #   access to data. Check this [article][pcdp] for more information.
+  # *X-Frame-Options:* <tt>"SAMEORIGIN"</tt>
   #
-  # * **X-XSS-Protection:** Enables the [XSS][xss] protection filter built
-  #   into IE, Chrome and Safari. This filter is usually enabled by default,
-  #   the use of this header is to re-enable it if it was disabled by the user.
+  # Provides {Clickjacking}[https://www.owasp.org/index.php/Clickjacking]
+  # protection.
   #
-  # [clickjacking]: https://www.owasp.org/index.php/Clickjacking
-  # [mime-sniffing]: https://msdn.microsoft.com/library/gg622941(v=vs.85).aspx
-  # [pcdp]: https://www.adobe.com/devnet/adobe-media-server/articles/cross-domain-xml-for-streaming.html
-  # [x-frame-options]: https://tools.ietf.org/html/draft-ietf-websec-x-frame-options-02
-  # [xss]: https://www.owasp.org/index.php/Cross-site_Scripting_(XSS)
+  # *X-Permitted-Cross-Domain-Policies:* <tt>"none"</tt>
+  #
+  # Restricts Adobe Flash Player's access to data.
+  #
+  # *X-XSS-Protection:* <tt>"1; mode=block"</tt>
+  #
+  # Enables the XSS protection filter built into IE, Chrome and Safari.
+  # This filter is usually enabled by default, the use of this header
+  # is to re-enable it if it was disabled by the user.
   #
   module SecureHeaders
-    def self.setup(app) # :nodoc:
+    # Internal: Sets the default HTTP secure headers.
+    def self.setup(app)
       app.settings[:default_headers].update(
         "X-Content-Type-Options" => "nosniff",
         "X-Frame-Options" => "SAMEORIGIN",

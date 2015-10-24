@@ -1,28 +1,28 @@
 class Tynn
-  # Adds extra matchers to Tynn.
+  # Public: Adds extra matchers to Tynn.
   #
-  # ```
-  # require "tynn"
-  # require "tynn/matchers"
+  # Examples
   #
-  # Tynn.helpers(Tynn::Matchers)
-  # ```
+  #   require "tynn"
+  #   require "tynn/matchers"
+  #
+  #   Tynn.helpers(Tynn::Matchers)
   #
   module Matchers
     module InstanceMethods
-      # A catch-all matcher.
+      # Public: A catch-all matcher.
       #
-      # ```
-      # Tynn.define do
-      #   authenticated? do
-      #     # ...
-      #   end
+      # Examples
       #
-      #   default do # on true
-      #     # ...
+      #   Tynn.define do
+      #     authenticated? do
+      #       # ...
+      #     end
+      #
+      #     default do # on true
+      #       # ...
+      #     end
       #   end
-      # end
-      # ```
       #
       # :call-seq: default(&block)
       #
@@ -32,21 +32,21 @@ class Tynn
         halt(res.finish)
       end
 
-      # Match if the given `key` is present in `req.params`.
+      # Public: Match if the given +key+ is present in +req.params+.
       #
-      # ```
-      # Tynn.define do
-      #   param(:user) do |params|
-      #     user = User.create(params)
+      # Examples
       #
-      #     # ...
+      #   Tynn.define do
+      #     param(:user) do |params|
+      #       user = User.create(params)
+      #
+      #       # ...
+      #     end
+      #
+      #     default do
+      #       res.write("missing user param")
+      #     end
       #   end
-      #
-      #   default do
-      #     res.write("missing user param")
-      #   end
-      # end
-      # ```
       #
       # :call-seq: param(key, &block)
       #

@@ -30,13 +30,18 @@
           Managing Dependencies
         </a>
       </li>
+    </ul>
+  </div>
 
+  <div class="nav-docs-section">
+    <h3>Documentation</h3>
+    <ul>
       <li>
         <a href="/api/Tynn.html">
           API Reference
         </a>
       </li>
-    </ul>
+    </u>
   </div>
 
   <div class="nav-docs-section">

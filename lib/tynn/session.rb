@@ -1,85 +1,81 @@
 class Tynn
-  # Adds simple cookie based session management. If a secret token is
-  # given, it signs the cookie data to ensure that it cannot be altered
-  # by unauthorized means.
+  # Public: Adds simple cookie based session management. You can pass a secret
+  # token to sign the cookie data, thus unauthorized means can't alter it.
   #
-  # ```
-  # require "tynn"
-  # require "tynn/session"
+  # Examples
   #
-  # Tynn.helpers(Tynn::Session, secret: "__change_me__")
+  #   require "tynn"
+  #   require "tynn/session"
   #
-  # Tynn.define do
-  #   root do
-  #     res.write(sprintf("hei %s", session[:username]))
+  #   Tynn.helpers(Tynn::Session, secret: "__change_me__")
+  #
+  #   Tynn.define do
+  #     root do
+  #       res.write(sprintf("hei %s", session[:username]))
+  #     end
+  #
+  #     on(:username) do |username|
+  #       session[:username] = username
+  #     end
   #   end
-  #
-  #   on(:username) do |username|
-  #     session[:username] = username
-  #   end
-  # end
-  # ```
   #
   # The following command generates a cryptographically secure secret ready
   # to use:
   #
-  # ```
-  # $ ruby -r securerandom -e "puts SecureRandom.hex(64)"
-  # ```
+  #   $ ruby -r securerandom -e "puts SecureRandom.hex(64)"
   #
   # It's important to keep the token secret. Knowing the token allows an
   # attacker to tamper the data. So, it's recommended to load the token
   # from the environment.
   #
-  # ```
-  # Tynn.helpers(Tynn::Session, secret: ENV["SESSION_SECRET"])
-  # ```
+  # Examples
   #
-  # Under the hood, Tynn::Session uses the [Rack::Session::Cookie][rack-session]
-  # middleware. Thus, supports all the options available for this middleware.
+  #   Tynn.helpers(Tynn::Session, secret: ENV["SESSION_SECRET"])
   #
-  # * `:key` - the name of the cookie. Defaults to `"rack.session"`.
-  # * `:expire_after` - sets the lifespan of the cookie. If `nil`,
-  #     the cookie will be deleted after the user close the browser.
-  #     Defaults to `nil`.
-  # * `:httponly` - if `true`, sets the [HttpOnly][cookie-httponly] attribute.
-  #   This mitigates the risk of client side scripting accessing the cookie.
-  #   Defaults to `true`.
-  # * `:secure` - if `true`, sets the [Secure][cookie-secure] attribute.
-  #   This tells the browser to only transmit the cookie over HTTPS. Defaults
-  #   to `false`.
+  # Under the hood, Tynn::Session uses the +Rack::Session::Cookie+ middleware.
+  # Thus, supports all the options available for this middleware:
   #
-  # ```
-  # Tynn.helpers(
-  #   Tynn::Session,
-  #   key: "app",
-  #   secret: ENV["SESSION_SECRET"],
-  #   expire_after: 36_000, # seconds
-  #   httponly: true,
-  #   secure: true
-  # )
-  # ```
+  # key          - The name of the cookie. Defaults to <tt>"rack.session"</tt>.
   #
-  # [cookie-httponly]: https://www.owasp.org/index.php/Session_Management_Cheat_Sheet#HttpOnly_Attribute
-  # [cookie-secure]: https://www.owasp.org/index.php/Session_Management_Cheat_Sheet#Secure_Attribute
-  # [rack-session]: http://www.rubydoc.info/gems/rack/Rack/Session/Cookie
+  # httponly     - If +true+, sets the +HttpOnly+ flag. This mitigates the
+  #                risk of client side scripting accessing the cookie. Defaults
+  #                to +true+.
+  #
+  # secure       - If +true+, sets the +Secure+ flag. This tells the browser
+  #                to only transmit the cookie over HTTPS. Defaults to `false`.
+  #
+  # expire_after - The lifespan of the cookie. If +nil+, the session cookie
+  #                is temporary and is no retained after the browser is
+  #                closed. Defaults to +nil+.
+  #
+  # Examples
+  #
+  #   Tynn.helpers(
+  #     Tynn::Session,
+  #     key: "app",
+  #     secret: ENV["SESSION_SECRET"],
+  #     expire_after: 36_000, # seconds
+  #     httponly: true,
+  #     secure: true
+  #   )
   #
   module Session
-    def self.setup(app, options = {}) # :nodoc:
+    # Internal: Configures Rack::Session::Cookie middleware.
+    def self.setup(app, options = {})
       defaults = { secure: app.settings[:ssl] }
 
       app.use(Rack::Session::Cookie, defaults.merge(options))
     end
 
     module InstanceMethods
-      # Returns the session hash.
+      # Public: Returns the session hash.
       #
-      # ```
-      # session # => {}
+      # Examples
       #
-      # session[:foo] = "foo"
-      # session[:foo] # => "foo"
-      # ```
+      #   session # => {}
+      #
+      #   session[:foo] = "foo"
+      #   session[:foo] # => "foo"
       #
       def session
         return env["rack.session".freeze]

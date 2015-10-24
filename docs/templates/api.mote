@@ -2,13 +2,19 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>tynn | Tynn API Documentation</title>
+    <title>tynn | API Reference</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
     <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet">
     <link href="//fonts.googleapis.com/css?family=Roboto:400,500" rel="stylesheet">
     <link href="/css/styles.css" rel="stylesheet" media="screen">
     <link href="/css/highlight.css" rel="stylesheet" media="screen">
+
+    <style>
+      /* RDoc Stuff */
+      h3 span { display: none }
+      dt { font-weight: bold }
+    </style>
   </head>
   <body>
     <div class="container">
@@ -20,7 +26,7 @@
             <h3>API Reference</h3>
 
             <ul>
-              % classes.each do |klass|
+              % classes.reverse.each do |klass|
                 <li>
                   <a href="/api/{{ app.classfile(klass) }}">
                     {{ klass.full_name }}
@@ -39,6 +45,7 @@
             % next if visibilities.empty?
 
             % visibilities.each do |visibility, methods|
+              % methods = methods.select { |m| m.section.title != "Internal" }
               % next if methods.empty?
 
               <h2 id="{{ type }}-methods">
@@ -48,7 +55,7 @@
               % methods.each do |method|
                 % next if method.is_alias_for
 
-                <h3 id="{{ method.aref }}">
+                <h2 id="{{ method.aref }}">
                   <a href="#{{ method.aref }}">
                     % if method.call_seq
                       {{ method.call_seq.strip }}
@@ -56,7 +63,7 @@
                       {{ method.name }}{{ method.params }}
                     % end
                   </a>
-                </h3>
+                </h2>
 
                 % if method.comment
                   <p>{{ method.description.strip }}</p>

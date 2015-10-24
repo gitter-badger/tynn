@@ -1,42 +1,38 @@
 require_relative "secure_headers"
 
 class Tynn
-  # Adds security measures against common attacks.
+  # Public: Adds security measures against common attacks.
   #
-  # ```
-  # require "tynn"
-  # require "tynn/protection"
+  # Examples
   #
-  # Tynn.helpers(Tynn::Protection)
-  # ```
+  #   require "tynn"
+  #   require "tynn/protection"
+  #
+  #   Tynn.helpers(Tynn::Protection)
   #
   # If you are using SSL/TLS (HTTPS), it's recommended to set
-  # the `:ssl` option:
+  # the +:ssl+ option:
   #
-  # ```
-  # require "tynn"
-  # require "tynn/protection"
+  # Examples
   #
-  # Tynn.helpers(Tynn::Protection, ssl: true)
-  # ```
+  #   require "tynn"
+  #   require "tynn/protection"
+  #
+  #   Tynn.helpers(Tynn::Protection, ssl: true)
   #
   # By default, it includes the following security helpers:
   #
-  # * Tynn::SecureHeaders
+  # - Tynn::SecureHeaders
   #
-  # If the `:ssl` option is `true`, includes:
+  # If the +:ssl+ option is +true+, includes:
   #
-  # * Tynn::HSTS
-  # * Tynn::ForceSSL
+  # - Tynn::HSTS
   #
-  # You can disable TLS redirect by:
-  #
-  # ```
-  # Tynn.helpers(Tynn::Protection, ssl: true, force_ssl: false)
-  # ```
+  # - Tynn::ForceSSL
   #
   module Protection
-    def self.setup(app, ssl: false, force_ssl: ssl, hsts: {}) # :nodoc:
+    # Internal: Configures security related extensions.
+    def self.setup(app, ssl: false, force_ssl: ssl, hsts: {})
       app.helpers(Tynn::SecureHeaders)
 
       if ssl

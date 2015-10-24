@@ -36,15 +36,17 @@ class RDoc::Generator::Tynn
   public def class_dir; end # required by RDoc
 
   def merge_classes(classes)
-    classes.map { |c| merge_class(c, c.parent) }.compact
+    classes.reverse.map { |c| merge_class(c, c.parent) }.compact
   end
 
   def merge_class(c, parent)
     if c.name == "ClassMethods"
-      parent.class_method_list.concat(c.class_method_list)
+      method_list = c.instance_method_list
+      method_list.each { |m| m.singleton = true }
+      parent.method_list.concat(method_list)
       return
     elsif c.name == "InstanceMethods"
-      parent.instance_method_list.concat(c.instance_method_list)
+      parent.method_list.concat(c.instance_method_list)
       return
     else
       return c
@@ -62,6 +64,6 @@ rdoc = RDoc::RDoc.new
 
 rdoc.document([
   *ARGV,
-  "--markup", "markdown",
+  "--markup", "tomdoc",
   "-q", "-f", "tynn"
 ])
