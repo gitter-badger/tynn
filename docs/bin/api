@@ -24,11 +24,32 @@ class RDoc::Generator::Tynn
   end
 
   def generate
+    klasses = Hash.new do |h, k|
+      h[k] = {
+        self: nil,
+        class: [],
+        instance: []
+      }
+    end
+
     @classes.each do |klass|
-      output = LAYOUT.gsub(TITLE, klass.full_name)
+      case klass.name
+        when "ClassMethods"
+          klasses[klass.parent.full_name][:class].concat(klass.class_method_list)
+        when "InstanceMethods"
+          klasses[klass.parent.full_name][:instance].concat(klass.instance_method_list)
+        else
+          klasses[klass.full_name][:self] = klass
+          klasses[klass.full_name][:class] = klass.class_method_list
+          klasses[klass.full_name][:instance] = klass.instance_method_list
+      end
+    end
+
+    klasses.each do |full_name, klass|
+      output = LAYOUT.gsub(TITLE, full_name)
       output = output.gsub(CONTENT, render(klass))
 
-      File.write(classfile(klass), output)
+      File.write(classfile(full_name), output)
     end
   end
 
@@ -42,8 +63,8 @@ class RDoc::Generator::Tynn
     return @renderer ||= ERB.new(TEMPLATE)
   end
 
-  def classfile(klass)
-    return sprintf("%s.html", klass.full_name.gsub("::", "-"))
+  def classfile(full_name)
+    return sprintf("%s.html", full_name.gsub("::", "-"))
   end
 
   public def class_dir; end # required by RDoc
@@ -58,34 +79,31 @@ rdoc.document([
 ])
 
 __END__
-<h1><%= klass.full_name %></h1>
-<p><%= klass.description %></p>
+<h1><%= klass[:self].full_name %></h1>
+<p><%= klass[:self].description %></p>
 
-<% klass.methods_by_type.each do |type, visibilities| %>
-  <% next if visibilities.empty? %>
-  <% visibilities.each do |visibility, methods| %>
-    <% next if methods.empty? %>
+<% [:class, :instance].each do |type| %>
+  <% next if klass[type].empty? %>
 
-    <h2 id="<%= type %>-methods">
-      <%= type.capitalize %> methods:
-    </h2>
+  <h2 id="<%= type %>-methods">
+    <%= type.capitalize %> methods:
+  </h2>
 
-    <% methods.each do |method| %>
-      <% next if method.is_alias_for %>
+  <% klass[type].each do |method| %>
+    <% next if method.is_alias_for %>
 
-      <h3 id="<%= method.aref %>">
-        <a href="#<%= method.aref %>">
-          <% if method.call_seq %>
-            <%= method.call_seq.strip %>
-          <% else %>
-            <%= method.name %><%= method.params %>
-          <% end %>
-        </a>
-      </h3>
+    <h3 id="<%= method.aref %>">
+      <a href="#<%= method.aref %>">
+        <% if method.call_seq %>
+          <%= method.call_seq.strip %>
+        <% else %>
+          <%= method.name %><%= method.params %>
+        <% end %>
+      </a>
+    </h3>
 
-      <% if method.comment %>
-        <p><%= method.description.strip %></p>
-      <% end %>
+    <% if method.comment %>
+      <p><%= method.description.strip %></p>
     <% end %>
   <% end %>
 <% end %>

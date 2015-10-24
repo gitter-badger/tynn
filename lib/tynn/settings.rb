@@ -8,13 +8,13 @@ class Tynn
       hash.default_proc = default_proc
     end
 
-    module InstanceMethods
+    module InstanceMethods # :nodoc: all
       def settings
         return self.class.settings
       end
     end
 
-    module ClassMethods
+    module ClassMethods # :nodoc: all
       def inherited(subclass)
         subclass.settings.replace(Tynn::Settings.deepclone(settings))
         subclass.settings.default_proc = proc { |h, k| h[k] = settings[k] }
