@@ -24,7 +24,7 @@ class Tynn
       app.use(Tynn::ForceSSL::Middleware)
     end
 
-    class Middleware
+    class Middleware # :nodoc:
       def initialize(app)
         @app = app
       end
