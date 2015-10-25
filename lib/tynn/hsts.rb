@@ -1,8 +1,8 @@
 class Tynn
-  # Sets the +Strict-Transport-Security+ header. This ensures the browser
-  # never visits the http version of a website. This reduces the impact of
-  # leaking session data through cookies and external links, and defends
-  # against Man-in-the-middle attacks.
+  # Public: Sets the +Strict-Transport-Security+ header. This ensures the
+  # browser never visits the http version of a website. This reduces the
+  # impact of leaking session data through cookies and external links, and
+  # defends against Man-in-the-middle attacks.
   #
   # Examples
   #
