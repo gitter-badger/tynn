@@ -1,10 +1,30 @@
 class Tynn
+  # Public: HTTP requests are permanently redirected to their HTTPS
+  # counterparts.
+  #
+  # Examples
+  #
+  #   require "tynn"
+  #   require "tynn/force_ssl"
+  #   require "tynn/test"
+  #
+  #   Tynn.helpers(Tynn::ForceSSL)
+  #
+  #   Tynn.define { }
+  #
+  #   app = Tynn::Test.new
+  #   app.get("/", {}, "HTTP_HOST" => "tynn.ru")
+  #
+  #   app.res.headers["Location"]
+  #   # => "https://tynn.ru/"
+  #
   module ForceSSL
-    def self.setup(app) # :nodoc:
+    # Internal: Sets the HTTPS redirect middleware.
+    def self.setup(app)
       app.use(Tynn::ForceSSL::Middleware)
     end
 
-    class Middleware # :nodoc:
+    class Middleware
       def initialize(app)
         @app = app
       end
