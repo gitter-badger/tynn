@@ -4,8 +4,10 @@ require_relative "../lib/tynn"
 require_relative "../lib/tynn/render"
 require_relative "../lib/tynn/hmote"
 
+TEMPLATES = File.expand_path("../examples/views", __dir__)
+
 class TiltApp < Tynn
-  helpers(Tynn::Render, views: File.expand_path("../examples/views/erb", __dir__))
+  helpers(Tynn::Render, views: File.join(TEMPLATES, "erb"))
 
   define do
     root do
@@ -15,7 +17,7 @@ class TiltApp < Tynn
 end
 
 class HMoteApp < Tynn
-  helpers(Tynn::HMote, views: File.expand_path("../examples/views/hmote", __dir__))
+  helpers(Tynn::HMote, views: File.join(TEMPLATES, "hmote"))
 
   define do
     root do
