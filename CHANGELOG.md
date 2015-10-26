@@ -1,3 +1,16 @@
+unreleased
+----------
+
+- Remove `Tynn::Settings#settings`. Use the class method instead.
+
+  ```
+  # Before
+  settings[:default_headers] # => {}
+
+  # Now
+  self.class.settings[:default_headers] # => {}
+  ```
+
 1.0.0.rc3 (26-10-2015)
 ----------------------
 

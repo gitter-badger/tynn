@@ -111,7 +111,7 @@ class Tynn
   set(:default_headers, {})
 
   def default_headers # :nodoc:
-    return Hash[settings[:default_headers]]
+    return Hash[self.class.settings[:default_headers]]
   end
 
   def request_class # :nodoc:
