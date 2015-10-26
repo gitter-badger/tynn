@@ -36,4 +36,4 @@ License
 
 MIT
 
-[syro]: https://github.com/soveran/syro
+[syro]: http://soveran.github.io/syro/

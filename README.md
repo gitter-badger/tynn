@@ -48,6 +48,6 @@ Contributing
 You can install the gems globally, but we recommend [gs][gs] (or
 [gst][gst] if you're using chruby) to keep things isolated.
 
-[syro]: https://github.com/soveran/syro
+[syro]: http://soveran.github.io/syro/
 [gs]: https://github.com/soveran/gs
 [gst]: https://github.com/tonchis/gst
