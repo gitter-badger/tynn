@@ -31,7 +31,7 @@ class Tynn
   # - Tynn::ForceSSL
   #
   module Protection
-    # Internal: Configures security related extensions.
+    # Internal: Configures security related helpers.
     def self.setup(app, ssl: false, force_ssl: ssl, hsts: {})
       app.helpers(Tynn::SecureHeaders)
 

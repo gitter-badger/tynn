@@ -43,7 +43,7 @@ unreleased
 
 - Rename `Tynn::SSL` to `Tynn::ForceSSL`.
 
-- Add `Tynn::HSTS` extension. This allows advanced users to set the
+- Add `Tynn::HSTS` helper. This allows advanced users to set the
   `Strict-Transport-Security` header separately. This helper is still
   included if the `:ssl` option in `Tynn::Protection` is `true`.
 
@@ -65,7 +65,7 @@ unreleased
   API.set(:default_headers, "Content-Type" => "application/json")
   ```
 
-- Remove `Tynn::Erubis` extension. Use `Tynn::Render` instead.
+- Remove `Tynn::Erubis` helper. Use `Tynn::Render` instead.
 
   ```ruby
   require "erubis"
@@ -75,7 +75,7 @@ unreleased
   Tynn.helpers(Tynn::Render)
   ```
 
-- Add `Tynn:HMote` extension to render HMote templates.
+- Add `Tynn:HMote` helper to render HMote templates.
   It's [x2 faster][hmote-bench] than Erubis and Tilt.
 
   ```ruby
