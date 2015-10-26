@@ -1,5 +1,5 @@
-unreleased
-----------
+1.0.0.rc3 (26-10-2015)
+----------------------
 
 - `Tynn::helpers` only includes instance methods from `helper::InstanceMethods`.
 
@@ -90,7 +90,7 @@ unreleased
 [hmote-docs]: http://tynn.xyz/api/Tynn-HMote.html
 [hmote-bench]: https://github.com/frodsan/tynn/blob/master/benchmarks/render.rb
 
-1.0.0.rc2
----------
+1.0.0.rc2 (21-10-2015)
+----------------------
 
 - Public release.
