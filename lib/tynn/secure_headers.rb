@@ -28,7 +28,7 @@ class Tynn
   #
   # Enables the XSS protection filter built into IE, Chrome and Safari.
   # This filter is usually enabled by default, the use of this header
-  # is to re-enable it if it was disabled by the user.
+  # is to re-enable it if it was turned off by the user.
   #
   module SecureHeaders
     # Internal: Sets the default HTTP secure headers.
