@@ -10,7 +10,7 @@ class Tynn
   #
   module Matchers
     module InstanceMethods
-      # Public: A catch-all matcher.
+      # Public: A catch-all matcher. Always executes the given block.
       #
       # Examples
       #
@@ -24,15 +24,15 @@ class Tynn
       #     end
       #   end
       #
-      # :call-seq: default(&block)
-      #
       def default
         yield
 
         halt(res.finish)
       end
 
-      # Public: Match if the given +key+ is present in +req.params+.
+      # Public: Executes the given block if +key+ is present in +req.params+.
+      #
+      # key - Any object that responds to +to_s+.
       #
       # Examples
       #
@@ -44,11 +44,9 @@ class Tynn
       #     end
       #
       #     default do
-      #       res.write("missing user param")
+      #       res.write("missing [user] param")
       #     end
       #   end
-      #
-      # :call-seq: param(key, &block)
       #
       def param(key)
         if (v = req[key]) && !v.empty?

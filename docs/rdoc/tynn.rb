@@ -1,6 +1,84 @@
 class Tynn
   # The following methods are inherited by Syro:
 
+  # Public: Executes the given block if the request method is +GET+.
+  #
+  # Examples
+  #
+  #   get do
+  #     render("posts", posts: Post.all)
+  #   end
+  #
+  # Signature
+  #
+  #   get()
+  #
+  # Inherited by Syro::Deck::API.
+
+  # Public: Executes the given block if the request method is +POST+.
+  #
+  # Examples
+  #
+  #   post do
+  #     user = User.create(req[:user])
+  #
+  #     res.status = 201
+  #   end
+  #
+  # Signature
+  #
+  #   post()
+  #
+  # Inherited by Syro::Deck::API.
+
+  # Public: Executes the given block if the request method is +PATCH+.
+  #
+  # Examples
+  #
+  #   patch do
+  #     user.update(req[:user])
+  #
+  #     res.write(user.to_json)
+  #   end
+  #
+  # Signature
+  #
+  #   patch()
+  #
+  # Inherited by Syro::Deck::API.
+
+  # Public: Executes the given block if the request method is +PUT+.
+  #
+  # Examples
+  #
+  #   put do
+  #     user.update(req[:user])
+  #
+  #     res.write(user.to_json)
+  #   end
+  #
+  # Signature
+  #
+  #   put()
+  #
+  # Inherited by Syro::Deck::API.
+
+  # Public: Executes the given block if the request method is +DELETE+.
+  #
+  # Examples
+  #
+  #   delete do
+  #     user.delete
+  #
+  #     res.status = 204
+  #   end
+  #
+  # Signature
+  #
+  #   delete()
+  #
+  # Inherited by Syro::Deck::API.
+
   # Public: Immediately stops the request and returns +response+
   # as per Rack's specification.
   #

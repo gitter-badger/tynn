@@ -1,5 +1,5 @@
 class Tynn
-  # Public: Adds extra method matchers to Tynn.
+  # Public: Adds method for HTTP's +HEAD+ and +OPTIONS+.
   #
   # Examples
   #
@@ -10,7 +10,7 @@ class Tynn
   #
   module AllMethods
     module InstanceMethods
-      # Public: Yields if request method is +HEAD+.
+      # Public: Executes the given block if the request method is +HEAD+.
       #
       # Examples
       #
@@ -28,7 +28,7 @@ class Tynn
         end
       end
 
-      # Public: Yields if request method is +OPTIONS+.
+      # Public: Executes the given block if the request method is +OPTIONS+.
       #
       # Examples
       #
