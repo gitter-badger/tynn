@@ -32,6 +32,8 @@ Tynn.define do
 
     on(article.nil?) do
       res.status = 404
+
+      render("404")
     end
 
     get do
