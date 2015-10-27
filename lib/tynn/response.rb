@@ -133,9 +133,9 @@ class Tynn
     #   res["Location"] # => "/path"
     #   res.status      # => 302
     #
-    #   res.redirect("http://tynn.ru", 303)
+    #   res.redirect("http://tynn.xyz", 303)
     #
-    #   res["Location"] # => "http://tynn.ru"
+    #   res["Location"] # => "http://tynn.xyz"
     #   res.status      # => 303
     #
     # Signature

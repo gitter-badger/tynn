@@ -13,10 +13,10 @@ class Tynn
   #   Tynn.define { }
   #
   #   app = Tynn::Test.new
-  #   app.get("/", {}, "HTTP_HOST" => "tynn.ru")
+  #   app.get("/", {}, "HTTP_HOST" => "tynn.xyz")
   #
   #   app.res.headers["Location"]
-  #   # => "https://tynn.ru/"
+  #   # => "https://tynn.xyz/"
   #
   module ForceSSL
     # Internal: Sets the HTTPS redirect middleware.
