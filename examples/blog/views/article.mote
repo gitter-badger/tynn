@@ -1,0 +1,9 @@
+<h1>
+  <a href="/{{ article.slug }}">
+    {{ article.title }}
+  </a>
+</h1>
+
+<section>
+  {{! article.content }}
+</section>
