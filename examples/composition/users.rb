@@ -1,5 +1,3 @@
-require_relative "../lib/tynn"
-
 class Users < Tynn
 end
 
@@ -30,11 +28,3 @@ Users.define do
     end
   end
 end
-
-Tynn.define do
-  on("users") do
-    run(Users)
-  end
-end
-
-run(Tynn)
