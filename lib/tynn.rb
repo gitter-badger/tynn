@@ -7,31 +7,33 @@ require_relative "tynn/version"
 class Tynn
   include Syro::Deck::API
 
-  # Public: Extends Tynn functionality with the given +helper+ module.
+  # Public: Loads given +plugin+ into the application.
   #
   # Examples
   #
   #   require "tynn"
   #   require "tynn/protection"
+  #   require "tynn/session"
   #
-  #   Tynn.helpers(Tynn::Protection)
+  #   Tynn.plugin(Tynn::Protection)
+  #   Tynn.plugin(Tynn::Session, secret: "__a_random_secret_key")
   #
-  def self.helpers(helper, *args, &block)
-    if defined?(helper::InstanceMethods)
-      self.include(helper::InstanceMethods)
+  def self.plugin(plugin, *args, &block)
+    if defined?(plugin::InstanceMethods)
+      self.include(plugin::InstanceMethods)
     end
 
-    if defined?(helper::ClassMethods)
-      self.extend(helper::ClassMethods)
+    if defined?(plugin::ClassMethods)
+      self.extend(plugin::ClassMethods)
     end
 
-    if helper.respond_to?(:setup)
-      helper.setup(self, *args, &block)
+    if plugin.respond_to?(:setup)
+      plugin.setup(self, *args, &block)
     end
   end
 
-  # Internal: Default helpers.
-  helpers(Tynn::Settings)
+  # Internal: Default plugins.
+  plugin(Tynn::Settings)
 
   # Public: Sets the application handler.
   #
@@ -98,7 +100,7 @@ class Tynn
   #   require "tynn"
   #   require "tynn/environment"
   #
-  #   Tynn.helpers(Tynn::Environment)
+  #   Tynn.plugin(Tynn::Environment)
   #
   #   Tynn.set(:environment, :staging)
   #   Tynn.environment

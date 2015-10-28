@@ -3,11 +3,11 @@ require "tynn/environment"
 require "tynn/protection"
 require "tynn/session"
 
-Tynn.helpers(Tynn::Environment)
+Tynn.plugin(Tynn::Environment)
 
-Tynn.helpers(Tynn::Protection, ssl: Tynn.production?)
+Tynn.plugin(Tynn::Protection, ssl: Tynn.production?)
 
-Tynn.helpers(Tynn::Session, secret: ENV.fetch("SESSION_SECRET"))
+Tynn.plugin(Tynn::Session, secret: ENV.fetch("SESSION_SECRET"))
 
 Tynn.define do
   root do

@@ -4,7 +4,7 @@ require_relative "../lib/tynn/session"
 test "supports hsts options" do
   hsts = { expires: 100, subdomains: false, preload: true }
 
-  Tynn.helpers(Tynn::Protection, ssl: true, hsts: hsts)
+  Tynn.plugin(Tynn::Protection, ssl: true, hsts: hsts)
 
   Tynn.define do
   end
@@ -18,8 +18,8 @@ test "supports hsts options" do
 end
 
 test "adds secure flag to session cookie" do
-  Tynn.helpers(Tynn::Protection, ssl: true)
-  Tynn.helpers(Tynn::Session, secret: "_this_must_be_random_")
+  Tynn.plugin(Tynn::Protection, ssl: true)
+  Tynn.plugin(Tynn::Session, secret: "_this_must_be_random_")
 
   Tynn.define do
     root do

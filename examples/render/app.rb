@@ -2,7 +2,7 @@ require "erubis"
 require "tynn"
 require "tynn/render"
 
-Tynn.helpers(Tynn::Render, views: File.expand_path("views", __dir__))
+Tynn.plugin(Tynn::Render, views: File.expand_path("views", __dir__))
 
 Tynn.define do
   root do

@@ -1,7 +1,7 @@
 require "tynn"
 require "tynn/hmote"
 
-Tynn.helpers(Tynn::HMote, views: File.expand_path("views", __dir__))
+Tynn.plugin(Tynn::HMote, views: File.expand_path("views", __dir__))
 
 Tynn.define do
   root do

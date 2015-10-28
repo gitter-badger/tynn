@@ -1,7 +1,7 @@
 require_relative "../lib/tynn/secure_headers"
 
 test "secure headers" do
-  Tynn.helpers(Tynn::SecureHeaders)
+  Tynn.plugin(Tynn::SecureHeaders)
 
   Tynn.define do
     root do

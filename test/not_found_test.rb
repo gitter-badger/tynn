@@ -1,7 +1,7 @@
 require_relative "../lib/tynn/not_found"
 
 test "not found" do
-  Tynn.helpers(Tynn::NotFound)
+  Tynn.plugin(Tynn::NotFound)
 
   class Tynn
     def not_found

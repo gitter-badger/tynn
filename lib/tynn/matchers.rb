@@ -6,7 +6,7 @@ class Tynn
   #   require "tynn"
   #   require "tynn/matchers"
   #
-  #   Tynn.helpers(Tynn::Matchers)
+  #   Tynn.plugin(Tynn::Matchers)
   #
   module Matchers
     module InstanceMethods

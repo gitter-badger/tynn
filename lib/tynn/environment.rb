@@ -6,7 +6,7 @@ class Tynn
   #   require "tynn"
   #   require "tynn/environment"
   #
-  #   Tynn.helpers(Tynn::Environment)
+  #   Tynn.plugin(Tynn::Environment)
   #
   #   Tynn.environment  # => :development
   #
@@ -18,7 +18,7 @@ class Tynn
   #
   # Examples
   #
-  #   Tynn.helpers(Tynn::Environment, env: ENV["RACK_ENV"])
+  #   Tynn.plugin(Tynn::Environment, env: ENV["RACK_ENV"])
   #
   module Environment
     # Internal: Configures current environment.

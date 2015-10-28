@@ -5,7 +5,7 @@ It's easy to render templates. You can use [HMote][hmote]:
     require "tynn"
     require "tynn/hmote"
 
-    Tynn.helpers(Tynn::HMote)
+    Tynn.plugin(Tynn::HMote)
 
 Or your favorite template engine:
 
@@ -13,6 +13,6 @@ Or your favorite template engine:
     require "tynn"
     require "tynn/render"
 
-    Tynn.helpers(Tynn::Render)
+    Tynn.plugin(Tynn::Render)
 
 [hmote]: https://github.com/harmoni/hmote

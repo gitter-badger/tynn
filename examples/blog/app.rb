@@ -20,7 +20,7 @@ files.each do |file|
   articles << article
 end
 
-Tynn.helpers(Tynn::HMote, views: File.expand_path("views", __dir__))
+Tynn.plugin(Tynn::HMote, views: File.expand_path("views", __dir__))
 
 Tynn.define do
   get do

@@ -1,7 +1,7 @@
 require_relative "../lib/tynn/static"
 
 test "static" do
-  Tynn.helpers(Tynn::Static, %w(/test), root: Dir.pwd)
+  Tynn.plugin(Tynn::Static, %w(/test), root: Dir.pwd)
 
   Tynn.define do
   end

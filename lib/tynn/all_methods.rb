@@ -6,7 +6,7 @@ class Tynn
   #   require "tynn"
   #   require "tynn/all_methods"
   #
-  #   Tynn.helpers(Tynn::AllMethods)
+  #   Tynn.plugin(Tynn::AllMethods)
   #
   module AllMethods
     module InstanceMethods

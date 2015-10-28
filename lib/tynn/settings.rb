@@ -1,5 +1,5 @@
 class Tynn
-  # Public: It provides a settings API for applications. This helper is
+  # Public: It provides a settings API for applications. This plugin is
   # included by default.
   #
   # Examples
@@ -18,7 +18,7 @@ class Tynn
   #     end
   #   end
   #
-  #   Tynn.helpers(AppName, "MyApp")
+  #   Tynn.plugin(AppName, "MyApp")
   #
   #   Tynn.app_name
   #   # => "MyApp"

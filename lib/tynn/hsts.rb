@@ -9,7 +9,7 @@ class Tynn
   #   require "tynn"
   #   require "tynn/hsts"
   #
-  #   Tynn.helpers(Tynn::HSTS)
+  #   Tynn.plugin(Tynn::HSTS)
   #
   #   Tynn.define { }
   #
@@ -33,7 +33,7 @@ class Tynn
   #
   # Examples
   #
-  #   Tynn.helpers(
+  #   Tynn.plugin(
   #     Tynn::HSTS,
   #     expires: 31_536_000,
   #     includeSubdomains: true,
@@ -49,7 +49,7 @@ class Tynn
   #
   # Examples
   #
-  #   Tynn.helpers(Tynn::HSTS, expires: 0)
+  #   Tynn.plugin(Tynn::HSTS, expires: 0)
   #
   module HSTS
     # Internal: Sets the HSTS header as a default header.

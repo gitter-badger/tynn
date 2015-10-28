@@ -2,7 +2,7 @@ require "erubis"
 require_relative "../lib/tynn/render"
 
 setup do
-  Tynn.helpers(Tynn::Render, views: File.expand_path("./test/views"))
+  Tynn.plugin(Tynn::Render, views: File.expand_path("./test/views"))
 
   Tynn::Test.new
 end

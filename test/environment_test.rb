@@ -4,7 +4,7 @@ test "use RACK_ENV by default" do
   begin
     old, ENV["RACK_ENV"] = ENV["RACK_ENV"], "production"
 
-    Tynn.helpers(Tynn::Environment)
+    Tynn.plugin(Tynn::Environment)
 
     assert_equal(:production, Tynn.environment)
 
@@ -18,7 +18,7 @@ test "use RACK_ENV by default" do
 end
 
 test "use custom value" do
-  Tynn.helpers(Tynn::Environment, env: "development")
+  Tynn.plugin(Tynn::Environment, env: "development")
 
   assert_equal(:development, Tynn.environment)
   assert Tynn.development?

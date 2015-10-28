@@ -8,7 +8,7 @@ class Tynn
   #   require "tynn/force_ssl"
   #   require "tynn/test"
   #
-  #   Tynn.helpers(Tynn::ForceSSL)
+  #   Tynn.plugin(Tynn::ForceSSL)
   #
   #   Tynn.define { }
   #

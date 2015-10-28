@@ -1,7 +1,7 @@
 require_relative "../lib/tynn/json"
 
 test "json" do
-  Tynn.helpers(Tynn::JSON)
+  Tynn.plugin(Tynn::JSON)
 
   Tynn.define do
     root do

@@ -1,7 +1,7 @@
 require_relative "../lib/tynn/matchers"
 
 setup do
-  Tynn.helpers(Tynn::Matchers)
+  Tynn.plugin(Tynn::Matchers)
 
   Tynn::Test.new
 end

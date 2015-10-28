@@ -8,7 +8,7 @@ class Tynn
   #   require "tynn"
   #   require "tynn/json"
   #
-  #   Tynn.helpers(Tynn::JSON)
+  #   Tynn.plugin(Tynn::JSON)
   #
   module JSON
     CONTENT_TYPE = "application/json".freeze

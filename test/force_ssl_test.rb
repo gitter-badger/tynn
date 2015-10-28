@@ -5,7 +5,7 @@ setup do
 end
 
 test "redirects to https" do |app|
-  Tynn.helpers(Tynn::ForceSSL)
+  Tynn.plugin(Tynn::ForceSSL)
 
   Tynn.define do
   end
@@ -17,7 +17,7 @@ test "redirects to https" do |app|
 end
 
 test "https request" do |app|
-  Tynn.helpers(Tynn::ForceSSL)
+  Tynn.plugin(Tynn::ForceSSL)
 
   Tynn.define do
     root do

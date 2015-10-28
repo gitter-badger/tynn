@@ -1,7 +1,7 @@
 require_relative "../lib/tynn/hmote"
 
 setup do
-  Tynn.helpers(Tynn::HMote, views: File.expand_path("./test/views"))
+  Tynn.plugin(Tynn::HMote, views: File.expand_path("./test/views"))
 
   Tynn::Test.new
 end

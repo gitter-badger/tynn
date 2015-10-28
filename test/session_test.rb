@@ -2,7 +2,7 @@ require "securerandom"
 require_relative "../lib/tynn/session"
 
 test "session" do
-  Tynn.helpers(Tynn::Session, secret: SecureRandom.hex(64))
+  Tynn.plugin(Tynn::Session, secret: SecureRandom.hex(64))
 
   Tynn.define do
     root do

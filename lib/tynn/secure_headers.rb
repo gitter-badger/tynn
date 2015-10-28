@@ -6,9 +6,9 @@ class Tynn
   #   require "tynn"
   #   require "tynn/secure_headers"
   #
-  #   Tynn.helpers(Tynn::SecureHeaders)
+  #   Tynn.plugin(Tynn::SecureHeaders)
   #
-  # This helper applies the following headers:
+  # This plugin applies the following headers:
   #
   # *X-Content-Type-Options:* <tt>"nosniff"</tt>
   #

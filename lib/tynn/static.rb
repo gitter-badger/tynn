@@ -7,7 +7,7 @@ class Tynn
   #   require "tynn"
   #   require "tynn/static"
   #
-  #   Tynn.helpers(Tynn::Static, ["/js", "/css"])
+  #   Tynn.plugin(Tynn::Static, ["/js", "/css"])
   #
   # By default, serves all requests beginning with the given paths from
   # the folder +public+ in the current directory (e.g. +public/js/*+,
@@ -16,7 +16,7 @@ class Tynn
   #
   # Examples
   #
-  #   Tynn.helpers(Tynn::Static, ["/js", "/css"], root: "assets")
+  #   Tynn.plugin(Tynn::Static, ["/js", "/css"], root: "assets")
   #
   # Under the hood, it uses the +Rack::Static+ middleware. Thus,
   # supports all the options available by the middleware. Check
@@ -25,7 +25,7 @@ class Tynn
   #
   # Examples
   #
-  #   Tynn.helpers(Tynn::Static, ["/js", "/css"], index: "index.html")
+  #   Tynn.plugin(Tynn::Static, ["/js", "/css"], index: "index.html")
   #
   module Static
     # Internal: Configures Rack::Static middleware.

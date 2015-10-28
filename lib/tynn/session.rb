@@ -7,7 +7,7 @@ class Tynn
   #   require "tynn"
   #   require "tynn/session"
   #
-  #   Tynn.helpers(Tynn::Session, secret: "__change_me__")
+  #   Tynn.plugin(Tynn::Session, secret: "__change_me__")
   #
   #   Tynn.define do
   #     root do
@@ -30,7 +30,7 @@ class Tynn
   #
   # Examples
   #
-  #   Tynn.helpers(Tynn::Session, secret: ENV["SESSION_SECRET"])
+  #   Tynn.plugin(Tynn::Session, secret: ENV["SESSION_SECRET"])
   #
   # Under the hood, Tynn::Session uses the +Rack::Session::Cookie+ middleware.
   # Thus, supports all the options available for this middleware:
@@ -50,7 +50,7 @@ class Tynn
   #
   # Examples
   #
-  #   Tynn.helpers(
+  #   Tynn.plugin(
   #     Tynn::Session,
   #     key: "app",
   #     secret: ENV["SESSION_SECRET"],

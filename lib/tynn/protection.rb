@@ -8,7 +8,7 @@ class Tynn
   #   require "tynn"
   #   require "tynn/protection"
   #
-  #   Tynn.helpers(Tynn::Protection)
+  #   Tynn.plugin(Tynn::Protection)
   #
   # If you are using SSL/TLS (HTTPS), it's recommended to set
   # the +:ssl+ option:
@@ -18,9 +18,9 @@ class Tynn
   #   require "tynn"
   #   require "tynn/protection"
   #
-  #   Tynn.helpers(Tynn::Protection, ssl: true)
+  #   Tynn.plugin(Tynn::Protection, ssl: true)
   #
-  # By default, it includes the following security helpers:
+  # By default, it includes the following security plugins:
   #
   # - Tynn::SecureHeaders
   #
@@ -31,22 +31,22 @@ class Tynn
   # - Tynn::ForceSSL
   #
   module Protection
-    # Internal: Configures security related helpers.
+    # Internal: Configures security related plugins.
     def self.setup(app, ssl: false, force_ssl: ssl, hsts: {})
-      app.helpers(Tynn::SecureHeaders)
+      app.plugin(Tynn::SecureHeaders)
 
       if ssl
         app.settings[:ssl] = true
 
         require_relative "hsts"
 
-        app.helpers(Tynn::HSTS, hsts)
+        app.plugin(Tynn::HSTS, hsts)
       end
 
       if force_ssl
         require_relative "force_ssl"
 
-        app.helpers(Tynn::ForceSSL)
+        app.plugin(Tynn::ForceSSL)
       end
     end
   end

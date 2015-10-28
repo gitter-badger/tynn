@@ -1,6 +1,6 @@
 require_relative "../lib/tynn/all_methods"
 
-Tynn.helpers(Tynn::AllMethods)
+Tynn.plugin(Tynn::AllMethods)
 
 test "methods" do
   [:head, :options].each do |method|

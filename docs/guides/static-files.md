@@ -7,14 +7,14 @@ images, CSS, JavaScript and others.
 require "tynn"
 require "tynn/static"
 
-Tynn.helpers(Tynn::Static, ["/js", "/css", "/images"])
+Tynn.plugin(Tynn::Static, ["/js", "/css", "/images"])
 ```
 
 By default, static files are served from the folder `public` in the current
 directory. You can specify a different location by passing the `:root` option:
 
 ```ruby
-Tynn.helpers(Tynn::Static, ["/js", "/css", "/images"], root: "assets")
+Tynn.plugin(Tynn::Static, ["/js", "/css", "/images"], root: "assets")
 ```
 
 As you can see in the table below, the name of static directory is not
@@ -33,7 +33,7 @@ relative to the directory where you run the application. If you run the
 application from another directory, it's safer to use an absolute path:
 
 ```ruby
-Tynn.helpers(
+Tynn.plugin(
   Tynn::Static,
   ["/js", "/css", "/images"],
   root: File.expand_path("public", __dir__)
