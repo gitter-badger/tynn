@@ -1,5 +1,5 @@
-unreleased
-----------
+1.0.0 (28-10-2015)
+------------------
 
 - Remove `Tynn::Settings#settings`. Use the class method instead.
 
