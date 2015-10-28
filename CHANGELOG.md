@@ -3,7 +3,7 @@
 
 - Remove `Tynn::Settings#settings`. Use the class method instead.
 
-  ```
+  ```ruby
   # Before
   settings[:default_headers] # => {}
 
