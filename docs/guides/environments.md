@@ -13,8 +13,8 @@ Tynn.environment
 # => :development
 ```
 
-By default, the environment is `:development`, but can be changed through
-the `RACK_ENV` environment variable.
+The default value is `:development`. You can change it through the
+`RACK_ENV` environment variable.
 
 ```ruby
 ENV["RACK_ENV"].to_sym
@@ -24,8 +24,8 @@ Tynn.environment
 # => :test
 ```
 
-You can use the helper methods: `development?`, `test?` and `production?`
-to check the current environment.
+You can use `development?`, `test?` and `production?` to check the current
+environment.
 
 ```ruby
 Tynn.plugin(Tynn::Protection, ssl: Tynn.production?)
