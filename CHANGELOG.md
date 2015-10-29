@@ -1,3 +1,19 @@
+unreleased
+----------
+
+- Rename `Tynn::helpers` to `Tynn::plugin`.
+
+  ```ruby
+  # Before
+  Tynn.helpers(Tynn::Session, secret: "x")
+
+  # Now
+  Tynn.plugin(Tynn::Session, secret: "x")
+  ```
+
+  The intention is to avoid confusion between the default plugins
+  and our application helpers.
+
 1.0.0 (28-10-2015)
 ------------------
 
