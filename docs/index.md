@@ -1,6 +1,6 @@
 <h1 style="display: none">A thin library for web development.</h1>
 
-tynn [![Build Status](https://travis-ci.org/frodsan/tynn.svg)](https://travis-ci.org/frodsan/tynn) [![Code Climate](https://codeclimate.com/github/frodsan/tynn/badges/gpa.svg)](https://codeclimate.com/github/frodsan/tynn)
+tynn [![Build Status](https://travis-ci.org/frodsan/tynn.svg)](https://travis-ci.org/frodsan/tynn)
 ====
 
 A thin library for web development.
