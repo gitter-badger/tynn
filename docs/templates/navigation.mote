@@ -20,14 +20,20 @@
     <h3>Guides</h3>
     <ul>
       <li>
-        <a href="/guides/static-files.html">
-          Serving Static Files
+        <a href="/guides/environments.html">
+          Environments
         </a>
       </li>
 
       <li>
-        <a href="/guides/managing-dependencies.html">
-          Managing Dependencies
+        <a href="/guides/static-files.html">
+          Static Files
+        </a>
+      </li>
+
+      <li>
+        <a href="/guides/dependency-management.html">
+          Dependency Management
         </a>
       </li>
     </ul>

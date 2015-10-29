@@ -14,7 +14,7 @@ class Tynn
   #   Tynn.production?  # => false
   #   Tynn.test?        # => false
   #
-  # By default, the environment is based on `ENV["RACK_ENV"]`.
+  # By default, the environment is based on <tt>ENV["RACK_ENV"]</tt>.
   #
   # Examples
   #

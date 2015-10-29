@@ -1,4 +1,4 @@
-# Serving Static Files
+# Static Files
 
 Tynn ships with [Tynn::Static][static] to serve static files such as
 images, CSS, JavaScript and others.
