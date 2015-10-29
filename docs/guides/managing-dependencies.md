@@ -36,7 +36,7 @@ Update the contents of the `Gemfile` with your project dependencies:
 ```ruby
 source "https://rubygems.org"
 
-gem "tynn", "1.0.0"
+gem "tynn", "1.1.0"
 ```
 
 Install all dependencies with:
@@ -91,7 +91,7 @@ This fetches the latest version of the gem and adds it to yours `.gems` file.
 
 ```no-highlight
 $ cat .gems
-tynn -v 1.0.0
+tynn -v 1.1.0
 ```
 
 To install the listed gems in the `.gs` folder, do:

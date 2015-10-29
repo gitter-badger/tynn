@@ -1,5 +1,5 @@
-unreleased
-----------
+1.1.0 (29-10-2015)
+------------------
 
 - Rename `Tynn::helpers` to `Tynn::plugin`.
 
