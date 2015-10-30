@@ -1,5 +1,5 @@
-unreleased
-----------
+1.2.0 (30-10-2015)
+------------------
 
 - Remove `rack-test` dependency from `Tynn::Test`.
 
