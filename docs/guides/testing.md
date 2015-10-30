@@ -10,41 +10,40 @@ $ gem install rack-test
 ```
 
 [Tynn::Test][tynn-test] is test-framework agnostic. The following example
-uses Minitest:
+uses [Cutest][cutest]:
 
 ```ruby
-require "minitest/autorun"
+require "cutest"
 require "tynn/test"
 
-class RoutesTest < Minitest::Test
-  def setup
-    @app = Tynn::Test.new
-  end
+setup
+  @app = Tynn::Test.new
+end
 
-  def test_home
-    @app.get("/")
+test "home" do
+  @app.get("/")
 
-    assert_equal 200, app.res.status
-    assert_equal "Hello World!", app.res.body
-  end
+  assert_equal 200, app.res.status
+  assert_equal "Hello World!", app.res.body
+end
 
-  def test_signup
-    @app.post("/signup", username: "bob", password: "secret")
+test "signup" do
+  @app.post("/signup", username: "bob", password: "secret")
 
-    assert_equal 201, app.res.status
-  end
+  assert_equal 201, app.res.status
+end
 
-  def test_auth
-    @app.authorize("username", "password")
+test "auth" do
+  @app.authorize("username", "password")
 
-    @app.get("/")
+  @app.get("/")
 
-    assert_equal "Welcome back!", app.res.body
-  end
+  assert_equal "Welcome back!", app.res.body
 end
 ```
 
 Check [Rack::Test][rack-test] for more information about usage.
 
+[cutest]: https://github.com/djanowski/cutest
 [rack-test]: https://github.com/brynary/rack-test
 [tynn-test]: /api/Tynn-Test.html
