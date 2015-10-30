@@ -33,6 +33,10 @@ pre code {
 
 .ruby .hljs-constant,
 .ruby .hljs-keyword,
+.ruby .hljs-symbol,
+.ruby .hljs-title,
+.ruby .hljs-parent,
+.ruby .hljs-inheritance,
 .ruby-constant,
 .ruby-keyword,
 .ruby-operator {
@@ -40,6 +44,7 @@ pre code {
 }
 
 .ruby .hljs-string,
+.ruby .hljs-number,
 .ruby-string,
 .ruby-value {
   color: #0091ea;

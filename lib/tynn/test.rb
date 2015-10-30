@@ -20,7 +20,7 @@ class Tynn
   #   200   == app.res.status # => true
   #   "hei" == app.res.body   # => true
   #
-  # In order to use this plugin, you need to install
+  # To use this plugin, you need to install
   # {rack-test}[https://rubygems.org/gems/rack-test].
   #
   class Test
