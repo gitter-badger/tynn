@@ -29,20 +29,10 @@ a `Gemfile` is included for Bundler users.
 [gs]: https://github.com/soveran/gs
 [gst]: https://github.com/tonchis/gst
 
-Reporting an Issue
-------------------
+Issues / Patches
+----------------
 
-If you've found a problem in Tynn, open a new issue on [GitHub][issues].
-
-[issues]: https://github.com/frodsan/tynn/issues
-
-Submitting Patches
-------------------
-
-Open a [pull request][pulls] explaining the proposed change. For new
-features, it's important to explain the use case, we want to keep the
-code base simple. In some cases, the result could be a creation of another
-tool.
+Check <http://tynn.xyz/development.html> for more information.
 
 Last words
 ----------
