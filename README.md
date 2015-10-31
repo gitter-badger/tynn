@@ -34,11 +34,17 @@ Documentation
 
 See our website: <http://tynn.xyz/>.
 
+Contributing
+------------
+
+Please see the [CONTRIBUTING][contributing] file for more information.
+
 License
 -------
 
 Tynn is released under the [MIT License][mit].
 
+[contributing]: https://github.com/frodsan/tynn/blob/master/CONTRIBUTING.md
 [mit]: http://www.opensource.org/licenses/MIT
 [start]: http://tynn.xyz/getting-started.html
 [syro]: http://soveran.github.io/syro/
