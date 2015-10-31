@@ -84,7 +84,8 @@ class Tynn
     end
   end
 
-  def self.__middleware # :nodoc:
+  # Internal: Returns middleware stack.
+  def self.__middleware
     return @middleware ||= []
   end
 
