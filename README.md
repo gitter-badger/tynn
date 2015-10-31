@@ -27,27 +27,13 @@ end
 run(Tynn)
 ```
 
-You can run `rackup` and open <http://localhost:9292/> to see the greeting
-message.
+Check [Getting Started][start] for more information.
 
-Installation
-------------
+License
+-------
 
-```
-$ gem install tynn
-```
+Tynn is released under the [MIT License][mit].
 
-Contributing
-------------
-
-- Fork the project.
-- Use `make install` to install dependencies.
-- Use `make test` to run the test suite.
-- Create a pull request with your changes.
-
-You can install the gems globally, but we recommend [gs][gs] (or
-[gst][gst] if you're using chruby) to keep things isolated.
-
+[mit]: http://www.opensource.org/licenses/MIT
+[start]: http://tynn.xyz/getting-started.html
 [syro]: http://soveran.github.io/syro/
-[gs]: https://github.com/soveran/gs
-[gst]: https://github.com/tonchis/gst

@@ -29,6 +29,7 @@ end
 run(Tynn)
 ```
 
-Check [Getting Started](/getting-started.html) for more information.
+Check [Getting Started][start] for more information.
 
+[start]: http://tynn.xyz/getting-started.html
 [syro]: http://soveran.github.io/syro/
