@@ -29,6 +29,11 @@ run(Tynn)
 
 Check [Getting Started][start] for more information.
 
+Documentation
+-------------
+
+See our website: <http://tynn.xyz/>.
+
 License
 -------
 
