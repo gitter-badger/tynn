@@ -60,6 +60,12 @@
     <h3>Community</h3>
     <ul>
       <li>
+        <a href="/development.html">
+          Development
+        </a>
+      </li>
+
+      <li>
         <a href="/support.html">
           Support
         </a>

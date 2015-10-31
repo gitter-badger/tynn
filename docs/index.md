@@ -31,9 +31,4 @@ run(Tynn)
 
 Check [Getting Started](/getting-started.html) for more information.
 
-License
--------
-
-MIT
-
 [syro]: http://soveran.github.io/syro/
