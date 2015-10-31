@@ -20,12 +20,6 @@
     <h3>Guides</h3>
     <ul>
       <li>
-        <a href="/guides/dependency-management.html">
-          Dependency Management
-        </a>
-      </li>
-
-      <li>
         <a href="/guides/environments.html">
           Environments
         </a>
@@ -59,7 +53,7 @@
           API Reference
         </a>
       </li>
-    </u>
+    </ul>
   </div>
 
   <div class="nav-docs-section">
