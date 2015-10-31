@@ -47,6 +47,6 @@ tool.
 Last words
 ----------
 
-Thank YOU! :heart: :heart: :heart: :heart: :heart: :heart: :heart: :heart: :heart: :heart: :heart: :heart:
+Thank YOU! :heart: :heart: :heart:
 
 [pulls]: https://github.com/frodsan/tynn/pulls
