@@ -32,7 +32,7 @@ a `Gemfile` is included for Bundler users.
 Issues / Patches
 ----------------
 
-Check <http://tynn.xyz/development.html> for more information.
+Please, review <http://tynn.xyz/development.html>.
 
 Last words
 ----------
