@@ -44,6 +44,9 @@ features, it's important to explain the use case, we want to keep the
 code base simple. In some cases, the result could be a creation of another
 tool.
 
-Thanks!
+Last words
+----------
+
+Thank YOU! :heart: :heart: :heart: :heart: :heart: :heart: :heart: :heart: :heart: :heart: :heart: :heart:
 
 [pulls]: https://github.com/frodsan/tynn/pulls
