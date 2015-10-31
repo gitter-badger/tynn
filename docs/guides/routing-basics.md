@@ -1,4 +1,6 @@
-# Halting
+# Routing Basics
+
+## Halting
 
 To immediately stop a request within a route, you
 can use [Tynn#halt][halt]:

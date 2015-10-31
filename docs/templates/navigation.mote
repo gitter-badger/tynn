@@ -20,14 +20,14 @@
     <h3>Guides</h3>
     <ul>
       <li>
-        <a href="/guides/environments.html">
-          Environments
+        <a href="/guides/routing-basics.html">
+          Routing Basics
         </a>
       </li>
 
       <li>
-        <a href="/guides/halting.html">
-          Halting
+        <a href="/guides/environments.html">
+          Environments
         </a>
       </li>
 
