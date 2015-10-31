@@ -32,6 +32,12 @@
       </li>
 
       <li>
+        <a href="/guides/halting.html">
+          Halting
+        </a>
+      </li>
+
+      <li>
         <a href="/guides/static-files.html">
           Static Files
         </a>
