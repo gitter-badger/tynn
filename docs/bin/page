@@ -10,7 +10,7 @@ class Page
 
   def initialize(file, output)
     @content = File.read(file)
-    @filename = File.basename(file).sub(/\.\w+/, ".html")
+    @filename = File.basename(file, ".md")
     @output = output
   end
 
@@ -41,7 +41,7 @@ class Page
   end
 
   def write(content)
-    File.write(File.join(@output, @filename), content)
+    File.write(File.join(@output, "#{ @filename }.html"), content)
   end
 end
 
