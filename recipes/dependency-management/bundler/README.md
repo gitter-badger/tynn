@@ -19,7 +19,7 @@ Update the contents of the `Gemfile` with your project dependencies:
 ```ruby
 source "https://rubygems.org"
 
-gem "tynn", "1.1.0"
+gem "tynn", "1.2.0"
 ```
 
 Install all dependencies with:
