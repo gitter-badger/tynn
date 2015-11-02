@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Tynn Recipes | Bundler</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet">
+    <link href="//fonts.googleapis.com/css?family=Roboto:400,500" rel="stylesheet">
+    <link href="/css/styles.css" rel="stylesheet" media="screen">
+    <link href="/css/highlight.css" rel="stylesheet" media="screen">
+  </head>
+  <body>
+    <div class="container">
+      <header>
+  <div class="wrap">
+    <a class="nav-home" href="/">TYNN</a>
+    <a class="nav-github" href="https://github.com/frodsan/tynn">
+      <i class="fa fa-github"></i>
+    </a>
+  </div>
+</header>
+
+
+      <section class="content wrap">
+        <div class="nav-docs">
+  <div class="nav-docs-section">
+    <h3>Start</h3>
+    <ul>
+      <li>
+        <a href="/recipes">
+          Introduction
+        </a>
+      </li>
+    </ul>
+  </div>
+
+  <div class="nav-docs-section">
+    <h3>Dependency Management</h3>
+    <ul>
+      <li>
+        <a href="/recipes/dependency-management">
+          RubyGems
+        </a>
+      </li>
+
+      <li>
+        <a href="/recipes/dependency-management/bundler">
+          Bundler
+        </a>
+      </li>
+
+      <li>
+        <a href="/recipes/dependency-management/gs-dep">
+          Gs + Dep
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+
+        <div class="inner-content">
+          <h1 id="bundler">Bundler</h1>
+
+<p><a href="http://bundler.io/">Bundler</a> is the most popular tool to manage dependencies. To get
+started, open a terminal window and run:</p>
+
+<pre><code class="no-highlight">$ gem install bundler
+</code></pre>
+
+<p>Create a <code>Gemfile</code> in your project&#39;s root directory. You can generate
+one with:</p>
+
+<pre><code class="no-highlight">$ bundle init
+</code></pre>
+
+<p>Update the contents of the <code>Gemfile</code> with your project dependencies:</p>
+
+<pre><code class="ruby">source &quot;https://rubygems.org&quot;
+
+gem &quot;tynn&quot;, &quot;1.2.0&quot;
+</code></pre>
+
+<p>Install all dependencies with:</p>
+
+<pre><code class="no-highlight">$ bundle install
+</code></pre>
+
+<p>Bundler still installs all the gems globally, so you need to load
+your bundled environment before the gems are required.</p>
+
+<pre><code class="ruby">require &quot;bundler/setup&quot;
+require &quot;tynn&quot;
+</code></pre>
+
+<p>Check <a href="http://bundler.io/">Bundler&#39;s homepage</a> for more information.</p>
+
+        </div>
+      </section>
+    </div>
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.1/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </body>
+</html>

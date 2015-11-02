@@ -1,4 +1,4 @@
-## Bundler
+# Bundler
 
 [Bundler][bundler] is the most popular tool to manage dependencies. To get
 started, open a terminal window and run:

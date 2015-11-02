@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Tynn Recipes | gs + dep</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet">
+    <link href="//fonts.googleapis.com/css?family=Roboto:400,500" rel="stylesheet">
+    <link href="/css/styles.css" rel="stylesheet" media="screen">
+    <link href="/css/highlight.css" rel="stylesheet" media="screen">
+  </head>
+  <body>
+    <div class="container">
+      <header>
+  <div class="wrap">
+    <a class="nav-home" href="/">TYNN</a>
+    <a class="nav-github" href="https://github.com/frodsan/tynn">
+      <i class="fa fa-github"></i>
+    </a>
+  </div>
+</header>
+
+
+      <section class="content wrap">
+        <div class="nav-docs">
+  <div class="nav-docs-section">
+    <h3>Start</h3>
+    <ul>
+      <li>
+        <a href="/recipes">
+          Introduction
+        </a>
+      </li>
+    </ul>
+  </div>
+
+  <div class="nav-docs-section">
+    <h3>Dependency Management</h3>
+    <ul>
+      <li>
+        <a href="/recipes/dependency-management">
+          RubyGems
+        </a>
+      </li>
+
+      <li>
+        <a href="/recipes/dependency-management/bundler">
+          Bundler
+        </a>
+      </li>
+
+      <li>
+        <a href="/recipes/dependency-management/gs-dep">
+          Gs + Dep
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+
+        <div class="inner-content">
+          <h1 id="gs-dep">gs + dep</h1>
+
+<p>With <a href="https://github.com/soveran/gs">gs</a> you can create a gemset for each project. A gemset is an
+isolated space to install gems. By providing each project with its own
+gemset, you can be sure that the right version of a gem is loaded.</p>
+
+<p>To install gs, do:</p>
+
+<pre><code class="no-highlight">$ gem install gs
+</code></pre>
+
+<p>Creating a new gemset is as easy as typing:</p>
+
+<pre><code class="no-highlight">$ gs init
+</code></pre>
+
+<p>This command creates a directory <code>.gs</code> and starts a shell session. In this
+session, all gems will be installed locally in the <code>.gs</code> folder.</p>
+
+<p>Now that we created a gemset, you can use <a href="https://github.com/cyx/dep">dep</a> to keep track of the
+project dependencies. dep uses a <code>.gems</code> file to list the required gems with
+their version number. This file will be created automatically the first time
+you add a gem to the list.</p>
+
+<p>To add tynn to this list, use:</p>
+
+<pre><code class="no-highlight">$ dep add tynn
+</code></pre>
+
+<p>This fetches the latest version of the gem and adds it to yours <code>.gems</code> file.</p>
+
+<pre><code class="no-highlight">$ cat .gems
+tynn -v 1.2.0
+</code></pre>
+
+<p>To install the listed gems in the <code>.gs</code> folder, do:</p>
+
+<pre><code class="no-highlight">$ dep install
+</code></pre>
+
+<p>To check that they&#39;re installed, use:</p>
+
+<pre><code class="no-highlight">$ dep
+dep: all cool
+</code></pre>
+
+<p>If all is cool, you&#39;re good to go!</p>
+
+        </div>
+      </section>
+    </div>
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.1/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </body>
+</html>

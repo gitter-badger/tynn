@@ -78,6 +78,12 @@
       </li>
 
       <li>
+        <a href="/recipes">
+          Recipes
+        </a>
+      </li>
+
+      <li>
         <a href="/examples.html">
           Examples
         </a>

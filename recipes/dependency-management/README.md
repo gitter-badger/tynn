@@ -1,4 +1,4 @@
-# Dependency Management
+# RubyGems
 
 In every web application, there are common tasks that you need to perform.
 Libraries are useful for not reinventing the wheel, and in Ruby they are
