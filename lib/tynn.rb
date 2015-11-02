@@ -69,7 +69,7 @@ class Tynn
   #   Tynn.use(Rack::ShowExceptions)
   #
   def self.use(middleware, *args, &block)
-    __middleware << proc { |app| middleware.new(app, *args, &block) }
+    self.middleware << proc { |app| middleware.new(app, *args, &block) }
   end
 
   def self.call(env) # :nodoc:
@@ -77,15 +77,15 @@ class Tynn
   end
 
   def self.build_app(syro) # :nodoc:
-    if __middleware.empty?
+    if middleware.empty?
       @app = syro
     else
-      @app = __middleware.reverse.inject(syro) { |a, m| m.call(a) }
+      @app = middleware.reverse.inject(syro) { |a, m| m.call(a) }
     end
   end
 
   # Internal: Returns middleware stack.
-  def self.__middleware
+  def self.middleware
     return @middleware ||= []
   end
 
