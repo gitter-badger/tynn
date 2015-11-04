@@ -78,7 +78,7 @@ class Tynn
       #   session[:foo] # => "foo"
       #
       def session
-        return env["rack.session".freeze]
+        return req.session
       end
     end
   end
