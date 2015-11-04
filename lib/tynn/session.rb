@@ -62,9 +62,11 @@ class Tynn
   module Session
     # Internal: Configures Rack::Session::Cookie middleware.
     def self.setup(app, options = {})
-      defaults = { secure: app.settings[:ssl] }
+      if app.settings[:ssl]
+        options = { secure: true }.merge(options)
+      end
 
-      app.use(Rack::Session::Cookie, defaults.merge(options))
+      app.use(Rack::Session::Cookie, options)
     end
 
     module InstanceMethods
