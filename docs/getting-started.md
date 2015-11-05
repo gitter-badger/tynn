@@ -9,7 +9,7 @@ $ gem install tynn-generator
 
 Now, create a minimal application with:
 
-```ruby
+```no-highlight
 $ tynn myapp
    create : myapp
    create : myapp/app.rb
