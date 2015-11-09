@@ -8,7 +8,6 @@ Tynn ships with a set of default plugins. Here is a complete list:
 | [Tynn::Environment][t-environment] | Adds helper methods to get and check the current environment.
 | [Tynn::HMote][t-hmote]             | Adds support for rendering [HMote][hmote] templates.
 | [Tynn::JSON][t-json]               | Adds helper methods for json generation.
-| [Tynn::Matchers][t-matchers]       | Adds extra matchers.
 | [Tynn::NotFound][t-not_found]      | Adds support for handling 404 responses.
 | [Tynn::Protection][t-protection]   | Adds security measures against common attacks.
 | [Tynn::Render][t-render]           | Adds support for rendering templates through different engines.
@@ -24,7 +23,6 @@ to have a look at their implementations.
 [t-environment]: /api/Tynn-Environment.html
 [t-hmote]: /api/Tynn-HMote.html
 [t-json]: /api/Tynn-JSON.html
-[t-matchers]: /api/Tynn-Matchers.html
 [t-not_found]: /api/Tynn-NotFound.html
 [t-protection]: /api/Tynn-Protection.html
 [t-render]: /api/Tynn-Render.html
