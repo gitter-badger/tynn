@@ -1,6 +1,13 @@
 unreleased
 ------------------
 
+- Merge ForceSSL and HSTS plugins into `Tynn::SSL`.
+
+  Motivation: At first the idea was to give the possibility
+  to advanced users to use these features independently. But
+  to be honest, advanced users will prefer to set the redirect
+  and the HSTS header in the application server config.
+
 - Remove `Tynn::Matchers`.
 
 1.2.0 (30-10-2015)

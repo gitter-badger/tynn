@@ -26,27 +26,19 @@ class Tynn
   #
   # If the +:ssl+ option is +true+, includes:
   #
-  # - Tynn::HSTS
-  #
-  # - Tynn::ForceSSL
+  # - Tynn::SSL
   #
   module Protection
     # Internal: Configures security related plugins.
-    def self.setup(app, ssl: false, force_ssl: ssl, hsts: {})
+    def self.setup(app, ssl: false, hsts: {})
       app.plugin(Tynn::SecureHeaders)
 
       if ssl
         app.settings[:ssl] = true
 
-        require_relative "hsts"
+        require_relative "ssl"
 
-        app.plugin(Tynn::HSTS, hsts)
-      end
-
-      if force_ssl
-        require_relative "force_ssl"
-
-        app.plugin(Tynn::ForceSSL)
+        app.plugin(Tynn::SSL, hsts: hsts)
       end
     end
   end
