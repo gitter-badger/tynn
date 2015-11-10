@@ -1,4 +1,4 @@
-unreleased
+1.3.0 (11-11-2015)
 ------------------
 
 - Merge ForceSSL and HSTS plugins into `Tynn::SSL`.
