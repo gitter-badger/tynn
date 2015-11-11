@@ -1,7 +1,6 @@
 # Development
 
-Tynn is currently under active development. To ask questions, you can use
-our [chat room](http://join.tynn.xyz).
+Tynn is currently under active development.
 
 ## Source Code
 
