@@ -1,5 +1,5 @@
-unreleased
-----------
+1.4.0 (19-11-2015)
+------------------
 
 - Add `Tynn::Settings#settings` to access class settings.
 
