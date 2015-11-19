@@ -54,5 +54,25 @@ class Tynn
         return @settings ||= {}
       end
     end
+
+    module InstanceMethods
+      # Returns a Hash with the application settings.
+      #
+      # Examples
+      #
+      #   Tynn.set(:environment, :development)
+      #
+      #   Tynn.define do
+      #     get do
+      #       res.write(settings[:environment])
+      #     end
+      #   end
+      #
+      #   GET / # => 200 "development"
+      #
+      def settings
+        return self.class.settings
+      end
+    end
   end
 end
