@@ -34,7 +34,7 @@ This fetches the latest version of the gem and adds it to yours `.gems` file.
 
 ```no-highlight
 $ cat .gems
-tynn -v 1.3.0
+tynn -v 1.4.0
 ```
 
 To install the listed gems in the `.gs` folder, do:
