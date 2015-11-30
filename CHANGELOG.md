@@ -1,3 +1,21 @@
+unreleased
+----------
+
+- Add `Tynn::DefaultMatcher` plugin. This adds a catch-all matcher
+  that always execute the given block.
+
+  ```ruby
+  Tynn.define do
+    get do
+      # ...
+    end
+
+    default do # on true
+      # ...
+    end
+  end
+  ```
+
 1.4.0 (19-11-2015)
 ------------------
 
