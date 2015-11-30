@@ -44,6 +44,12 @@
       </li>
 
       <li>
+        <a href="/guides/middlewares.html">
+          Middlewares
+        </a>
+      </li>
+
+      <li>
         <a href="/guides/environments.html">
           Environments
         </a>
