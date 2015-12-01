@@ -1,5 +1,5 @@
 source "https://rubygems.org"
 
-File.readlines(".gems").each do |dep|
-  gem(*dep.chomp.split(":"))
-end
+ruby "2.2.3"
+
+gemspec

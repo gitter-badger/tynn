@@ -1,0 +1,12 @@
+usage: make <command>
+
+commands
+--------
+
+  install       Compile and watch Sass/JavaScript assets
+  pages         Generate website pages
+  publish       Publish generated content to GitHub pages
+  rdoc          Generate API pages
+  recipes       Generate recipe pages
+  server        Run documentation server on localhost, port 4000 (alias: "s")
+  test          Run test suite (alias: "t")
