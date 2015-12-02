@@ -1,6 +1,13 @@
 unreleased
 ----------
 
+- Raise error if secret option for `Tynn::Session` is not provided:
+
+  ```
+  Tynn.plugin(Tynn::Session)
+  # => Tynn::Session::NoSecretError: No secret option provided.
+  ```
+
 - Add `Tynn::DefaultMatcher` plugin. This adds a catch-all matcher
   that always execute the given block.
 
