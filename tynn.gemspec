@@ -16,8 +16,11 @@ Gem::Specification.new do |s|
   s.add_dependency "rack", "~> 1.6"
   s.add_dependency "syro", "~> 1.1"
 
+  s.add_development_dependency "benchmark-ips", "~> 2.3"
   s.add_development_dependency "cutest", "~> 1.2"
   s.add_development_dependency "erubis", "~> 2.7"
   s.add_development_dependency "hmote", "~> 1.4"
+  s.add_development_dependency "rdoc", "~> 4.2"
+  s.add_development_dependency "redcarpet", "~> 3.3"
   s.add_development_dependency "tilt", "~> 2.0"
 end

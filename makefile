@@ -1,11 +1,15 @@
-default: test
+default: help
+
+s: server
+t: test
+
+help:
+	@cat ./docs/tasks.txt
 
 install:
-	@cat .gems | xargs gem install
+	@gem install -g Gemfile
 
 pages:
-	@rm -rf ./docs/public/*.html
-	@rm -rf ./docs/public/guides/*.html
 	@./docs/bin/page ./docs/public ./docs/*.md
 	@./docs/bin/page ./docs/public/guides ./docs/guides/*.md
 
@@ -13,7 +17,6 @@ publish:
 	@./docs/bin/publish ./docs/public/
 
 rdoc:
-	@rm -rf ./docs/public/api/*.html
 	@./docs/bin/api -o ./docs/public/api/ lib/ docs/rdoc/
 
 recipes:
