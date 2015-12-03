@@ -16,9 +16,7 @@ class Tynn
       #   end
       #
       def default
-        yield
-
-        halt(res.finish)
+        on(true) { yield }
       end
     end
   end
