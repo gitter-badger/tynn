@@ -10,13 +10,13 @@ class Tynn
     module InstanceMethods
       include ::HMote::Helpers
 
-      def render(template, locals = {}, layout = self.class.settings[:layout])
+      def render(template, locals = {}, layout = settings[:layout])
         res.headers[Rack::CONTENT_TYPE] ||= Syro::Response::DEFAULT
 
         res.write(view(template, locals, layout))
       end
 
-      def view(template, locals = {}, layout = self.class.settings[:layout])
+      def view(template, locals = {}, layout = settings[:layout])
         return partial(layout, locals.merge(content: partial(template, locals)))
       end
 
@@ -27,7 +27,7 @@ class Tynn
       private
 
       def template_path(template)
-        return File.join(self.class.settings[:views], "#{ template }.mote")
+        return File.join(settings[:views], "#{ template }.mote")
       end
     end
   end

@@ -14,18 +14,18 @@ class Tynn
     end
 
     module InstanceMethods
-      def render(template, locals = {}, layout = self.class.settings[:layout])
+      def render(template, locals = {}, layout = settings[:layout])
         res.headers[Rack::CONTENT_TYPE] ||= Syro::Response::DEFAULT
 
         res.write(view(template, locals, layout))
       end
 
-      def view(template, locals = {}, layout = self.class.settings[:layout])
+      def view(template, locals = {}, layout = settings[:layout])
         return partial(layout, locals.merge(content: partial(template, locals)))
       end
 
       def partial(template, locals = {})
-        return tilt(template_path(template), locals, self.class.settings[:engine_opts])
+        return tilt(template_path(template), locals, settings[:engine_opts])
       end
 
       private
@@ -39,8 +39,8 @@ class Tynn
       end
 
       def template_path(template)
-        dir = self.class.settings[:views]
-        ext = self.class.settings[:engine]
+        dir = settings[:views]
+        ext = settings[:engine]
 
         return File.join(dir, "#{ template }.#{ ext }")
       end
