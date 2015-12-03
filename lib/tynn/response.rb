@@ -193,5 +193,59 @@ class Tynn
     #   write(str)
     #
     # Inherited by Syro::Response.
+
+    # Public: Sets a cookie into the response.
+    #
+    # name - A String name for the new cookie.
+    # value - A String value or hash of options.
+    #
+    # Examples
+    #
+    #   res.set_cookie("foo", "bar")
+    #   res["Set-Cookie"] # => "foo=bar"
+    #
+    #   res.set_cookie("foo2", "bar2")
+    #   res["Set-Cookie"] # => "foo=bar\nfoo2=bar2"
+    #
+    #   res.set_cookie("bar", {
+    #     domain: ".example.com",
+    #     path: "/",
+    #     # max_age: 0,
+    #     # expires: Time.now + 10_000,
+    #     secure: true,
+    #     httponly: true,
+    #     value: "bar"
+    #   })
+    #
+    #   res["Set-Cookie"].split("\n").last
+    #   # => "bar=bar; domain=.example.com; path=/; secure; HttpOnly
+    #
+    # NOTE. This method doesn't sign and/or encrypt the value of the cookie.
+    #
+    # Signature
+    #
+    #   set_cookie(name, value)
+    #
+    # Inherited by Syro::Response
+
+    # Public: Deletes given cookie.
+    #
+    # name - A String name of a cookie.
+    #
+    # Examples
+    #
+    #   res.set_cookie("foo", "bar")
+    #   res["Set-Cookie"]
+    #   # => "foo=bar"
+    #
+    #   res.delete_cookie("foo")
+    #   res["Set-Cookie"]
+    #   # => "foo=; max-age=0; expires=Thu, 01 Jan 1970 00:00:00 -0000"
+    #
+    # Signature
+    #
+    #   delete_cookie(name)
+    #
+    # Inherited by Syro::Response
   end
 end
