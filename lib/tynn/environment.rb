@@ -21,8 +21,7 @@ class Tynn
   #   Tynn.plugin(Tynn::Environment, env: ENV["RACK_ENV"])
   #
   module Environment
-    # Internal: Configures current environment.
-    def self.setup(app, env: ENV["RACK_ENV"])
+    def self.setup(app, env: ENV["RACK_ENV"]) # :nodoc:
       app.set(:environment, (env || :development).to_sym)
     end
 

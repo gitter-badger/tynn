@@ -31,8 +31,7 @@ class Tynn
   # is to re-enable it if it was turned off by the user.
   #
   module SecureHeaders
-    # Internal: Sets the default HTTP secure headers.
-    def self.setup(app)
+    def self.setup(app) # :nodoc:
       app.settings[:default_headers].update(
         "X-Content-Type-Options" => "nosniff",
         "X-Frame-Options" => "SAMEORIGIN",

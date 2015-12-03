@@ -28,8 +28,7 @@ class Tynn
   #   Tynn.plugin(Tynn::Static, ["/js", "/css"], index: "index.html")
   #
   module Static
-    # Internal: Configures Rack::Static middleware.
-    def self.setup(app, urls, opts = {})
+    def self.setup(app, urls, opts = {}) # :nodoc:
       options = opts.dup
 
       options[:urls] ||= urls

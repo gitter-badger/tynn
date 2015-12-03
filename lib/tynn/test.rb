@@ -35,13 +35,13 @@ class Tynn
       @app = app
     end
 
-    # Internal: Returns the application class that handles the
+    # Returns the application class that handles the
     # mock requests. Required by Tynn::Test::InstanceMethods.
     def app
       return @app
     end
 
-    # Internal: This module provides the Tynn::Test API methods.
+    # This module provides the Tynn::Test API methods.
     # If you don't like the stand-alone version, you can integrate
     # this module to your preferred testing environment.
     #

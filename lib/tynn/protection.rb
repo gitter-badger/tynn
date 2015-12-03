@@ -29,8 +29,7 @@ class Tynn
   # - Tynn::SSL
   #
   module Protection
-    # Internal: Configures security related plugins.
-    def self.setup(app, ssl: false, hsts: {})
+    def self.setup(app, ssl: false, hsts: {}) # :nodoc:
       app.plugin(Tynn::SecureHeaders)
 
       if ssl
