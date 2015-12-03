@@ -32,9 +32,6 @@ class Tynn
     end
   end
 
-  # Internal: Default plugins.
-  plugin(Tynn::Settings)
-
   # Public: Sets the application handler.
   #
   # Examples
@@ -72,28 +69,6 @@ class Tynn
     self.middleware << proc { |app| middleware.new(app, *args, &block) }
   end
 
-  def self.call(env) # :nodoc:
-    return @app.call(env)
-  end
-
-  def self.build_app(syro) # :nodoc:
-    if middleware.empty?
-      @app = syro
-    else
-      @app = middleware.reverse.inject(syro) { |a, m| m.call(a) }
-    end
-  end
-
-  # Internal: Returns middleware stack.
-  def self.middleware
-    return @middleware ||= []
-  end
-
-  def self.reset! # :nodoc:
-    @app = nil
-    @middleware = []
-  end
-
   # Public: Sets an +option+ to the given +value+.
   #
   # Examples
@@ -111,10 +86,30 @@ class Tynn
     settings[option] = value
   end
 
-  set(:default_headers, {})
+
+  def self.call(env) # :nodoc:
+    return @app.call(env)
+  end
+
+  def self.build_app(syro) # :nodoc:
+    if middleware.empty?
+      @app = syro
+    else
+      @app = middleware.reverse.inject(syro) { |a, m| m.call(a) }
+    end
+  end
+
+  def self.middleware # :nodoc:
+    return @middleware ||= []
+  end
+
+  def self.reset! # :nodoc:
+    @app = nil
+    @middleware = []
+  end
 
   def default_headers # :nodoc:
-    return Hash[self.class.settings[:default_headers]]
+    return Hash[settings[:default_headers]]
   end
 
   def request_class # :nodoc:
@@ -124,4 +119,8 @@ class Tynn
   def response_class # :nodoc:
     return Tynn::Response
   end
+
+  plugin(Tynn::Settings)
+
+  set(:default_headers, {})
 end
