@@ -1,5 +1,10 @@
 $VERBOSE = true
 
+begin
+  require "bundler/setup"
+rescue LoadError
+end
+
 require "cutest"
 require_relative "../lib/tynn"
 require_relative "../lib/tynn/test"
