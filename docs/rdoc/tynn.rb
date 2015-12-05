@@ -11,7 +11,7 @@ class Tynn
   #
   # Signature
   #
-  #   get()
+  #   get(&block)
   #
   # Inherited by Syro::Deck::API.
 
@@ -27,7 +27,7 @@ class Tynn
   #
   # Signature
   #
-  #   post()
+  #   post(&block)
   #
   # Inherited by Syro::Deck::API.
 
@@ -43,7 +43,7 @@ class Tynn
   #
   # Signature
   #
-  #   patch()
+  #   patch(&block)
   #
   # Inherited by Syro::Deck::API.
 
@@ -59,7 +59,7 @@ class Tynn
   #
   # Signature
   #
-  #   put()
+  #   put(&block)
   #
   # Inherited by Syro::Deck::API.
 
@@ -75,7 +75,7 @@ class Tynn
   #
   # Signature
   #
-  #   delete()
+  #   delete(&block)
   #
   # Inherited by Syro::Deck::API.
 
