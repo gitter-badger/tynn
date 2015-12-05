@@ -1,26 +1,28 @@
-unreleased
-----------
+2.0.0 (unreleased)
+------------------
+
+- Breaking change: Bump Syro version to 2.0.0.
+  The functionality to yield the capture to the block
+  has been removed in Syro. This version encourages the
+  use of `inbox`.
+
+  ```
+  # Before
+  on(:id) do |id|
+    res.write(id)
+  end
+
+  # Now
+  on(:id) do
+    res.write(inbox[:id])
+  end
+  ```
 
 - Raise error if secret option for `Tynn::Session` is not provided:
 
   ```
   Tynn.plugin(Tynn::Session)
   # => Tynn::Session::NoSecretError: No secret option provided.
-  ```
-
-- Add `Tynn::DefaultMatcher` plugin. This adds a catch-all matcher
-  that always execute the given block.
-
-  ```ruby
-  Tynn.define do
-    get do
-      # ...
-    end
-
-    default do # on true
-      # ...
-    end
-  end
   ```
 
 1.4.0 (19-11-2015)
