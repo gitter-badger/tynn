@@ -6,7 +6,7 @@
   has been removed in Syro. This version encourages the
   use of `inbox`.
 
-  ```
+  ```ruby
   # Before
   on(:id) do |id|
     res.write(id)
@@ -20,7 +20,7 @@
 
 - Raise error if secret option for `Tynn::Session` is not provided:
 
-  ```
+  ```ruby
   Tynn.plugin(Tynn::Session)
   # => Tynn::Session::NoSecretError: No secret option provided.
   ```
