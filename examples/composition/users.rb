@@ -10,7 +10,9 @@ Users.define do
     res.write("POST /users")
   end
 
-  on(:id) do |id|
+  on(:id) do
+    id = inbox[:id]
+
     get do
       res.write("GET /users/#{ id }")
     end

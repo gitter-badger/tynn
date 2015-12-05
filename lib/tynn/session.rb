@@ -10,12 +10,14 @@ class Tynn
   #   Tynn.plugin(Tynn::Session, secret: "__change_me__")
   #
   #   Tynn.define do
-  #     root do
-  #       res.write(sprintf("hei %s", session[:username]))
-  #     end
+  #     on("login") do
+  #       post do
+  #         # ...
   #
-  #     on(:username) do |username|
-  #       session[:username] = username
+  #         session[:user_id] = user.id
+  #
+  #         res.redirect("/admin")
+  #       end
   #     end
   #   end
   #

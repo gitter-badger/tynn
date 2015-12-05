@@ -27,8 +27,8 @@ Tynn.define do
     render("home", articles: articles)
   end
 
-  on(:slug) do |slug|
-    article = articles.find { |a| a.slug == slug }
+  on(:slug) do
+    article = articles.find { |a| a.slug == inbox[:slug] }
 
     on(article.nil?) do
       res.status = 404

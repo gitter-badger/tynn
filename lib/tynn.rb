@@ -40,13 +40,15 @@ class Tynn
   #   end
   #
   #   Users.define do
-  #     on(:id) do |id|
+  #     on(:id) do
+  #       id = inbox[:id]
+  #
   #       get do
-  #         res.write("GET /users")
+  #         res.write("GET /users/#{ id }")
   #       end
   #
   #       post do
-  #         res.write("POST /users")
+  #         res.write("POST /users/#{ id }")
   #       end
   #     end
   #   end
