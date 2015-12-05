@@ -2,14 +2,5 @@ language: ruby
 rvm:
   - 2.2.3
 sudo: false
-cache:
-  bundler: false
-  directories:
-    - gems
-install:
-  - export GEM_HOME=$PWD/gems/$RUBY_VERSION
-  - export GEM_PATH=$GEM_HOME:$GEM_PATH
-  - export PATH=$GEM_HOME/bin:$PATH
-  - make install
 script:
   - make test
