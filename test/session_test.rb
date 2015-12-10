@@ -22,5 +22,5 @@ test "session" do
   app.get("/")
 
   assert_equal "foo", app.res.body
-  assert_equal "foo", app.req.env["rack.session"]["foo"]
+  assert_equal "foo", app.req.session["foo"]
 end
