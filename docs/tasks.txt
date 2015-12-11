@@ -3,7 +3,6 @@ usage: make <command>
 commands
 --------
 
-  install       Compile and watch Sass/JavaScript assets
   pages         Generate website pages
   publish       Publish generated content to GitHub pages
   rdoc          Generate API pages

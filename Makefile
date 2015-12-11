@@ -6,9 +6,6 @@ t: test
 help:
 	@cat ./docs/tasks.txt
 
-install:
-	@gem install -g Gemfile
-
 pages:
 	@./docs/bin/page ./docs/public ./docs/*.md
 	@./docs/bin/page ./docs/public/guides ./docs/guides/*.md
@@ -26,6 +23,6 @@ server:
 	@ruby -run -e httpd ./docs/public -p 4000
 
 test:
-	@cutest -r ./test/helper.rb ./test/*_test.rb
+	@./bin/cutest -r ./test/helper.rb ./test/*_test.rb
 
 .PHONY: docs recipes test

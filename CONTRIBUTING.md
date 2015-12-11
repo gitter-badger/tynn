@@ -13,7 +13,7 @@ $ git clone git@github.com:frodsan/tynn.git
 To install dependencies, use:
 
 ```
-$ make install # or `bundle install` if you use Bundler
+$ bundle install
 ```
 
 To run the test suite, execute:
