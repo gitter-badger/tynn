@@ -52,4 +52,11 @@ end
 # GET / => 200 "MyAwesomeApp"
 ```
 
+You can also use your plugin in your views. For example when using HMote,
+you could use the above plugin like this:
+
+```html
+<title>{{ app.app_name }}</title>
+```
+
 [plugin]: /api/Tynn.html#method-c-plugin
