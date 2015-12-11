@@ -1,4 +1,5 @@
 require "syro"
+require_relative "tynn/default_headers"
 require_relative "tynn/request"
 require_relative "tynn/response"
 require_relative "tynn/settings"
@@ -105,6 +106,5 @@ class Tynn
   end
 
   plugin(Tynn::Settings)
-
-  set(:default_headers, {})
+  plugin(Tynn::DefaultHeaders)
 end
