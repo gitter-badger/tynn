@@ -80,11 +80,6 @@ class Tynn
     return @__middleware ||= []
   end
 
-  def self.reset! # :nodoc:
-    @__app = nil
-    @__middleware = []
-  end
-
   def request_class # :nodoc:
     return Tynn::Request
   end

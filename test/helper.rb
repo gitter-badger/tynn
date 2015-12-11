@@ -6,5 +6,5 @@ require_relative "../lib/tynn"
 require_relative "../lib/tynn/test"
 
 prepare do
-  Tynn.reset!
+  Tynn.middleware.clear
 end
