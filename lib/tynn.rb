@@ -55,7 +55,11 @@ class Tynn
   #   end
   #
   def self.define(&block)
-    build_app(Syro.new(self, &block))
+    @__app = Syro.new(self, &block)
+
+    unless middleware.empty?
+      @__app = middleware.reverse.inject(@__app) { |a, m| m.call(a) }
+    end
   end
 
   # Public: Adds given Rack +middleware+ to the stack.
@@ -73,24 +77,16 @@ class Tynn
   end
 
   def self.call(env) # :nodoc:
-    return @app.call(env)
-  end
-
-  def self.build_app(syro) # :nodoc:
-    if middleware.empty?
-      @app = syro
-    else
-      @app = middleware.reverse.inject(syro) { |a, m| m.call(a) }
-    end
+    return @__app.call(env)
   end
 
   def self.middleware # :nodoc:
-    return @middleware ||= []
+    return @__middleware ||= []
   end
 
   def self.reset! # :nodoc:
-    @app = nil
-    @middleware = []
+    @__app = nil
+    @__middleware = []
   end
 
   def request_class # :nodoc:
