@@ -55,11 +55,7 @@ class Tynn
   #   end
   #
   def self.define(&block)
-    @__app = Syro.new(self, &block)
-
-    unless middleware.empty?
-      @__app = middleware.inject(@__app) { |a, m| m.call(a) }
-    end
+    @__app = middleware.inject(Syro.new(self, &block)) { |a, m| m.call(a) }
   end
 
   # Public: Adds given Rack +middleware+ to the stack.
