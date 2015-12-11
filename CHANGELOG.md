@@ -25,5 +25,5 @@
   # => Tynn::Session::NoSecretError: No secret option provided.
   ```
 
-Please check [1.4.x][https://github.com/frodsan/tynn/blob/1.4.0/CHANGELOG.md]
+Please check [1.4.x](https://github.com/frodsan/tynn/blob/1.4.0/CHANGELOG.md)
 for previous changes.
