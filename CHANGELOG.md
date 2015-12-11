@@ -1,6 +1,11 @@
 2.0.0 (unreleased)
 ------------------
 
+- Breaking change: Remove Tynn::NotFound plugin.
+  The plugin performs bad. In the future, there
+  will be a better support for handling errors
+  and status codes.
+
 - Breaking change: Bump Syro version to 2.0.0.
   The functionality to yield the capture to the block
   has been removed in Syro. This version encourages the
