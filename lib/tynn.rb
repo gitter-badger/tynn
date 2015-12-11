@@ -71,24 +71,6 @@ class Tynn
     self.middleware << proc { |app| middleware.new(app, *args, &block) }
   end
 
-  # Public: Sets an +option+ to the given +value+.
-  #
-  # Examples
-  #
-  #   require "tynn"
-  #   require "tynn/environment"
-  #
-  #   Tynn.plugin(Tynn::Environment)
-  #
-  #   Tynn.set(:environment, :staging)
-  #   Tynn.environment
-  #   # => :staging
-  #
-  def self.set(option, value)
-    settings[option] = value
-  end
-
-
   def self.call(env) # :nodoc:
     return @app.call(env)
   end

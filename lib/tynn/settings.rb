@@ -53,6 +53,19 @@ class Tynn
       def settings
         return @settings ||= {}
       end
+
+      # Public: Sets an +option+ to the given +value+.
+      #
+      # Examples
+      #
+      #   Tynn.set(:environment, :staging)
+      #
+      #   Tynn.settings[:environment]
+      #   # => :staging
+      #
+      def set(option, value)
+        settings[option] = value
+      end
     end
 
     module InstanceMethods
