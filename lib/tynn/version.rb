@@ -1,8 +1,3 @@
-class Tynn # :nodoc: all
-  VERSION = [
-    MAJOR_VERSION = 1,
-    MINOR_VERSION = 4,
-    PATCH_VERSION = 0,
-    PRE_VERSION   = nil
-  ].compact.join(".")
+class Tynn
+  VERSION = "1.4.0".freeze # :nodoc:
 end
