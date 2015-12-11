@@ -58,7 +58,7 @@ class Tynn
     @__app = Syro.new(self, &block)
 
     unless middleware.empty?
-      @__app = middleware.reverse.inject(@__app) { |a, m| m.call(a) }
+      @__app = middleware.inject(@__app) { |a, m| m.call(a) }
     end
   end
 
@@ -73,7 +73,7 @@ class Tynn
   #   Tynn.use(Rack::ShowExceptions)
   #
   def self.use(middleware, *args, &block)
-    self.middleware << proc { |app| middleware.new(app, *args, &block) }
+    self.middleware.unshift(Proc.new { |app| middleware.new(app, *args, &block) })
   end
 
   def self.call(env) # :nodoc:
