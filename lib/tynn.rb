@@ -93,10 +93,6 @@ class Tynn
     @middleware = []
   end
 
-  def default_headers # :nodoc:
-    return Hash[settings[:default_headers]]
-  end
-
   def request_class # :nodoc:
     return Tynn::Request
   end
