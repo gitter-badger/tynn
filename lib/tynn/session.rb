@@ -73,7 +73,7 @@ class Tynn
         unauthorized means can't alter it. Please, add the secret option
         to your code:
 
-            Tynn.plugin(Tynn::Session, secret: "__a_long_random_secret__", ...)
+            #{ app }.plugin(Tynn::Session, secret: "__a_long_random_secret__", ...)
 
         Make sure the secret is long and all random. You can generate a
         secure secret key with:
@@ -84,7 +84,7 @@ class Tynn
         is kept private. Knowing the secret allows an attacker to tamper
         the data. You can use environment variables to store the secret:
 
-            Tynn.plugin(Tynn::Session, secret: ENV.fetch("SESSION_SECRET"), ...)
+            #{ app }.plugin(Tynn::Session, secret: ENV.fetch("SESSION_SECRET"), ...)
         MSG
       end
 
