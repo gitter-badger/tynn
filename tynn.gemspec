@@ -5,8 +5,8 @@ Gem::Specification.new do |s|
   s.version     = Tynn::VERSION
   s.summary     = "Thin library to create web applications"
   s.description = s.summary
-  s.authors     = ["Francesco Rodríguez"]
-  s.email       = ["frodsan@protonmail.ch"]
+  s.author      = "Francesco Rodríguez"
+  s.email       = "frodsan@protonmail.ch"
   s.homepage    = "https://github.com/frodsan/tynn"
   s.license     = "MIT"
 
