@@ -21,11 +21,7 @@ class Tynn
       #   end
       #
       def head
-        if root? && req.head?
-          yield
-
-          halt(res.finish)
-        end
+        root { yield } if req.head?
       end
 
       # Public: Executes the given block if the request method is +OPTIONS+.
@@ -39,11 +35,7 @@ class Tynn
       #   end
       #
       def options
-        if root? && req.options?
-          yield
-
-          halt(res.finish)
-        end
+        root { yield } if req.options?
       end
     end
   end
