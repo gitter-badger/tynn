@@ -4,7 +4,6 @@ Gemfile.lock
 /docs/public/*.html
 /docs/public/api/*.html
 /docs/public/guides/*.html
-/docs/public/recipes/
 /docs/public/presentations
 
 /tmp

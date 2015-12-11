@@ -16,13 +16,10 @@ publish:
 rdoc:
 	@./docs/bin/api -o ./docs/public/api/ lib/ docs/rdoc/
 
-recipes:
-	@./docs/bin/recipes ./recipes/ ./docs/public/recipes/
-
 server:
 	@ruby -run -e httpd ./docs/public -p 4000
 
 test:
 	@./bin/cutest -r ./test/helper.rb ./test/*_test.rb
 
-.PHONY: docs recipes test
+.PHONY: docs test
