@@ -24,11 +24,11 @@
   end
   ```
 
-- Breaking change: Remove Tynn::NotFound plugin. The plugin performs bad. In
+- Breaking change: Remove `Tynn::NotFound` plugin. The plugin performs bad. In
   the future, there will be a better support for handling errors and status
   codes.
 
-- Breaking change: Remove Tynn::AllMethods. Syro 2.1.0 includes matchers for
+- Breaking change: Remove `Tynn::AllMethods`. Syro 2.1.0 includes matchers for
   `HEAD` and `OPTIONS` by default.
 
 Please check [1.4.x](https://github.com/frodsan/tynn/blob/1.4.0/CHANGELOG.md)
