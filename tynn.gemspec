@@ -13,7 +13,7 @@ Gem::Specification.new do |s|
   s.files      = Dir["LICENSE", "README.md", "lib/**/*.rb"]
   s.test_files = Dir["test/**/*.rb"]
 
-  s.add_dependency "syro", "~> 2.0"
+  s.add_dependency "syro", "~> 2.1"
 
   s.add_development_dependency "bundler", "~> 1.10"
   s.add_development_dependency "cutest", "~> 1.2"
