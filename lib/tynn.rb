@@ -9,11 +9,11 @@ class Tynn
   # Examples
   #
   #   require "tynn"
+  #   require "tynn/environment"
   #   require "tynn/protection"
-  #   require "tynn/session"
   #
+  #   Tynn.plugin(Tynn::Environment)
   #   Tynn.plugin(Tynn::Protection)
-  #   Tynn.plugin(Tynn::Session, secret: "__a_random_secret_key")
   #
   def self.plugin(plugin, *args, &block)
     if defined?(plugin::InstanceMethods)
