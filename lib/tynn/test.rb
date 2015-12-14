@@ -80,7 +80,7 @@ class Tynn
       # {Rack::Request}[http://www.rubydoc.info/gems/rack/Rack/Request].
       #
       def req
-        @__req
+        return @__req
       end
 
       # Public: Returns the current response object or +nil+ if no requests
@@ -101,7 +101,7 @@ class Tynn
       # {Rack::MockResponse}[http://www.rubydoc.info/gems/rack/Rack/MockResponse]
       #
       def res
-        @__res
+        return @__res
       end
 
       # Public: Issues a GET request for the given +path+ with the given
