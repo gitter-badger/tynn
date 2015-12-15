@@ -20,6 +20,6 @@ server:
 	@ruby -run -e httpd ./docs/public -p 4000
 
 test:
-	@./bin/cutest -r ./test/helper.rb ./test/*_test.rb
+	@bundle exec cutest -r ./test/helper.rb ./test/*_test.rb
 
 .PHONY: docs test
