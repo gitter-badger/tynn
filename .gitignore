@@ -1,9 +1,2 @@
 .bundle/
 Gemfile.lock
-
-/docs/public/*.html
-/docs/public/api/*.html
-/docs/public/guides/*.html
-/docs/public/presentations
-
-/tmp
