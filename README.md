@@ -46,5 +46,5 @@ Tynn is released under the [MIT License][mit].
 
 [contributing]: https://github.com/frodsan/tynn/blob/master/CONTRIBUTING.md
 [mit]: http://www.opensource.org/licenses/MIT
-[start]: http://tynn.xyz/getting-started.html
+[start]: http://tynn.xyz/tutorial.html
 [syro]: http://soveran.github.io/syro/

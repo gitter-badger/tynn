@@ -1,13 +1,7 @@
 <div class="nav-docs">
   <div class="nav-docs-section">
-    <h3>Quick Start</h3>
+    <h3>Welcome</h3>
     <ul>
-      <li>
-        <a href="/getting-started.html">
-          Getting Started
-        </a>
-      </li>
-
       <li>
         <a href="/tutorial.html">
           Tutorial
