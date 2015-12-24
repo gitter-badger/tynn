@@ -31,13 +31,15 @@ class Tynn
   # is to re-enable it if it was turned off by the user.
   #
   module SecureHeaders
+    HEADERS = {
+      "X-Content-Type-Options" => "nosniff",
+      "X-Frame-Options" => "SAMEORIGIN",
+      "X-Permitted-Cross-Domain-Policies" => "none",
+      "X-XSS-Protection" => "1; mode=block"
+    }.freeze
+
     def self.setup(app) # :nodoc:
-      app.settings[:default_headers].update(
-        "X-Content-Type-Options" => "nosniff",
-        "X-Frame-Options" => "SAMEORIGIN",
-        "X-Permitted-Cross-Domain-Policies" => "none",
-        "X-XSS-Protection" => "1; mode=block"
-      )
+      app.settings[:default_headers].update(HEADERS)
     end
   end
 end

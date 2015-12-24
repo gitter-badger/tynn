@@ -1,19 +1,28 @@
+require_relative "helper"
 require_relative "../lib/tynn/json"
 
-test "json" do
-  Tynn.plugin(Tynn::JSON)
+class JSONTest < Tynn::TestCase
+  class App < Tynn
+    plugin Tynn::JSON
 
-  Tynn.define do
-    root do
-      json(name: "tynn")
+    define do
+      get do
+        json(foo: "foo")
+      end
     end
   end
 
-  app = Tynn::Test.new
-  app.get("/")
+  test "converts objects to json" do
+    app = Tynn::Test.new(App)
+    app.get("/")
 
-  json = JSON.parse(app.res.body)
+    assert_equal "foo", JSON.parse(app.res.body)["foo"]
+  end
 
-  assert_equal "tynn", json["name"]
-  assert_equal "application/json", app.res.headers["Content-Type"]
+  test "sets content type header" do
+    app = Tynn::Test.new(App)
+    app.get("/")
+
+    assert_equal "application/json", app.res.content_type
+  end
 end

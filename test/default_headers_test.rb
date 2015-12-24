@@ -1,14 +1,16 @@
-test "default headers" do
-  Tynn.set(:default_headers, "Content-Type" => "text/plain")
+require_relative "helper"
 
-  Tynn.define do
-    root do
-      res.write("hei")
-    end
+class DefaultHeadersTest < Tynn::TestCase
+  class App < Tynn
+    define { }
   end
 
-  app = Tynn::Test.new(Tynn)
-  app.get("/")
+  test "respond with default headers" do
+    App.set(:default_headers, "Content-Type" => "text/plain")
 
-  assert_equal "text/plain", app.res.headers["Content-Type"]
+    app = Tynn::Test.new(App)
+    app.get("/")
+
+    assert_equal "text/plain", app.res.content_type
+  end
 end

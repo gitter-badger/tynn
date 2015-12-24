@@ -1,78 +1,62 @@
+require_relative "helper"
 require_relative "../lib/tynn/hmote"
 
-setup do
-  Tynn.plugin(Tynn::HMote, views: File.expand_path("./test/views"))
-
-  Tynn::Test.new
-end
-
-test "partial" do |app|
-  Tynn.define do
-    on "partial" do
-      res.write(partial("partial", name: "mote"))
-    end
-  end
-
-  app.get("/partial")
-
-  assert_equal "mote", app.res.body.strip
-end
-
-test "view" do |app|
-  Tynn.define do
-    on "view" do
-      res.write(view("view", title: "tynn", name: "mote"))
-    end
-  end
-
-  app.get("/view")
-
-  assert_equal "tynn / mote", app.res.body.strip
-end
-
-test "render" do |app|
-  Tynn.define do
-    on "render" do
-      render("view", title: "tynn", name: "mote")
-    end
-  end
-
-  app.get("/render")
-
-  assert_equal 200, app.res.status
-  assert_equal "text/html", app.res.headers["Content-Type"]
-  assert_equal "tynn / mote", app.res.body.strip
-end
-
-test "404" do |app|
-  Tynn.define do
-    on "404" do
-      res.status = 404
-
-      render("view", title: "tynn", name: "mote")
-    end
-  end
-
-  app.get("/404")
-
-  assert_equal 404, app.res.status
-  assert_equal "text/html", app.res.headers["Content-Type"]
-  assert_equal "tynn / mote", app.res.body.strip
-end
-
-test "custom layout" do
+class HMoteTest < Tynn::TestCase
   class App < Tynn
-    set(:layout, "custom_layout")
-  end
+    plugin Tynn::HMote, views: File.expand_path("views", __dir__)
 
-  App.define do
-    root do
-      render("view", title: "tynn", name: "mote")
+    define do
+      on("partial") do
+        res.write(partial("partial", name: "alice"))
+      end
+
+      on("view") do
+        res.write(view("view", title: "welcome", name: "alice"))
+      end
+
+      on("render") do
+        render("view", title: "welcome", name: "alice")
+      end
     end
   end
 
-  app = Tynn::Test.new(App)
-  app.get("/")
+  setup do
+    @app = Tynn::Test.new(App)
+  end
 
-  assert_equal "custom / tynn / mote", app.res.body.strip
+  test "partial" do
+    @app.get("/partial")
+
+    assert_equal "alice", @app.res.body.strip
+  end
+
+  test "view" do
+    @app.get("/view")
+
+    assert_equal "welcome / alice", @app.res.body.strip
+  end
+
+  test "render" do
+    @app.get("/render")
+
+    assert_equal "text/html", @app.res.content_type
+    assert_equal "welcome / alice", @app.res.body.strip
+  end
+
+  test "layout" do
+    class CustomLayout < App
+      set :layout, "custom_layout"
+
+      define do
+        get do
+          render("view", title: "welcome", name: "alice")
+        end
+      end
+    end
+
+    app = Tynn::Test.new(CustomLayout)
+    app.get("/")
+
+    assert_equal "custom / welcome / alice", app.res.body.strip
+  end
 end

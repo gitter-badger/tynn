@@ -1,60 +1,59 @@
+require_relative "helper"
 require_relative "../lib/tynn/ssl"
 
-setup do
-  Tynn::Test.new
-end
-
-test "redirects to https" do |app|
-  Tynn.plugin(Tynn::SSL)
-
-  Tynn.define do
+class SSLTest < Tynn::TestCase
+  class App < Tynn
   end
 
-  app.get("/")
-
-  assert_equal 301, app.res.status
-  assert_equal "https://example.org/", app.res.location
-end
-
-test "https request" do |app|
-  Tynn.plugin(Tynn::SSL)
-
-  Tynn.define do
-    root do
-      res.write("secure")
-    end
+  setup do
+    App.middleware.clear
   end
 
-  app.get("/", {}, "HTTPS" => "on")
+  test "redirects to https" do
+    App.plugin(Tynn::SSL)
+    App.define { }
 
-  assert_equal 200, app.res.status
-  assert_equal "secure", app.res.body
-end
+    app = Tynn::Test.new(App)
+    app.get("/")
 
-test "hsts header" do |app|
-  Tynn.plugin(Tynn::SSL)
-
-  Tynn.define do
+    assert_equal 301, app.res.status
+    assert_equal "https://example.org/", app.res.location
   end
 
-  app = Tynn::Test.new
-  app.get("/", {}, "HTTPS" => "on")
+  test "safe request" do
+    App.plugin(Tynn::SSL)
+    App.define { res.write("secure") }
 
-  header = app.res.headers["Strict-Transport-Security"]
+    app = Tynn::Test.new(App)
+    app.get("/", {}, "HTTPS" => "on")
 
-  assert_equal "max-age=15552000; includeSubdomains", header
-end
-
-test "hsts header options" do |app|
-  Tynn.plugin(Tynn::SSL, hsts: { expires: 1, subdomains: false, preload: true })
-
-  Tynn.define do
+    assert_equal 200, app.res.status
+    assert_equal "secure", app.res.body
   end
 
-  app = Tynn::Test.new
-  app.get("/", {}, "HTTPS" => "on")
+  test "hsts header" do
+    App.plugin(Tynn::SSL)
+    App.define { }
 
-  header = app.res.headers["Strict-Transport-Security"]
+    app = Tynn::Test.new(App)
+    app.get("/", {}, "HTTPS" => "on")
 
-  assert_equal "max-age=1; preload", header
+    header = app.res.headers["Strict-Transport-Security"]
+    result = "max-age=15552000; includeSubdomains"
+
+    assert_equal result, header
+  end
+
+  test "hsts header with options" do
+    App.plugin(Tynn::SSL, hsts: { expires: 1, subdomains: false, preload: true })
+    App.define { }
+
+    app = Tynn::Test.new(App)
+    app.get("/", {}, "HTTPS" => "on")
+
+    header = app.res.headers["Strict-Transport-Security"]
+    result = "max-age=1; preload"
+
+    assert_equal result, header
+  end
 end

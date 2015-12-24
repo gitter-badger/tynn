@@ -1,27 +1,42 @@
+require_relative "helper"
 require_relative "../lib/tynn/environment"
 
-test "use RACK_ENV by default" do
-  begin
-    old, ENV["RACK_ENV"] = ENV["RACK_ENV"], "production"
+class EnvironmentTest < Tynn::TestCase
+  App = Class.new(Tynn)
 
-    Tynn.plugin(Tynn::Environment)
-
-    assert_equal(:production, Tynn.environment)
-
-    assert !Tynn.development?
-    assert !Tynn.test?
-    assert Tynn.production?
-
-  ensure
-    ENV["RACK_ENV"] = old
+  setup do
+    App.plugin Tynn::Environment
   end
-end
 
-test "use custom value" do
-  Tynn.plugin(Tynn::Environment, env: "development")
+  test "defaults to development" do
+    assert_equal :development, App.environment
+  end
 
-  assert_equal(:development, Tynn.environment)
-  assert Tynn.development?
-  assert !Tynn.test?
-  assert !Tynn.production?
+  test "defaults to RACK_ENV if present" do
+    begin
+      env, ENV["RACK_ENV"] = ENV.to_h, "test"
+
+      App.plugin(Tynn::Environment)
+
+      assert_equal :test, App.environment
+    ensure
+      ENV.replace(env)
+    end
+  end
+
+  test "adds environment setting" do
+    App.plugin(Tynn::Environment, env: "production")
+
+    assert_equal :production, App.environment
+
+    App.set(:environment, :test)
+
+    assert_equal :test, App.environment
+  end
+
+  test "adds predicate methods" do
+    assert_equal true, App.development?
+    assert_equal false, App.production?
+    assert_equal false, App.test?
+  end
 end

@@ -15,8 +15,9 @@ Gem::Specification.new do |s|
 
   s.add_dependency "syro", "~> 2.1"
 
-  s.add_development_dependency "cutest", "~> 1.2"
   s.add_development_dependency "erubis", "~> 2.7"
   s.add_development_dependency "hmote", "~> 1.4"
+  s.add_development_dependency "minitest", "~> 5.8"
+  s.add_development_dependency "minitest-sugar", "~> 2.1"
   s.add_development_dependency "tilt", "~> 2.0"
 end

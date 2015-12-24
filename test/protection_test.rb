@@ -1,36 +1,42 @@
+require_relative "helper"
 require_relative "../lib/tynn/protection"
-require_relative "../lib/tynn/session"
 
-test "supports hsts options" do
-  hsts = { expires: 100, subdomains: false, preload: true }
-
-  Tynn.plugin(Tynn::Protection, ssl: true, hsts: hsts)
-
-  Tynn.define do
+class ProtectionTest < Tynn::TestCase
+  class App < Tynn
+    plugin(Tynn::Protection)
   end
 
-  app = Tynn::Test.new
-  app.get("/", {}, "HTTPS" => "on")
-
-  hsts = app.res.headers["Strict-Transport-Security"]
-
-  assert_equal "max-age=100; preload", hsts
-end
-
-test "adds secure flag to session cookie" do
-  Tynn.plugin(Tynn::Protection, ssl: true)
-  Tynn.plugin(Tynn::Session, secret: "_this_must_be_random_")
-
-  Tynn.define do
-    root do
-      session[:foo] = "foo"
-    end
+  class SSLApp < Tynn
+    plugin(Tynn::Protection, ssl: true, hsts: {
+      expires: 1,
+      subdomains: false,
+      preload: true
+    })
   end
 
-  app = Tynn::Test.new
-  app.get("/", {}, "HTTPS" => "on")
+  test "secure headers" do
+    assert_equal Tynn::SecureHeaders::HEADERS, App.settings[:default_headers]
+  end
 
-  session, _ = app.res.headers["Set-Cookie"].split("\n")
+  test "ssl" do
+    SSLApp.define { }
 
-  assert(/;\s*secure\s*(;|$)/i === session)
+    app = Tynn::Test.new(SSLApp)
+    app.get("/")
+
+    assert_equal 301, app.res.status
+    assert_equal "https://example.org/", app.res.location
+  end
+
+  test "hsts" do
+    SSLApp.define { }
+
+    app = Tynn::Test.new(SSLApp)
+    app.get("/", {}, "HTTPS" => "on")
+
+    header = app.res.headers["Strict-Transport-Security"]
+    result = "max-age=1; preload"
+
+    assert_equal result, header
+  end
 end

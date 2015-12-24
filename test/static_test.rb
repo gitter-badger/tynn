@@ -1,13 +1,17 @@
+require_relative "helper"
 require_relative "../lib/tynn/static"
 
-test "static" do
-  Tynn.plugin(Tynn::Static, %w(/test), root: Dir.pwd)
+class StaticTest < Tynn::TestCase
+  class App < Tynn
+    plugin Tynn::Static, %w(/test), root: Dir.pwd
 
-  Tynn.define do
+    define { }
   end
 
-  app = Tynn::Test.new
-  app.get("/test/static_test.rb")
+  test "serves static files" do
+    app = Tynn::Test.new(App)
+    app.get("/test/static_test.rb")
 
-  assert_equal File.read(__FILE__), app.res.body
+    assert_equal File.read(__FILE__), app.res.body
+  end
 end

@@ -11,7 +11,7 @@ class Tynn
       include ::HMote::Helpers
 
       def render(template, locals = {}, layout = settings[:layout])
-        res.headers[Rack::CONTENT_TYPE] ||= Syro::Response::DEFAULT
+        res.headers[Rack::CONTENT_TYPE] ||= Tynn::Response::DEFAULT
 
         res.write(view(template, locals, layout))
       end

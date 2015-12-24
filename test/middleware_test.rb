@@ -1,3 +1,5 @@
+require_relative "helper"
+
 class Shrimp
   def initialize(app)
     @app = app
@@ -10,70 +12,76 @@ class Shrimp
   end
 end
 
-test "middleware in main application" do
-  Tynn.use(Shrimp)
+class MiddlewareTest < Tynn::TestCase
+  setup do
+    Tynn.middleware.clear
+  end
 
-  Tynn.define do
-    get do
-      res.write("1")
-      res.write("2")
+  test "middleware in main application" do
+    Tynn.use(Shrimp)
+
+    Tynn.define do
+      get do
+        res.write("1")
+        res.write("2")
+      end
     end
+
+    app = Tynn::Test.new
+    app.get("/")
+
+    assert_equal 200, app.res.status
+    assert_equal "21", app.res.body
   end
 
-  app = Tynn::Test.new
-  app.get("/")
+  test "middleware with composition" do
+    Tynn.use(Shrimp)
 
-  assert_equal 200, app.res.status
-  assert_equal "21", app.res.body
-end
-
-test "middleware with composition" do
-  Tynn.use(Shrimp)
-
-  Tynn.define do
-    on "api" do
-      run(API)
+    Tynn.define do
+      on "api" do
+        run(API)
+      end
     end
-  end
 
-  class API < Tynn
-  end
-
-  API.define do
-    get do
-      res.write("1")
-      res.write("2")
+    class API < Tynn
     end
-  end
 
-  app = Tynn::Test.new
-  app.get("/api")
-
-  assert_equal 200, app.res.status
-  assert_equal "21", app.res.body
-end
-
-test "middleware only in child application" do
-  class API < Tynn
-    use(Shrimp)
-  end
-
-  Tynn.define do
-    on "api" do
-      run(API)
+    API.define do
+      get do
+        res.write("1")
+        res.write("2")
+      end
     end
+
+    app = Tynn::Test.new
+    app.get("/api")
+
+    assert_equal 200, app.res.status
+    assert_equal "21", app.res.body
   end
 
-  API.define do
-    get do
-      res.write("1")
-      res.write("2")
+  test "middleware only in child application" do
+    class API < Tynn
+      use(Shrimp)
     end
+
+    Tynn.define do
+      on "api" do
+        run(API)
+      end
+    end
+
+    API.define do
+      get do
+        res.write("1")
+        res.write("2")
+      end
+    end
+
+    app = Tynn::Test.new
+    app.get("/api")
+
+    assert_equal 200, app.res.status
+    assert_equal "21", app.res.body
   end
-
-  app = Tynn::Test.new
-  app.get("/api")
-
-  assert_equal 200, app.res.status
-  assert_equal "21", app.res.body
 end

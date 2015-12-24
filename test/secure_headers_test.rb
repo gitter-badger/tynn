@@ -1,27 +1,12 @@
+require_relative "helper"
 require_relative "../lib/tynn/secure_headers"
 
-test "secure headers" do
-  Tynn.plugin(Tynn::SecureHeaders)
+class SecureHeadersTest < Tynn::TestCase
+  HEADERS = Tynn::SecureHeaders::HEADERS
 
-  Tynn.define do
-    root do
-      res.write("safe")
-    end
-  end
+  test "secure headers" do
+    Tynn.plugin(Tynn::SecureHeaders)
 
-  app = Tynn::Test.new
-  app.get("/")
-
-  secure_headers = {
-    "X-Content-Type-Options" => "nosniff",
-    "X-Frame-Options" => "SAMEORIGIN",
-    "X-Permitted-Cross-Domain-Policies" => "none",
-    "X-XSS-Protection" => "1; mode=block"
-  }
-
-  headers = app.res.headers
-
-  secure_headers.each do |header, value|
-    assert_equal(value, headers[header])
+    assert_equal HEADERS, Tynn.settings[:default_headers]
   end
 end

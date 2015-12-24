@@ -1,26 +1,30 @@
-require "securerandom"
+require_relative "helper"
 require_relative "../lib/tynn/session"
 
-test "raise error if secret is not given" do
-  assert_raise do
-    Tynn.plugin(Tynn::Session)
-  end
-end
+class SessionTest < Tynn::TestCase
+  class App < Tynn
+    plugin Tynn::Session, secret: "__an_insecure_secret_key"
 
-test "session" do
-  Tynn.plugin(Tynn::Session, secret: SecureRandom.hex(64))
+    define do
+      get do
+        session[:foo] = "foo"
 
-  Tynn.define do
-    root do
-      session[:foo] = "foo"
-
-      res.write(session[:foo])
+        res.write(session[:foo])
+      end
     end
   end
 
-  app = Tynn::Test.new
-  app.get("/")
+  test "raises error if secret is empty" do
+    assert_raises(Tynn::Session::NoSecretError) do
+      Tynn.plugin(Tynn::Session)
+    end
+  end
 
-  assert_equal "foo", app.res.body
-  assert_equal "foo", app.req.session["foo"]
+  test "session" do
+    app = Tynn::Test.new(App)
+    app.get("/")
+
+    assert_equal "foo", app.res.body
+    assert_equal "foo", app.req.session["foo"]
+  end
 end

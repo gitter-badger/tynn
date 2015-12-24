@@ -1,10 +1,8 @@
-$VERBOSE = true
-
 require "bundler/setup"
-require "cutest"
+require "minitest/autorun"
+require "minitest/sugar"
 require_relative "../lib/tynn"
 require_relative "../lib/tynn/test"
 
-prepare do
-  Tynn.middleware.clear
+class Tynn::TestCase < Minitest::Test
 end
