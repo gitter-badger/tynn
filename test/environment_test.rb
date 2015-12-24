@@ -5,7 +5,7 @@ class EnvironmentTest < Tynn::TestCase
   App = Class.new(Tynn)
 
   setup do
-    App.plugin Tynn::Environment
+    App.plugin Tynn::Environment, env: :development
   end
 
   test "defaults to development" do
@@ -24,11 +24,7 @@ class EnvironmentTest < Tynn::TestCase
     end
   end
 
-  test "adds environment setting" do
-    App.plugin(Tynn::Environment, env: "production")
-
-    assert_equal :production, App.environment
-
+  test "environment setting" do
     App.set(:environment, :test)
 
     assert_equal :test, App.environment

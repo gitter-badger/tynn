@@ -61,17 +61,17 @@ class MiddlewareTest < Tynn::TestCase
   end
 
   test "middleware only in child application" do
-    class API < Tynn
+    class APP < Tynn
       use(Shrimp)
     end
 
     Tynn.define do
       on "api" do
-        run(API)
+        run(APP)
       end
     end
 
-    API.define do
+    APP.define do
       get do
         res.write("1")
         res.write("2")
