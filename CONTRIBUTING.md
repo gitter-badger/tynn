@@ -22,18 +22,6 @@ To run the test suite, execute:
 $ make test
 ```
 
-Documentation
--------------
-
-If you want to build the [documentation](http://tynn.xyz)
-locally, there are some tasks to generate it:
-
-```
-make pages  # Generate pages
-make rdoc   # Generate API docs
-make server # Run documentation server on localhost, port 4000
-```
-
 Issues / Patches
 ----------------
 
