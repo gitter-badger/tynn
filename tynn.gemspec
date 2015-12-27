@@ -21,4 +21,5 @@ Gem::Specification.new do |s|
   s.add_development_dependency "minitest-sugar", "~> 2.1"
   s.add_development_dependency "rake", "~> 10.0"
   s.add_development_dependency "tilt", "~> 2.0"
+  s.add_development_dependency "yard", "~> 0.8"
 end

@@ -1,27 +1,26 @@
 require "json"
 
 class Tynn
-  # Public: Adds helper methods for json generation.
+  # Adds helper methods for json generation.
   #
-  # Examples
-  #
+  # @example
   #   require "tynn"
   #   require "tynn/json"
   #
   #   Tynn.plugin(Tynn::JSON)
   #
   module JSON
+    # @private
     CONTENT_TYPE = "application/json".freeze
 
     module InstanceMethods
-      # Public: Calls +to_json+ on +data+ and writes the generated \JSON
+      # Calls `to_json` on `data` and writes the generated JSON
       # object into the response body. Also, It automatically sets the
-      # +Content-Type+ header to +application/json+.
+      # `Content-Type` header to `application/json`.
       #
-      # data - Any object that responds to +to_json+.
+      # @param data Any object that responds to `to_json`.
       #
-      # Examples
-      #
+      # @example
       #   Tynn.define do
       #     on("hash") do
       #       json(foo: "bar")
@@ -35,6 +34,8 @@ class Tynn
       #       json(Model.first)
       #     end
       #   end
+      #
+      # @return [void]
       #
       def json(data)
         res.headers[Rack::CONTENT_TYPE] = Tynn::JSON::CONTENT_TYPE

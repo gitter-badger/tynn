@@ -4,16 +4,46 @@ require_relative "tynn/settings"
 require_relative "tynn/version"
 
 class Tynn
-  # Public: Loads given +plugin+ into the application.
+  # Loads given `plugin` into the application.
   #
-  # Examples
+  # @param plugin A module that can contain a `ClassMethods` or `InstanceMethods`
+  #   module to extend Tynn. If `plugin` responds to `setup`, it will be called
+  #   last, and should be used to set up the plugin.
+  # @param *args A list of arguments passed to `plugin#setup`
+  # @param &block A block passed to `plugin#setup`
   #
+  # @example Using a default plugin
   #   require "tynn"
   #   require "tynn/environment"
   #   require "tynn/protection"
   #
   #   Tynn.plugin(Tynn::Environment)
-  #   Tynn.plugin(Tynn::Protection)
+  #   Tynn.plugin(Tynn::Protection, ssl: true)
+  #
+  # @example Using a custom plugin
+  #   class MyAppNamePlugin
+  #     def self.setup(app, name, &block)
+  #       settings[:app_name] = name
+  #     end
+  #
+  #     module ClassMethods
+  #       def app_name
+  #         return settings[:app_name]
+  #       end
+  #     end
+  #
+  #     module InstanceMethods
+  #       def app_name
+  #         return self.class.app_name
+  #       end
+  #     end
+  #   end
+  #
+  #   Tynn.plugin(MyAppNamePlugin, "MyApp")
+  #
+  # @return [void]
+  #
+  # @see http://tynn.xyz/plugins.html
   #
   def self.plugin(plugin, *args, &block)
     if defined?(plugin::InstanceMethods)

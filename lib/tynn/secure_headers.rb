@@ -1,36 +1,32 @@
 class Tynn
-  # Public: Adds security related HTTP headers.
+  # Adds the following security related HTTP headers:
   #
-  # Examples
+  # - **X-Content-Type-Options:** Prevents IE and Chrome from
+  #   [content type sniffing][x-content-type]. Defaults to
+  #   `"nosniff"`.
   #
+  # - **X-Frame-Options:** Provides [Clickjacking][clickjacking]
+  #   protection. Defaults to `"SAMEORIGIN"`.
+  #
+  # - **X-Permitted-Cross-Domain-Policies:** Restricts Adobe Flash
+  #   Player's access to data. Defaults to `"none"`.
+  #
+  # - **X-XSS-Protection:** Enables the XSS protection filter built
+  #   into IE, Chrome and Safari. This filter is usually enabled
+  #   by default, the use of this header is to re-enable it if it
+  #   was turned off by the user. Defaults to `"1; mode=block"`.
+  #
+  # @example
   #   require "tynn"
   #   require "tynn/secure_headers"
   #
   #   Tynn.plugin(Tynn::SecureHeaders)
   #
-  # This plugin applies the following headers:
-  #
-  # *X-Content-Type-Options:* <tt>"nosniff"</tt>
-  #
-  # Prevents IE and Chrome from
-  # {content type sniffing}[https://msdn.microsoft.com/library/gg622941(v=vs.85).aspx]
-  #
-  # *X-Frame-Options:* <tt>"SAMEORIGIN"</tt>
-  #
-  # Provides {Clickjacking}[https://www.owasp.org/index.php/Clickjacking]
-  # protection.
-  #
-  # *X-Permitted-Cross-Domain-Policies:* <tt>"none"</tt>
-  #
-  # Restricts Adobe Flash Player's access to data.
-  #
-  # *X-XSS-Protection:* <tt>"1; mode=block"</tt>
-  #
-  # Enables the XSS protection filter built into IE, Chrome and Safari.
-  # This filter is usually enabled by default, the use of this header
-  # is to re-enable it if it was turned off by the user.
+  # [clickjacking]: https://www.owasp.org/index.php/Clickjacking
+  # [x-content-type]: https://msdn.microsoft.com/library/gg622941(v=vs.85).aspx
   #
   module SecureHeaders
+    # @private
     HEADERS = {
       "X-Content-Type-Options" => "nosniff",
       "X-Frame-Options" => "SAMEORIGIN",
@@ -38,7 +34,8 @@ class Tynn
       "X-XSS-Protection" => "1; mode=block"
     }.freeze
 
-    def self.setup(app) # :nodoc:
+    # @private
+    def self.setup(app)
       app.settings[:default_headers].update(HEADERS)
     end
   end

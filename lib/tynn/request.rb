@@ -1,11 +1,9 @@
 class Tynn
-  # Public: It provides convenience methods for pulling out information
-  # from a request.
+  # It provides convenience methods for pulling out information from a request.
   #
-  # Examples
-  #
+  # @example
   #   env = {
-  #     "REQUEST_METHOD" => "GET"
+  #     "REQUEST_METHOD" => "GET",
   #     "QUERY_STRING"   => "email=me@tynn.xyz"
   #   }
   #
@@ -17,37 +15,8 @@ class Tynn
   #   req.params  # => { "email" => "me@tynn.xyz" }
   #   req[:email] # => "me@tynn.xyz"
   #
+  # @see http://www.rubydoc.info/gems/rack/Rack/Request
+  #
   class Request < Rack::Request
-    # Public: Returns the value of the +key+ param.
-    #
-    # key - Any object that responds to +to_s+.
-    #
-    # Examples
-    #
-    #   req.params
-    #   # => { "username" => "bob" }
-    #
-    #   req[:username]  # => "bob"
-    #   req["username"] # => "bob"
-    #
-    # Signature
-    #
-    #   [](key)
-    #
-    # Inherited by Rack::Request.
-
-    # Public: Returns a Hash of parameters. Includes data from the query
-    # string and the response body.
-    #
-    # Examples
-    #
-    #   req.params
-    #   # => { "user" => { "username" => "bob" } }
-    #
-    # Signature
-    #
-    #   params()
-    #
-    # Inherited by Rack::Request.
   end
 end

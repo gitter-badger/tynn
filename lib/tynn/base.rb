@@ -4,15 +4,15 @@ require_relative "response"
 
 class Tynn
   module Base
+    # @private
     def self.setup(app)
       app.include(Syro::Deck::API)
     end
 
     module ClassMethods
-      # Public: Sets the application handler.
+      # Sets the application handler.
       #
-      # Examples
-      #
+      # @example
       #   class Users < Tynn
       #   end
       #
@@ -30,39 +30,51 @@ class Tynn
       #     end
       #   end
       #
+      # @return [void]
+      #
       def define(&block)
         @__app = middleware.inject(Syro.new(self, &block)) { |a, m| m.call(a) }
       end
 
-      # Public: Adds given Rack +middleware+ to the stack.
+      # Adds given Rack `middleware` to the stack.
       #
-      # Examples
+      # @param middleware A Rack middleware.
+      # @param *args A list of arguments passed to the middleware initialization.
+      # @param &block A block passed to the middleware initialization.
       #
+      # @example
       #   require "rack/common_logger"
       #   require "rack/show_exceptions"
       #
       #   Tynn.use(Rack::CommonLogger)
       #   Tynn.use(Rack::ShowExceptions)
       #
+      # @return [void]
+      #
+      # @see http://tynn.xyz/middleware.html
+      #
       def use(middleware, *args, &block)
         self.middleware.unshift(Proc.new { |app| middleware.new(app, *args, &block) })
       end
 
-      def middleware # :nodoc:
+      # @private
+      def middleware
         return @__middleware ||= []
       end
 
-      def call(env) # :nodoc:
+      # @private
+      def call(env)
         return @__app.call(env)
       end
     end
 
+    # @private
     module InstanceMethods
-      def request_class # :nodoc:
+      def request_class
         return Tynn::Request
       end
 
-      def response_class # :nodoc:
+      def response_class
         return Tynn::Response
       end
     end

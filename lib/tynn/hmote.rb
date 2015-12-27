@@ -2,7 +2,8 @@ require "hmote"
 
 class Tynn
   module HMote
-    def self.setup(app, options = {}) # :nodoc:
+    # @private
+    def self.setup(app, options = {})
       app.set(:layout, options.fetch(:layout, "layout"))
       app.set(:views, options.fetch(:views, File.expand_path("views", Dir.pwd)))
     end
