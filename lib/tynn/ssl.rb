@@ -58,7 +58,7 @@ class Tynn
   #
   class SSL
     # @private
-    HSTS_EXPIRES_IN = 15_552_000 # 180 days
+    HSTS_MAX_AGE = 15_552_000 # 180 days
 
     # @private
     def self.setup(app, hsts: {}) # :nodoc:
@@ -87,7 +87,7 @@ class Tynn
     private
 
     def build_hsts_header(options)
-      header = sprintf("max-age=%i", options.fetch(:expires, HSTS_EXPIRES_IN))
+      header = sprintf("max-age=%i", options.fetch(:expires, HSTS_MAX_AGE))
       header << "; includeSubdomains" if options.fetch(:subdomains, true)
       header << "; preload" if options[:preload]
 
