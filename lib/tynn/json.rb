@@ -10,9 +10,6 @@ class Tynn
   #   Tynn.plugin(Tynn::JSON)
   #
   module JSON
-    # @private
-    CONTENT_TYPE = "application/json".freeze
-
     module InstanceMethods
       # Calls `to_json` on `data` and writes the generated JSON
       # object into the response body. Also, It automatically sets the
@@ -38,8 +35,7 @@ class Tynn
       # @return [void]
       #
       def json(data)
-        res.headers[Rack::CONTENT_TYPE] = Tynn::JSON::CONTENT_TYPE
-
+        res.headers[Rack::CONTENT_TYPE] = "application/json".freeze
         res.write(data.to_json)
       end
     end
