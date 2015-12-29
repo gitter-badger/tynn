@@ -1,8 +1,8 @@
 2.0.0 (unreleased)
 ------------------
 
-- If `hsts: false` is passed to `Tynn::SSL` or `Tynn::Protection`, it will
-  expire HTTP Strict Transport Security immediately.
+- Setting `hsts: false` now sets `hsts { expires: 0 }`. Sending this option
+  disables HSTS.
 
   ```ruby
   # Before
