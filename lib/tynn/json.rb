@@ -1,7 +1,7 @@
 require "json"
 
 class Tynn
-  # Adds helper methods for json generation.
+  # Adds helper methods for JSON generation.
   #
   # @example
   #   require "tynn"
