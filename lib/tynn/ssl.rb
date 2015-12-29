@@ -8,6 +8,9 @@ class Tynn
   #    This reduces the impact of leaking session data through cookies
   #    and external links, and defends against Man-in-the-middle attacks.
   #
+  # 3. Setting the `secure` flag on cookies. This tells the browser to only
+  #    transmit them over HTTPS.
+  #
   # You can configure HSTS passing a `:hsts` option. The following options
   # are supported:
   #
@@ -81,6 +84,7 @@ class Tynn
 
       return @app.call(env).tap do |_, headers, _|
         set_hsts_header!(headers)
+        flag_cookies_as_secure!(headers)
       end
     end
 
@@ -94,16 +98,26 @@ class Tynn
       return header
     end
 
-    def set_hsts_header!(headers)
-      headers["Strict-Transport-Security".freeze] ||= @hsts_header
-    end
-
     def redirect_to_https(request)
       return [301, { "Location" => https_location(request) }, []]
     end
 
     def https_location(request)
       return sprintf("https://%s%s".freeze, request.host, request.fullpath)
+    end
+
+    def set_hsts_header!(headers)
+      headers["Strict-Transport-Security".freeze] ||= @hsts_header
+    end
+
+    def flag_cookies_as_secure!(headers)
+      return unless cookies = headers["Set-Cookie".freeze]
+
+      cookies = cookies.split("\n".freeze).map do |cookie|
+        (cookie !~ /;\s*secure\s*(;|$)/i) ?  "#{ cookie }; secure" : cookie
+      end
+
+      headers["Set-Cookie".freeze] = cookies.join("\n".freeze)
     end
   end
 end

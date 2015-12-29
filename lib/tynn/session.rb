@@ -88,10 +88,6 @@ class Tynn
         MSG
       end
 
-      if app.settings[:ssl]
-        options = { secure: true }.merge(options)
-      end
-
       app.use(Rack::Session::Cookie, options)
     end
 

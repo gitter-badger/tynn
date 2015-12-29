@@ -1,8 +1,11 @@
 2.0.0 (unreleased)
 ------------------
 
+- `Tynn::SSL` sets `secure` flag on cookies. This tells the browser to only
+  transmit them over HTTPS.
+
 - Setting `hsts: false` now sets `hsts { expires: 0 }`. Sending this option
-  disables HSTS.
+  disables HTTP Strict Transport Security.
 
   ```ruby
   # Before

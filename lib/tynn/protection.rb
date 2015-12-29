@@ -1,4 +1,5 @@
 require_relative "secure_headers"
+require_relative "ssl"
 
 class Tynn
   # Adds security measures against common attacks. If you are using
@@ -19,14 +20,7 @@ class Tynn
     # @private
     def self.setup(app, ssl: false, hsts: {})
       app.plugin(Tynn::SecureHeaders)
-
-      if ssl
-        app.settings[:ssl] = true
-
-        require_relative "ssl"
-
-        app.plugin(Tynn::SSL, hsts: hsts)
-      end
+      app.plugin(Tynn::SSL, hsts: hsts) if ssl
     end
   end
 end

@@ -1,5 +1,6 @@
 require_relative "helper"
 require_relative "../lib/tynn/protection"
+require_relative "../lib/tynn/session"
 
 class ProtectionTest < Tynn::TestCase
   class App < Tynn
@@ -12,6 +13,17 @@ class ProtectionTest < Tynn::TestCase
       subdomains: false,
       preload: true
     })
+  end
+
+  class SecureCookies < Tynn
+    plugin(Tynn::SSL)
+    plugin(Tynn::Session, key: "session", secret: "__an_insecure_secret_key__")
+
+    define do
+      get do
+        session[:foo] = "foo"
+      end
+    end
   end
 
   test "secure headers" do
@@ -38,5 +50,15 @@ class ProtectionTest < Tynn::TestCase
     result = "max-age=1; preload"
 
     assert_equal result, header
+  end
+
+  test "secure cookies" do
+    app = Tynn::Test.new(SecureCookies)
+    app.get("/", {}, "HTTPS" => "on")
+
+    regexp = /; secure/
+    session = app.res.headers["Set-Cookie"]
+
+    assert_match regexp, session
   end
 end
