@@ -58,6 +58,13 @@ class Tynn
   #
   class SSL
     # @private
+    DEFAULT_HSTS_OPTIONS = {
+      expires: 15_552_000,
+      subdomains: true,
+      preload: false
+    }.freeze
+
+    # @private
     def self.setup(app, hsts: {}) # :nodoc:
       app.use(self, hsts: hsts)
     end
@@ -65,7 +72,7 @@ class Tynn
     # @private
     def initialize(app, hsts: {})
       @app = app
-      @hsts_header = build_hsts_header(hsts)
+      @hsts_header = build_hsts_header(DEFAULT_HSTS_OPTIONS.merge(hsts))
     end
 
     # @private
@@ -86,8 +93,8 @@ class Tynn
     private
 
     def build_hsts_header(options)
-      header = sprintf("max-age=%i", options.fetch(:expires, 15_552_000))
-      header << "; includeSubdomains" if options.fetch(:subdomains, true)
+      header = sprintf("max-age=%i", options[:expires])
+      header << "; includeSubdomains" if options[:subdomains]
       header << "; preload" if options[:preload]
 
       return header
