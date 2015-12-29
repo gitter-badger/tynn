@@ -38,7 +38,7 @@ class MiddlewareTest < Tynn::TestCase
     Tynn.use(Shrimp)
 
     Tynn.define do
-      on "api" do
+      on("api") do
         run(API)
       end
     end
@@ -66,7 +66,7 @@ class MiddlewareTest < Tynn::TestCase
     end
 
     Tynn.define do
-      on "api" do
+      on("api") do
         run(APP)
       end
     end

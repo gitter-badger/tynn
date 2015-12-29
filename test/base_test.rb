@@ -32,8 +32,8 @@ class BaseTest < Tynn::TestCase
 
   test "captures" do
     Tynn.define do
-      on :foo do
-        on :bar do
+      on(:foo) do
+        on(:bar) do
           res.write(sprintf("%{foo}:%{bar}", inbox))
         end
       end
@@ -57,7 +57,7 @@ class BaseTest < Tynn::TestCase
     end
 
     Tynn.define do
-      on "foo" do
+      on("foo") do
         run(Foo, foo: 42)
       end
     end
