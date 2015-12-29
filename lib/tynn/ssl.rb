@@ -25,8 +25,8 @@ class Tynn
   #   and submit your domain to this [form](https://hstspreload.appspot.com/).
   #   Supported by Chrome, Firefox, IE11+ and IE Edge.
   #
-  # To disable HSTS, you will need to tell the browser to expire it
-  # immediately.
+  # To disable HSTS, you will need to tell the browser to expire it immediately.
+  # Setting `hsts: false` is a shortcut for `hsts: { expires: 0 }`.
   #
   # @example
   #   require "tynn"
@@ -54,15 +54,11 @@ class Tynn
   #   )
   #
   # @example Disabling HSTS
-  #   Tynn.plugin(Tynn::SSL, hsts: { expires: 0 })
+  #   Tynn.plugin(Tynn::SSL, hsts: false)
   #
   class SSL
     # @private
-    DEFAULT_HSTS_OPTIONS = {
-      expires: 15_552_000,
-      subdomains: true,
-      preload: false
-    }.freeze
+    HSTS_EXPIRES_IN = 15_552_000 # 180 days
 
     # @private
     def self.setup(app, hsts: {}) # :nodoc:
@@ -72,29 +68,27 @@ class Tynn
     # @private
     def initialize(app, hsts: {})
       @app = app
-      @hsts_header = build_hsts_header(DEFAULT_HSTS_OPTIONS.merge(hsts))
+      @hsts_header = build_hsts_header(hsts || { expires: 0 })
     end
 
     # @private
     def call(env)
       request = Rack::Request.new(env)
 
-      if request.ssl?
-        response = @app.call(env)
+      unless request.ssl?
+        return redirect_to_https(request)
+      end
 
-        set_hsts_header!(response[1])
-
-        return response
-      else
-        return [301, redirect_headers(request), []]
+      return @app.call(env).tap do |_, headers, _|
+        set_hsts_header!(headers)
       end
     end
 
     private
 
     def build_hsts_header(options)
-      header = sprintf("max-age=%i", options[:expires])
-      header << "; includeSubdomains" if options[:subdomains]
+      header = sprintf("max-age=%i", options.fetch(:expires, HSTS_EXPIRES_IN))
+      header << "; includeSubdomains" if options.fetch(:subdomains, true)
       header << "; preload" if options[:preload]
 
       return header
@@ -104,14 +98,12 @@ class Tynn
       headers["Strict-Transport-Security".freeze] ||= @hsts_header
     end
 
-    def redirect_headers(request)
-      return { "Location" => https_location(request) }
+    def redirect_to_https(request)
+      return [301, { "Location" => https_location(request) }, []]
     end
 
-    HTTPS_LOCATION = "https://%s%s".freeze
-
     def https_location(request)
-      return sprintf(HTTPS_LOCATION, request.host, request.fullpath)
+      return sprintf("https://%s%s".freeze, request.host, request.fullpath)
     end
   end
 end

@@ -1,6 +1,19 @@
 2.0.0 (unreleased)
 ------------------
 
+- If `hsts: false` is passed to `Tynn::SSL` or `Tynn::Protection`, it will
+  expire HTTP Strict Transport Security immediately.
+
+  ```ruby
+  # Before
+  Tynn.plugin(Tynn::SSL, hsts: { expires: 0 })
+  Tynn.plugin(Tynn::Protection, ssl: true, hsts: { expires: 0 })
+
+  # Now
+  Tynn.plugin(Tynn::SSL, hsts: false)
+  Tynn.plugin(Tynn::Protection, ssl: true, hsts: false)
+  ```
+
 - Raise error if secret option for `Tynn::Session` is not provided:
 
   ```ruby

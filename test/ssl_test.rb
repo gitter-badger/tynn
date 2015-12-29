@@ -56,4 +56,17 @@ class SSLTest < Tynn::TestCase
 
     assert_equal result, header
   end
+
+  test "disable hsts" do
+    App.plugin(Tynn::SSL, hsts: false)
+    App.define { }
+
+    app = Tynn::Test.new(App)
+    app.get("/", {}, "HTTPS" => "on")
+
+    header = app.res.headers["Strict-Transport-Security"]
+    result = "max-age=0; includeSubdomains"
+
+    assert_equal result, header
+  end
 end
