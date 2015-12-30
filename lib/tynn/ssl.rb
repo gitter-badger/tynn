@@ -59,72 +59,72 @@ class Tynn
   # @example Disabling HSTS
   #   Tynn.plugin(Tynn::SSL, hsts: false)
   #
-  class SSL
-    # @private
-    HSTS_MAX_AGE = 15_552_000 # 180 days
-
+  module SSL
     # @private
     def self.setup(app, hsts: {}) # :nodoc:
-      app.use(self, hsts: hsts)
+      app.use(Tynn::SSL::Middleware, hsts: hsts)
     end
 
     # @private
-    def initialize(app, hsts: {})
-      @app = app
-      @hsts_header = build_hsts_header(hsts || { expires: 0 })
-    end
+    class Middleware
+      HSTS_MAX_AGE = 15_552_000 # 180 days
 
-    # @private
-    def call(env)
-      request = Rack::Request.new(env)
-
-      unless request.ssl?
-        return redirect_to_https(request)
+      def initialize(app, hsts: {})
+        @app = app
+        @hsts_header = build_hsts_header(hsts || { expires: 0 })
       end
 
-      return @app.call(env).tap do |_, headers, _|
-        set_hsts_header!(headers)
-        flag_cookies_as_secure!(headers)
-      end
-    end
+      def call(env)
+        request = Rack::Request.new(env)
 
-    private
-
-    def build_hsts_header(options)
-      header = sprintf("max-age=%i", options.fetch(:expires, HSTS_MAX_AGE))
-      header << "; includeSubdomains" if options.fetch(:subdomains, true)
-      header << "; preload" if options[:preload]
-
-      return header
-    end
-
-    def redirect_to_https(request)
-      return [301, { "Location" => https_location(request) }, []]
-    end
-
-    def https_location(request)
-      host = request.host
-      port = request.port
-
-      location = "https://#{ host }"
-      location << ":#{ port }" if port != 80 && port != 443
-      location << request.fullpath
-
-      return location
-    end
-
-    def set_hsts_header!(headers)
-      headers["Strict-Transport-Security".freeze] ||= @hsts_header
-    end
-
-    def flag_cookies_as_secure!(headers)
-      if cookies = headers["Set-Cookie".freeze]
-        cookies = cookies.split("\n".freeze).map do |cookie|
-          cookie << "; secure".freeze if cookie !~ /;\s*secure\s*(;|$)/i
-          cookie
+        unless request.ssl?
+          return redirect_to_https(request)
         end
 
-        headers["Set-Cookie".freeze] = cookies.join("\n".freeze)
+        return @app.call(env).tap do |_, headers, _|
+          set_hsts_header!(headers)
+          flag_cookies_as_secure!(headers)
+        end
+      end
+
+      private
+
+      def build_hsts_header(options)
+        header = sprintf("max-age=%i", options.fetch(:expires, HSTS_MAX_AGE))
+        header << "; includeSubdomains" if options.fetch(:subdomains, true)
+        header << "; preload" if options[:preload]
+
+        return header
+      end
+
+      def redirect_to_https(request)
+        return [301, { "Location" => https_location(request) }, []]
+      end
+
+      def https_location(request)
+        host = request.host
+        port = request.port
+
+        location = "https://#{ host }"
+        location << ":#{ port }" if port != 80 && port != 443
+        location << request.fullpath
+
+        return location
+      end
+
+      def set_hsts_header!(headers)
+        headers["Strict-Transport-Security".freeze] ||= @hsts_header
+      end
+
+      def flag_cookies_as_secure!(headers)
+        if cookies = headers["Set-Cookie".freeze]
+          cookies = cookies.split("\n".freeze).map do |cookie|
+            cookie << "; secure".freeze if cookie !~ /;\s*secure\s*(;|$)/i
+            cookie
+          end
+
+          headers["Set-Cookie".freeze] = cookies.join("\n".freeze)
+        end
       end
     end
   end
