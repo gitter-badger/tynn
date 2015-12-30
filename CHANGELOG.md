@@ -1,6 +1,8 @@
 2.0.0 (unreleased)
 ------------------
 
+- Fixes HTTPS redirect with non-default ports.
+
 - `Tynn::SSL` sets `secure` flag on cookies. This tells the browser to only
   transmit them over HTTPS.
 
