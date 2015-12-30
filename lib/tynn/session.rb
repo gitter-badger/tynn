@@ -66,25 +66,25 @@ class Tynn
 
     def self.setup(app, options = {}) # :nodoc:
       unless options[:secret]
-        raise NoSecretError, <<-MSG.gsub(/^[ \t]{8}/, "")
-        No secret option provided.
+        raise NoSecretError, <<-MSG.gsub(/^[ \t]{10}/, "")
+          No secret option provided.
 
-        Tynn::Session uses a secret token to sign the cookie data, thus
-        unauthorized means can't alter it. Please, add the secret option
-        to your code:
+          Tynn::Session uses a secret token to sign the cookie data, thus
+          unauthorized means can't alter it. Please, add the secret option
+          to your code:
 
-            #{ app }.plugin(Tynn::Session, secret: "__a_long_random_secret__", ...)
+              #{ app }.plugin(Tynn::Session, secret: "__a_long_random_secret__", ...)
 
-        Make sure the secret is long and all random. You can generate a
-        secure secret key with:
+          Make sure the secret is long and all random. You can generate a
+          secure secret key with:
 
-            $ ruby -r securerandom -e "puts SecureRandom.hex(64)"
+              $ ruby -r securerandom -e "puts SecureRandom.hex(64)"
 
-        If you're sharing your code publicly, make sure the secret key
-        is kept private. Knowing the secret allows an attacker to tamper
-        the data. You can use environment variables to store the secret:
+          If you're sharing your code publicly, make sure the secret key
+          is kept private. Knowing the secret allows an attacker to tamper
+          the data. You can use environment variables to store the secret:
 
-            #{ app }.plugin(Tynn::Session, secret: ENV.fetch("SESSION_SECRET"), ...)
+              #{ app }.plugin(Tynn::Session, secret: ENV.fetch("SESSION_SECRET"), ...)
         MSG
       end
 
