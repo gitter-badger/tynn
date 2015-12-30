@@ -88,15 +88,17 @@ class SSLTest < Tynn::TestCase
       get do
         res.set_cookie("first", "cookie")
         res.set_cookie("other", value: "cookie", http_only: true)
+        res.set_cookie("secure", value: "cookie", secure: true)
       end
     end
 
     app = Tynn::Test.new(App)
     app.get("/", {}, "HTTPS" => "on")
 
-    first, other = app.res.headers["Set-Cookie"].split("\n")
+    first, other, secure = app.res.headers["Set-Cookie"].split("\n")
 
     assert_equal "first=cookie; secure", first
     assert_equal "other=cookie; HttpOnly; secure", other
+    assert_equal "secure=cookie; secure", secure
   end
 end

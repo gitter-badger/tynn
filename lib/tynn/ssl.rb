@@ -120,7 +120,7 @@ class Tynn
     def flag_cookies_as_secure!(headers)
       if cookies = headers["Set-Cookie".freeze]
         cookies = cookies.split("\n".freeze).map do |cookie|
-          cookie = "#{ cookie }; secure" if cookie !~ /;\s*secure\s*(;|$)/i
+          cookie << "; secure".freeze if cookie !~ /;\s*secure\s*(;|$)/i
           cookie
         end
 
