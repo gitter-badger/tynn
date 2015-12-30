@@ -20,6 +20,17 @@ class SSLTest < Tynn::TestCase
     assert_equal "https://example.org/", app.res.location
   end
 
+  test "redirects to non-default port" do
+    App.plugin(Tynn::SSL)
+    App.define { }
+
+    app = Tynn::Test.new(App)
+    app.get("/", {}, { "HTTP_HOST" => "example.org:4567" })
+
+    assert_equal 301, app.res.status
+    assert_equal "https://example.org:4567/", app.res.location
+  end
+
   test "safe request" do
     App.plugin(Tynn::SSL)
     App.define { res.write("secure") }

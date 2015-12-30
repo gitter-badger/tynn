@@ -103,7 +103,14 @@ class Tynn
     end
 
     def https_location(request)
-      return sprintf("https://%s%s".freeze, request.host, request.fullpath)
+      host = request.host
+      port = request.port
+
+      location = "https://#{ host }"
+      location << ":#{ port }" if port != 80 && port != 443
+      location << request.fullpath
+
+      return location
     end
 
     def set_hsts_header!(headers)
@@ -111,13 +118,14 @@ class Tynn
     end
 
     def flag_cookies_as_secure!(headers)
-      return unless cookies = headers["Set-Cookie".freeze]
+      if cookies = headers["Set-Cookie".freeze]
+        cookies = cookies.split("\n".freeze).map do |cookie|
+          cookie = "#{ cookie }; secure" if cookie !~ /;\s*secure\s*(;|$)/i
+          cookie
+        end
 
-      cookies = cookies.split("\n".freeze).map do |cookie|
-        (cookie !~ /;\s*secure\s*(;|$)/i) ?  "#{ cookie }; secure" : cookie
+        headers["Set-Cookie".freeze] = cookies.join("\n".freeze)
       end
-
-      headers["Set-Cookie".freeze] = cookies.join("\n".freeze)
     end
   end
 end
