@@ -62,7 +62,9 @@ class Tynn
   module SSL
     # @private
     def self.setup(app, hsts: {}) # :nodoc:
-      app.use(Tynn::SSL::Middleware, hsts: hsts)
+      app.middleware.push(Proc.new { |app|
+        Tynn::SSL::Middleware.new(app, hsts: hsts)
+      })
     end
 
     # @private

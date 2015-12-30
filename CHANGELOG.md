@@ -31,7 +31,9 @@
 - `Tynn::SSL` always sets `secure` flag on cookies. This tells the browser to only
   transmit them over HTTPS.
 
-**2 minor features:**
+**3 minor features:**
+
+- `Tynn::SSL` always executes before other middleware.
 
 - Setting `hsts: false` now sets `hsts { expires: 0 }`. Sending this option
   disables HTTP Strict Transport Security.

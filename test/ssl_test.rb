@@ -101,4 +101,20 @@ class SSLTest < Tynn::TestCase
     assert_equal "other=cookie; HttpOnly; secure", other
     assert_equal "secure=cookie; secure", secure
   end
+
+  test "middleware always execute first" do
+    App.plugin(Tynn::Session, key: "session", secret: "secret")
+    App.plugin(Tynn::SSL)
+
+    App.define do
+      get do
+        session[:foo] = "foo"
+      end
+    end
+
+    app = Tynn::Test.new(App)
+    app.get("/", {}, "HTTPS" => "on")
+
+    assert_match(/; secure/, app.res.headers["Set-Cookie"])
+  end
 end
