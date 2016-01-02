@@ -62,9 +62,11 @@ class Tynn
   #   )
   #
   module Session
+    # @private
     NoSecretError = Class.new(RuntimeError)
 
-    def self.setup(app, options = {}) # :nodoc:
+    # @private
+    def self.setup(app, options = {})
       unless options[:secret]
         raise NoSecretError, <<-MSG.gsub(/^[ \t]{10}/, "")
           No secret option provided.
