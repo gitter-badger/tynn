@@ -26,12 +26,12 @@
 - Remove `Tynn::AllMethods`. Syro 2.1.0 includes matchers for
   `HEAD` and `OPTIONS` by default.
 
-**1 major feature:**
+**1 major enhancement:**
 
 - `Tynn::SSL` always sets `secure` flag on cookies. This tells the browser to only
   transmit them over HTTPS.
 
-**3 minor features:**
+**3 minor enhancements:**
 
 - `Tynn::SSL` always executes before other middleware.
 
