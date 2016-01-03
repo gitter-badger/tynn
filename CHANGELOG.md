@@ -32,6 +32,9 @@
 
 **1 new feature:**
 
+- Add `#staging?` method to `Tynn::Environment`. Returns `true` if `environment`
+  is `:staging`. Otherwise, returns `false`.
+
 - Setting `hsts: false` now sets `hsts { expires: 0 }`. Sending this option
   disables HTTP Strict Transport Security.
 

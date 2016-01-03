@@ -15,6 +15,7 @@ class Tynn
   #   Tynn.development? # => true
   #   Tynn.production?  # => false
   #   Tynn.test?        # => false
+  #   Tynn.staging?     # => false
   #
   # @example Setting a custom environment
   #   Tynn.set(:environment, :test)
@@ -91,6 +92,22 @@ class Tynn
       #
       def production?
         return environment == :production
+      end
+
+      # Checks if current environment is staging.
+      #
+      # @example
+      #   Tynn.set(:environment, :test)
+      #   Tynn.staging? # => false
+      #
+      #   Tynn.set(:environment, :staging)
+      #   Tynn.staging? # => true
+      #
+      # @return [Boolean] Returns `true` if `environment`
+      #   is `:staging`. Otherwise, `false`.
+      #
+      def staging?
+        return environment == :staging
       end
     end
   end
