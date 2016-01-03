@@ -26,14 +26,11 @@
 - Remove `Tynn::AllMethods`. Syro 2.1.0 includes matchers for
   `HEAD` and `OPTIONS` by default.
 
-**1 major enhancement:**
+**1 bug fix:**
 
-- `Tynn::SSL` always sets `secure` flag on cookies. This tells the browser to only
-  transmit them over HTTPS.
+- Fixes HTTPS redirect with non-default ports.
 
-**3 minor enhancements:**
-
-- `Tynn::SSL` always executes before other middleware.
+**1 new feature:**
 
 - Setting `hsts: false` now sets `hsts { expires: 0 }`. Sending this option
   disables HTTP Strict Transport Security.
@@ -48,16 +45,19 @@
   Tynn.plugin(Tynn::Protection, ssl: true, hsts: false)
   ```
 
+**3 enhancements:**
+
+- `Tynn::SSL` always sets `secure` flag on cookies. This tells the browser to only
+  transmit them over HTTPS.
+
+- `Tynn::SSL` always executes before other middleware.
+
 - Raise error if secret option for `Tynn::Session` is not provided:
 
   ```ruby
   Tynn.plugin(Tynn::Session)
   # => Tynn::Session::NoSecretError: No secret option provided.
   ```
-
-**1 bug fix:**
-
-- Fixes HTTPS redirect with non-default ports.
 
 Please check [1.4.x](https://github.com/frodsan/tynn/blob/1.4.0/CHANGELOG.md)
 for previous changes.
