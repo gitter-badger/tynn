@@ -66,6 +66,12 @@ class Tynn
       def call(env)
         return @__app.call(env)
       end
+
+      # @private
+      def reset!
+        @__app = nil
+        @__middleware = []
+      end
     end
 
     # @private

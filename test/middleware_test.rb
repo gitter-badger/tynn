@@ -13,10 +13,6 @@ class Shrimp
 end
 
 class MiddlewareTest < Tynn::TestCase
-  setup do
-    Tynn.middleware.clear
-  end
-
   test "middleware in main application" do
     Tynn.use(Shrimp)
 

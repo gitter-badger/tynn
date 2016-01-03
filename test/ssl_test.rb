@@ -6,7 +6,7 @@ class SSLTest < Tynn::TestCase
   end
 
   setup do
-    App.middleware.clear
+    App.reset!
   end
 
   test "redirects to https" do

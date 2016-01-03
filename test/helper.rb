@@ -6,4 +6,7 @@ require_relative "../lib/tynn"
 require_relative "../lib/tynn/test"
 
 class Tynn::TestCase < Minitest::Test
+  setup do
+    Tynn.reset!
+  end
 end
