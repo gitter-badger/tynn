@@ -15,9 +15,7 @@ class SessionTest < Tynn::TestCase
   end
 
   test "raises error if secret is empty" do
-    assert_raises(Tynn::Session::NoSecretError) do
-      Tynn.plugin(Tynn::Session)
-    end
+    assert_raises { Tynn.plugin(Tynn::Session) }
   end
 
   test "session" do

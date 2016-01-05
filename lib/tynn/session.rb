@@ -63,12 +63,9 @@ class Tynn
   #
   module Session
     # @private
-    NoSecretError = Class.new(RuntimeError)
-
-    # @private
     def self.setup(app, options = {})
       unless options[:secret]
-        raise NoSecretError, <<-MSG.gsub(/^[ \t]{10}/, "")
+        raise <<-MSG.gsub(/^[ \t]{10}/, "")
           No secret option provided.
 
           Tynn::Session uses a secret token to sign the cookie data, thus
