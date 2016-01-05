@@ -48,12 +48,19 @@
   Tynn.plugin(Tynn::Protection, ssl: true, hsts: false)
   ```
 
-**3 enhancements:**
+**4 enhancements:**
 
 - `Tynn::SSL` always sets `secure` flag on cookies. This tells the browser to only
   transmit them over HTTPS.
 
 - `Tynn::SSL` always executes before other middleware.
+
+- Raise error if application handler is missing:
+
+  ```ruby
+  run(App)
+  # => Application handler is missing. Try App.define { }
+  ```
 
 - Raise error if secret option for `Tynn::Session` is not provided:
 

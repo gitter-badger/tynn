@@ -58,13 +58,18 @@ class Tynn
       end
 
       # @private
+      def call(env)
+        return app.call(env)
+      end
+
+      # @private
       def middleware
         return @__middleware ||= []
       end
 
       # @private
-      def call(env)
-        return @__app.call(env)
+      def app
+        @__app or raise("Application handler is missing. Try #{ self }.define { }")
       end
 
       # @private

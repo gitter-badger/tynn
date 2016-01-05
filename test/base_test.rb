@@ -1,6 +1,12 @@
 require_relative "helper"
 
 class BaseTest < Tynn::TestCase
+  test "raises" do
+    assert_raises do
+      Tynn.call({})
+    end
+  end
+
   test "hello" do
     Tynn.define do
       get do
