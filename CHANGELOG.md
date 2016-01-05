@@ -30,7 +30,7 @@
 
 - Fixes HTTPS redirect with non-default ports.
 
-**1 new feature:**
+**2 new features:**
 
 - Add `#staging?` method to `Tynn::Environment`. Returns `true` if `environment`
   is `:staging`. Otherwise, returns `false`.
@@ -66,7 +66,7 @@
 
   ```ruby
   Tynn.plugin(Tynn::Session)
-  # => Tynn::Session::NoSecretError: No secret option provided.
+  # => No secret option provided.
   ```
 
 Please check [1.4.x](https://github.com/frodsan/tynn/blob/1.4.0/CHANGELOG.md)
