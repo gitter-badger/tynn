@@ -9,30 +9,24 @@ Description
 Tynn is a thin abstraction on top of [Syro][syro], a very simple and fast
 router for web applications.
 
-Usage
------
+Getting Started
+---------------
 
-Here's a minimal application:
+1. Install Tynn if you haven't yet:
 
-```ruby
-# config.ru
-require "tynn"
-
-Tynn.define do
-  root do
-    res.write("Hello World!")
-  end
-end
-
-run(Tynn)
+```
+$ gem install tynn
 ```
 
-Check [Getting Started][start] for more information.
+3. Start the web server with:
 
-Documentation
--------------
+```
+$ rackup
+```
 
-See the website: <http://tynn.xyz/>.
+4. Visit <http://localhost:9292> and you'll see the greeting message.
+
+5. Check the [Tutorial](http://tynn.xyz/tutorial.html) for more information.
 
 Contributing
 ------------
