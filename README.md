@@ -57,7 +57,7 @@ $ rake test
 
 Use [GitHub Issues][issues] for reporting bugs, discussing features and
 general feedback.  If you've found a problem in Tynn, be sure to check
-the [past issues][https://github.com/frodsan/tynn/issues?state=closed]
+the [past issues](https://github.com/frodsan/tynn/issues?state=closed)
 before open a new one. For new features, it's important to explain the
 use case to solve, we want to keep the code base simple.
 
