@@ -14,15 +14,15 @@ Getting Started
 
 1. Install Tynn if you haven't yet:
 
-```
-$ gem install tynn
-```
+  ```
+  $ gem install tynn
+  ```
 
 3. Start the web server with:
 
-```
-$ rackup
-```
+  ```
+  $ rackup
+  ```
 
 4. Visit <http://localhost:9292> and you'll see the greeting message.
 
