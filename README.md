@@ -18,6 +18,21 @@ Getting Started
   $ gem install tynn
   ```
 
+2. Here is a simple application. Save the contents as *config.ru*.
+
+  ```
+  # config.ru
+  require "tynn"
+
+  Tynn.define do
+    get do
+      res.write("Hello World!")
+    end
+  end
+
+  run(Tynn)
+  ```
+
 3. Start the web server with:
 
   ```
@@ -26,7 +41,7 @@ Getting Started
 
 4. Visit <http://localhost:9292> and you'll see the greeting message.
 
-5. Check the [tutorial](http://tynn.xyz/tutorial.html), [guides](http://tynn.xyz),
+5. Check the [tutorial](http://tynn.xyz/tutorial.html), the [guides](http://tynn.xyz),
    and the [API documentation](http://rdoc.info/github/frodsan/tynn/master) for
    more information.
 
