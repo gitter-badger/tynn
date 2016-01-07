@@ -20,7 +20,7 @@ Getting Started
 
 2. Here is a simple application. Save the contents as *config.ru*.
 
-  ```
+  ```ruby
   # config.ru
   require "tynn"
 
