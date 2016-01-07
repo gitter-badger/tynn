@@ -32,12 +32,29 @@ Check [Getting Started][start] for more information.
 Documentation
 -------------
 
-See our website: <http://tynn.xyz/>.
+See the website: <http://tynn.xyz/>.
 
 Contributing
 ------------
 
-Please see the [CONTRIBUTING][contributing] file for more information.
+
+Fork the project with:
+
+```
+$ git clone git@github.com:frodsan/tynn.git
+```
+
+To install dependencies, use:
+
+```
+$ bundle install
+```
+
+To run the test suite, do:
+
+```
+$ rake test
+```
 
 License
 -------
