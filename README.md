@@ -26,11 +26,9 @@ Getting Started
 
 4. Visit <http://localhost:9292> and you'll see the greeting message.
 
-5. Check these resources for more information:
-
-  * [Tynn Tutorial](http://tynn.xyz/tutorial.html)
-  * [Tynn Guides](http://tynn.xyz/)
-  * [API Documentation](http://rdoc.info/github/frodsan/tynn/master)
+5. Check the [tutorial](http://tynn.xyz/tutorial.html), [guides](http://tynn.xyz),
+   and the [API documentation](http://rdoc.info/github/frodsan/tynn/master) for
+   more information.
 
 Contributing
 ------------
