@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Tynn
   # Enforces secure HTTP requests by:
   #
@@ -62,8 +64,8 @@ class Tynn
   module SSL
     # @private
     def self.setup(app, hsts: {})
-      app.middleware.push(Proc.new { |app|
-        Tynn::SSL::Middleware.new(app, hsts: hsts)
+      app.middleware.push(Proc.new { |_app|
+        Tynn::SSL::Middleware.new(_app, hsts: hsts)
       })
     end
 
@@ -107,7 +109,7 @@ class Tynn
         host = request.host
         port = request.port
 
-        location = "https://#{ host }"
+        location = "https://#{ host }".dup
         location << ":#{ port }" if port != 80 && port != 443
         location << request.fullpath
 
@@ -115,17 +117,17 @@ class Tynn
       end
 
       def set_hsts_header!(headers)
-        headers["Strict-Transport-Security".freeze] ||= @hsts_header
+        headers["Strict-Transport-Security"] ||= @hsts_header
       end
 
       def flag_cookies_as_secure!(headers)
-        if cookies = headers["Set-Cookie".freeze]
-          cookies = cookies.split("\n".freeze).map do |cookie|
-            cookie << "; secure".freeze if cookie !~ /;\s*secure\s*(;|$)/i
+        if cookies = headers["Set-Cookie"]
+          cookies = cookies.split("\n").map do |cookie|
+            cookie << "; secure" if cookie !~ /;\s*secure\s*(;|$)/i
             cookie
           end
 
-          headers["Set-Cookie".freeze] = cookies.join("\n".freeze)
+          headers["Set-Cookie"] = cookies.join("\n")
         end
       end
     end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "json"
 
 class Tynn
@@ -35,7 +37,7 @@ class Tynn
       # @return [void]
       #
       def json(data)
-        res.headers[Rack::CONTENT_TYPE] = "application/json".freeze
+        res.headers["Content-Type"] = "application/json"
         res.write(data.to_json)
       end
     end

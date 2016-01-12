@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Tynn
   # A simple helper class to simulate requests to your application.
   #
@@ -114,7 +116,7 @@ class Tynn
       # @return [void]
       #
       def get(path, params = {}, env = {})
-        request(path, env.merge(method: Rack::GET, params: params))
+        request(path, env.merge(method: "GET", params: params))
       end
 
       # Issues a `POST` request.
@@ -128,7 +130,7 @@ class Tynn
       # @return [void]
       #
       def post(path, params = {}, env = {})
-        request(path, env.merge(method: "POST".freeze, params: params))
+        request(path, env.merge(method: "POST", params: params))
       end
 
       # Issues a `PUT` request.
@@ -142,7 +144,7 @@ class Tynn
       # @return [void]
       #
       def put(path, params = {}, env = {})
-        request(path, env.merge(method: "PUT".freeze, params: params))
+        request(path, env.merge(method: "PUT", params: params))
       end
 
       # Issues a `PATCH` request.
@@ -156,7 +158,7 @@ class Tynn
       # @return [void]
       #
       def patch(path, params = {}, env = {})
-        request(path, env.merge(method: "PATCH".freeze, params: params))
+        request(path, env.merge(method: "PATCH", params: params))
       end
 
       # Issues a `DELETE` request.
@@ -170,7 +172,7 @@ class Tynn
       # @return [void]
       #
       def delete(path, params = {}, env = {})
-        request(path, env.merge(method: "DELETE".freeze, params: params))
+        request(path, env.merge(method: "DELETE", params: params))
       end
 
       # Issues a `HEAD` request.
@@ -198,7 +200,7 @@ class Tynn
       # @return [void]
       #
       def options(path, params = {}, env = {})
-        request(path, env.merge(method: "OPTIONS".freeze, params: params))
+        request(path, env.merge(method: "OPTIONS", params: params))
       end
 
       private
