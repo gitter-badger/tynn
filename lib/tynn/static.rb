@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Tynn
   # Adds support for static files (javascript files, images,
   # stylesheets, etc).

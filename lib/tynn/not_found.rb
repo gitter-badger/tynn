@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Tynn
   module NotFound
     module InstanceMethods

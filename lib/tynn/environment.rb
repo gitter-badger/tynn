@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Tynn
   # Adds helper methods to get and check the current environment.
   # By default, the environment is based on `ENV["RACK_ENV"]`.

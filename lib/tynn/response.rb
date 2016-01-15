@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Tynn
   # It provides convenience methods to construct a Rack response.
   #

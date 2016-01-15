@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "syro"
 require_relative "request"
 require_relative "response"

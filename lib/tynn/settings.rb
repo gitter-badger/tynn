@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Tynn
   # It provides a settings API for applications.
   # This plugin is included by default.

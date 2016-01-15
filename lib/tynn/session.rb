@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Tynn
   # Public: Adds simple cookie based session management. You can pass a secret
   # token to sign the cookie data, thus unauthorized means can't alter it.

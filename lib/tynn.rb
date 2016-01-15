@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative "tynn/base"
 require_relative "tynn/default_headers"
 require_relative "tynn/settings"

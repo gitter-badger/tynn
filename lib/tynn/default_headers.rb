@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Tynn
   # Adds support to set default headers for responses.
   # This plugin is included by default.

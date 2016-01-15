@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Tynn
   # Adds the following security related HTTP headers:
   #
