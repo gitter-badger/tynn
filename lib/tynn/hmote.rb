@@ -18,17 +18,17 @@ class Tynn
       end
 
       def view(template, locals = {}, layout = settings[:layout])
-        return partial(layout, locals.merge(content: partial(template, locals)))
+        partial(layout, locals.merge(content: partial(template, locals)))
       end
 
       def partial(template, locals = {})
-        return hmote(template_path(template), locals.merge(app: self), TOPLEVEL_BINDING)
+        hmote(template_path(template), locals.merge(app: self), TOPLEVEL_BINDING)
       end
 
       private
 
       def template_path(template)
-        return File.join(settings[:views], "#{ template }.mote")
+        File.join(settings[:views], "#{ template }.mote")
       end
     end
   end

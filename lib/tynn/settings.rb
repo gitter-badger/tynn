@@ -51,7 +51,7 @@ class Tynn
       # @return [Hash] application settings.
       #
       def settings
-        return @settings ||= {}
+        @settings ||= {}
       end
 
       # Sets an `option` to the given `value`.
@@ -86,7 +86,7 @@ class Tynn
       # @return (see Tynn::Settings::ClassMethods#settings)
       #
       def settings
-        return self.class.settings
+        self.class.settings
       end
     end
   end

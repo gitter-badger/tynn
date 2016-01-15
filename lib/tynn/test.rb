@@ -78,7 +78,7 @@ class Tynn
       # @see http://www.rubydoc.info/gems/rack/Rack/Request
       #
       def req
-        return @__req
+        @__req
       end
 
       # Returns the current response object.
@@ -99,7 +99,7 @@ class Tynn
       # @see http://www.rubydoc.info/gems/rack/Rack/MockResponse
       #
       def res
-        return @__res
+        @__res
       end
 
       # Issues a `GET` request.

@@ -59,12 +59,12 @@ class Tynn
 
       # @private
       def call(env)
-        return app.call(env)
+        app.call(env)
       end
 
       # @private
       def middleware
-        return @__middleware ||= []
+        @__middleware ||= []
       end
 
       # @private
@@ -82,11 +82,11 @@ class Tynn
     # @private
     module InstanceMethods
       def request_class
-        return Tynn::Request
+        Tynn::Request
       end
 
       def response_class
-        return Tynn::Response
+        Tynn::Response
       end
     end
   end

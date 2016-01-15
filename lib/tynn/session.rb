@@ -101,7 +101,7 @@ class Tynn
       #   session[:foo] # => "foo"
       #
       def session
-        return req.session
+        req.session
       end
     end
   end

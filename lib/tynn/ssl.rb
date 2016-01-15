@@ -85,7 +85,7 @@ class Tynn
           return redirect_to_https(request)
         end
 
-        return @app.call(env).tap do |_, headers, _|
+        @app.call(env).tap do |_, headers, _|
           set_hsts_header!(headers)
           flag_cookies_as_secure!(headers)
         end
@@ -98,11 +98,11 @@ class Tynn
         header << "; includeSubdomains" if options.fetch(:subdomains, true)
         header << "; preload" if options[:preload]
 
-        return header
+        header
       end
 
       def redirect_to_https(request)
-        return [301, { "Location" => https_location(request) }, []]
+        [301, { "Location" => https_location(request) }, []]
       end
 
       def https_location(request)
@@ -113,7 +113,7 @@ class Tynn
         location << ":#{ port }" if port != 80 && port != 443
         location << request.fullpath
 
-        return location
+        location
       end
 
       def set_hsts_header!(headers)

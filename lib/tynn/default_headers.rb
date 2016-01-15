@@ -27,7 +27,7 @@ class Tynn
     # @private
     module InstanceMethods
       def default_headers
-        return Hash[settings[:default_headers]]
+        Hash[settings[:default_headers]]
       end
     end
   end

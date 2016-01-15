@@ -43,7 +43,7 @@ class Tynn
       # @return [Symbol] current environment
       #
       def environment
-        return settings[:environment]
+        settings[:environment]
       end
 
       # Checks if current environment is development.
@@ -59,7 +59,7 @@ class Tynn
       #   is `:development`. Otherwise, `false`.
       #
       def development?
-        return environment == :development
+        environment == :development
       end
 
       # Checks if current environment is test.
@@ -75,7 +75,7 @@ class Tynn
       #   is `:test`. Otherwise, `false`.
       #
       def test?
-        return environment == :test
+        environment == :test
       end
 
       # Checks if current environment is production.
@@ -91,7 +91,7 @@ class Tynn
       #   is `:production`. Otherwise, `false`.
       #
       def production?
-        return environment == :production
+        environment == :production
       end
 
       # Checks if current environment is staging.
@@ -107,7 +107,7 @@ class Tynn
       #   is `:staging`. Otherwise, `false`.
       #
       def staging?
-        return environment == :staging
+        environment == :staging
       end
     end
   end

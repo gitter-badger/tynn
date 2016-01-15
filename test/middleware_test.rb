@@ -8,7 +8,7 @@ class Shrimp
   def call(env)
     status, headers, body = @app.call(env)
 
-    return [status, headers, body.reverse]
+    [status, headers, body.reverse]
   end
 end
 
