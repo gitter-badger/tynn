@@ -56,7 +56,7 @@ class Tynn
       # @see http://tynn.xyz/middleware.html
       #
       def use(middleware, *args, &block)
-        self.middleware.unshift(Proc.new { |app| middleware.new(app, *args, &block) })
+        self.middleware.unshift(proc { |app| middleware.new(app, *args, &block) })
       end
 
       # @private

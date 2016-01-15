@@ -34,7 +34,7 @@ class Tynn
       "X-Frame-Options" => "SAMEORIGIN",
       "X-Permitted-Cross-Domain-Policies" => "none",
       "X-XSS-Protection" => "1; mode=block"
-    }
+    }.freeze
 
     # @private
     def self.setup(app)

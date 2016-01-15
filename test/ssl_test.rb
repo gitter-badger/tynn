@@ -56,7 +56,10 @@ class SSLTest < Tynn::TestCase
   end
 
   test "hsts header with options" do
-    App.plugin(Tynn::SSL, hsts: { expires: 1, subdomains: false, preload: true })
+    App.plugin(Tynn::SSL, hsts: {
+      expires: 1, subdomains: false, preload: true
+    })
+
     App.define {}
 
     app = Tynn::Test.new(App)
