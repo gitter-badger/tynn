@@ -26,9 +26,11 @@ class Tynn
   #   unprotected if it uses HTTP. The same applies to the first request after
   #   the activity period specified by `max-age`. Modern browsers implements a
   #   "STS preloaded list", which contains known sites supporting HSTS. If you
-  #   would like to include your website into the list, set this options to `true`
-  #   and submit your domain to this [form](https://hstspreload.appspot.com/).
-  #   Supported by Chrome, Firefox, IE11+ and IE Edge.
+  #   would like to include your website into the list, set this options to
+  #   `true` and submit your domain to this [form][hsts-preload]. Supported by
+  #   Chrome, Firefox, IE11+ and IE Edge.
+  #
+  # [hsts-preload]: https://hstspreload.appspot.com/
   #
   # To disable HSTS, you will need to tell the browser to expire it immediately.
   # Setting `hsts: false` is a shortcut for `hsts: { expires: 0 }`.
@@ -64,9 +66,11 @@ class Tynn
   module SSL
     # @private
     def self.setup(app, hsts: {})
-      app.middleware.push(Proc.new { |_app|
-        Tynn::SSL::Middleware.new(_app, hsts: hsts)
-      })
+      middleware = proc do |_app_|
+        Tynn::SSL::Middleware.new(_app_, hsts: hsts)
+      end
+
+      app.middleware.push(middleware)
     end
 
     # @private
@@ -81,12 +85,11 @@ class Tynn
       def call(env)
         request = Rack::Request.new(env)
 
-        unless request.ssl?
-          return redirect_to_https(request)
-        end
+        return redirect_to_https(request) unless request.ssl?
 
         @app.call(env).tap do |_, headers, _|
           set_hsts_header!(headers)
+
           flag_cookies_as_secure!(headers)
         end
       end
@@ -102,7 +105,11 @@ class Tynn
       end
 
       def redirect_to_https(request)
-        [301, { "Location" => https_location(request) }, []]
+        [301, https_headers(request), []]
+      end
+
+      def https_headers(request)
+        { "Location" => https_location(request) }
       end
 
       def https_location(request)
@@ -121,14 +128,12 @@ class Tynn
       end
 
       def flag_cookies_as_secure!(headers)
-        if cookies = headers["Set-Cookie"]
-          cookies = cookies.split("\n").map do |cookie|
-            cookie << "; secure" if cookie !~ /;\s*secure\s*(;|$)/i
-            cookie
-          end
+        return unless cookies = headers["Set-Cookie"]
 
-          headers["Set-Cookie"] = cookies.join("\n")
-        end
+        headers["Set-Cookie"] = cookies.split("\n").map do |cookie|
+          cookie << "; secure" if cookie !~ /;\s*secure\s*(;|$)/i
+          cookie
+        end.join("\n")
       end
     end
   end
