@@ -1,11 +1,11 @@
 2.0.0 (unreleased)
 ------------------
 
-**3 Breaking changes:**
+**2 Breaking changes:**
 
 - Bump Syro version to 2.1.0. The functionality to yield the
-  capture to the block has been removed in Syro. This version encourages the
-  use of `inbox`.
+  capture to the block has been removed in Syro. This version
+  encourages the use of `inbox`.
 
   ```ruby
   # Before
@@ -18,10 +18,6 @@
     res.write(inbox[:id])
   end
   ```
-
-- Remove `Tynn::NotFound` plugin. The plugin performs bad. In
-  the future, there will be a better support for handling errors and status
-  codes.
 
 - Remove `Tynn::AllMethods`. Syro 2.1.0 includes matchers for
   `HEAD` and `OPTIONS` by default.
