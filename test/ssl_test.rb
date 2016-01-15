@@ -25,7 +25,7 @@ class SSLTest < Tynn::TestCase
     App.define {}
 
     app = Tynn::Test.new(App)
-    app.get("/", {}, { "HTTP_HOST" => "example.org:4567" })
+    app.get("/", {}, "HTTP_HOST" => "example.org:4567")
 
     assert_equal 301, app.res.status
     assert_equal "https://example.org:4567/", app.res.location
