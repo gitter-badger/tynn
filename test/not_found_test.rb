@@ -5,7 +5,7 @@ class NotFoundTest < Tynn::TestCase
   class App < Tynn
     plugin(Tynn::NotFound)
 
-    define { }
+    define {}
 
     def not_found
       res.write("not found")

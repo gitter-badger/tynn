@@ -31,7 +31,7 @@ class ProtectionTest < Tynn::TestCase
   end
 
   test "ssl" do
-    SSLApp.define { }
+    SSLApp.define {}
 
     app = Tynn::Test.new(SSLApp)
     app.get("/")
@@ -41,7 +41,7 @@ class ProtectionTest < Tynn::TestCase
   end
 
   test "hsts" do
-    SSLApp.define { }
+    SSLApp.define {}
 
     app = Tynn::Test.new(SSLApp)
     app.get("/", {}, "HTTPS" => "on")

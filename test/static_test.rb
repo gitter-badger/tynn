@@ -5,7 +5,7 @@ class StaticTest < Tynn::TestCase
   class App < Tynn
     plugin Tynn::Static, %w(/test), root: Dir.pwd
 
-    define { }
+    define {}
   end
 
   test "serves static files" do

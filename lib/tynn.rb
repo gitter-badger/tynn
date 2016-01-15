@@ -46,17 +46,11 @@ class Tynn
   # @see http://tynn.xyz/plugins.html
   #
   def self.plugin(plugin, *args, &block)
-    if defined?(plugin::InstanceMethods)
-      self.include(plugin::InstanceMethods)
-    end
+    include(plugin::InstanceMethods) if defined?(plugin::InstanceMethods)
 
-    if defined?(plugin::ClassMethods)
-      self.extend(plugin::ClassMethods)
-    end
+    extend(plugin::ClassMethods) if defined?(plugin::ClassMethods)
 
-    if plugin.respond_to?(:setup)
-      plugin.setup(self, *args, &block)
-    end
+    plugin.setup(self, *args, &block) if plugin.respond_to?(:setup)
   end
 
   plugin(Tynn::Base)

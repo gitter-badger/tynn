@@ -2,7 +2,7 @@ require_relative "helper"
 
 class DefaultHeadersTest < Tynn::TestCase
   class App < Tynn
-    define { }
+    define {}
   end
 
   test "respond with default headers" do

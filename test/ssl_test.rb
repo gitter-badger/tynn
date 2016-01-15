@@ -11,7 +11,7 @@ class SSLTest < Tynn::TestCase
 
   test "redirects to https" do
     App.plugin(Tynn::SSL)
-    App.define { }
+    App.define {}
 
     app = Tynn::Test.new(App)
     app.get("/")
@@ -22,7 +22,7 @@ class SSLTest < Tynn::TestCase
 
   test "redirects to non-default port" do
     App.plugin(Tynn::SSL)
-    App.define { }
+    App.define {}
 
     app = Tynn::Test.new(App)
     app.get("/", {}, { "HTTP_HOST" => "example.org:4567" })
@@ -44,7 +44,7 @@ class SSLTest < Tynn::TestCase
 
   test "hsts header" do
     App.plugin(Tynn::SSL)
-    App.define { }
+    App.define {}
 
     app = Tynn::Test.new(App)
     app.get("/", {}, "HTTPS" => "on")
@@ -57,7 +57,7 @@ class SSLTest < Tynn::TestCase
 
   test "hsts header with options" do
     App.plugin(Tynn::SSL, hsts: { expires: 1, subdomains: false, preload: true })
-    App.define { }
+    App.define {}
 
     app = Tynn::Test.new(App)
     app.get("/", {}, "HTTPS" => "on")
@@ -70,7 +70,7 @@ class SSLTest < Tynn::TestCase
 
   test "disable hsts" do
     App.plugin(Tynn::SSL, hsts: false)
-    App.define { }
+    App.define {}
 
     app = Tynn::Test.new(App)
     app.get("/", {}, "HTTPS" => "on")
