@@ -1,19 +1,21 @@
+require_relative "helper"
 require_relative "../lib/tynn/not_found"
 
-test "not found" do
-  Tynn.plugin(Tynn::NotFound)
+class NotFoundTest < Tynn::TestCase
+  class App < Tynn
+    plugin(Tynn::NotFound)
 
-  class Tynn
+    define { }
+
     def not_found
       res.write("not found")
     end
   end
 
-  Tynn.define do
+  test "not found" do
+    app = Tynn::Test.new(App)
+    app.get("/notfound")
+
+    assert_equal "not found", app.res.body
   end
-
-  app = Tynn::Test.new
-  app.get("/notfound")
-
-  assert_equal "not found", app.res.body
 end
