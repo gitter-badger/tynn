@@ -116,7 +116,7 @@ class Tynn
         host = request.host
         port = request.port
 
-        location = String.new("https://#{ host }")
+        location = "https://" + host
         location << ":#{ port }" if port != 80 && port != 443
         location << request.fullpath
 
