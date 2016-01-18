@@ -10,11 +10,17 @@ class EnvironmentTest < Tynn::TestCase
     App.set(:environment, :development)
   end
 
-  test "defaults to development" do
-    NewApp = Class.new(Tynn)
-    NewApp.plugin(Tynn::Environment)
+  test "defaults to development if RACK_ENV is nil" do
+    begin
+      env, ENV["RACK_ENV"] = ENV.to_h, nil
 
-    assert_equal :development, NewApp.environment
+      NewApp = Class.new(Tynn)
+      NewApp.plugin(Tynn::Environment)
+
+      assert_equal :development, NewApp.environment
+    ensure
+      ENV.replace(env)
+    end
   end
 
   test "defaults to RACK_ENV if present" do
