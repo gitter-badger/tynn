@@ -24,13 +24,15 @@ Getting Started
   # config.ru
   require "tynn"
 
-  Tynn.define do
-    get do
-      res.write("Hello World!")
+  class MyApp < Tynn
+    define do
+      get do
+        res.write("Hello World!")
+      end
     end
   end
 
-  run(Tynn)
+  run(MyApp)
   ```
 
 3. Start the web server with:
