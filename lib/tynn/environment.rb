@@ -31,6 +31,10 @@ class Tynn
     end
 
     module ClassMethods
+      def configure(*envs)
+        yield if envs.include?(environment)
+      end
+
       # Returns the current environment for the application.
       #
       # @example
