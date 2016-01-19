@@ -1,6 +1,8 @@
 2.0.0 (unreleased)
 ------------------
 
+**Important:**
+
 Tynn 2 will only support versions of Ruby greater than 2.3.0.
 
 **2 Breaking changes:**
