@@ -67,7 +67,7 @@ class Tynn
     # @private
     def self.setup(app, options = {})
       unless options[:secret]
-        raise <<-MSG.gsub(/^[ \t]{10}/, "")
+        raise <<~MSG
           No secret option provided to Tynn::Session.
 
           Tynn::Session uses a secret token to sign the cookie data, thus
