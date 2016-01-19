@@ -46,7 +46,7 @@ class Tynn
     #
     # @example Using Minitest
     #   class HomeTest < Minitest::Test
-    #     include Tynn::Test::InstanceMethods
+    #     include Tynn::Test::Methods
     #
     #     def app
     #       return Tynn
@@ -59,7 +59,7 @@ class Tynn
     #     end
     #   end
     #
-    module InstanceMethods
+    module Methods
       # Returns the current request object.
       #
       # @example
@@ -211,6 +211,6 @@ class Tynn
       end
     end
 
-    include InstanceMethods
+    include Methods
   end
 end
