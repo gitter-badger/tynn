@@ -1,6 +1,8 @@
 2.0.0 (unreleased)
 ------------------
 
+Tynn 2 will only support versions of Ruby greater than 2.3.0.
+
 **2 Breaking changes:**
 
 - Bump Syro version to 2.1.0. The functionality to yield the
