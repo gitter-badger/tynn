@@ -31,6 +31,21 @@ class Tynn
     end
 
     module ClassMethods
+      # Yields if current environment matches one of the given environments.
+      #
+      # @example
+      #   class MyApp < Tynn
+      #     configure(:development, :staging) do
+      #       use(BetterErrors::Middleware)
+      #     end
+      #
+      #     configure(:production) do
+      #       plugin(Tynn::SSL)
+      #     end
+      #   end
+      #
+      # @return [void]
+      #
       def configure(*envs)
         yield if envs.include?(environment)
       end
