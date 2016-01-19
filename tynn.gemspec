@@ -13,6 +13,8 @@ Gem::Specification.new do |s|
   s.files      = Dir["LICENSE", "README.md", "lib/**/*.rb"]
   s.test_files = Dir["test/**/*.rb"]
 
+  s.required_ruby_version = ">= 2.3.0"
+
   s.add_dependency "syro", "~> 2.1"
 
   s.add_development_dependency "erubis", "~> 2.7"
