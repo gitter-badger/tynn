@@ -1,11 +1,9 @@
 2.0.0 (unreleased)
 ------------------
 
-**Important:**
+**3 Breaking changes:**
 
-Tynn 2 will only support versions of Ruby greater than 2.3.0.
-
-**2 Breaking changes:**
+- Tynn 2 will only support versions of Ruby greater than 2.3.0.
 
 - Bump Syro version to 2.1.0. The functionality to yield the
   capture to the block has been removed in Syro. This version
@@ -25,10 +23,6 @@ Tynn 2 will only support versions of Ruby greater than 2.3.0.
 
 - Remove `Tynn::AllMethods`. Syro 2.1.0 includes matchers for
   `HEAD` and `OPTIONS` by default.
-
-**1 bug fix:**
-
-- Fixes HTTPS redirect with non-default ports.
 
 **2 new features:**
 
@@ -68,6 +62,10 @@ Tynn 2 will only support versions of Ruby greater than 2.3.0.
   Tynn.plugin(Tynn::Session)
   # => No secret option provided.
   ```
+
+**1 bug fix:**
+
+- Fixes HTTPS redirect with non-default ports.
 
 Please check [1.4.x](https://github.com/frodsan/tynn/blob/1.4.0/CHANGELOG.md)
 for previous changes.
