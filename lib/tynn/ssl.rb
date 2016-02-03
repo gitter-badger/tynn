@@ -20,7 +20,7 @@ class Tynn
   #   by HTTPS. Defaults to 180 days.
   #
   # - **:subdomains** - If this is `true`, the rule applies to all the site's
-  #   subdomains as well. Defaults to `true`.
+  #   subdomains as well. Defaults to `false`.
   #
   # - **:preload** - A limitation of HSTS is that the initial request remains
   #   unprotected if it uses HTTP. The same applies to the first request after
@@ -98,7 +98,7 @@ class Tynn
 
       def build_hsts_header(options)
         header = format("max-age=%i", options.fetch(:expires, HSTS_MAX_AGE))
-        header << "; includeSubdomains" if options.fetch(:subdomains, true)
+        header << "; includeSubdomains" if options[:subdomains]
         header << "; preload" if options[:preload]
 
         header

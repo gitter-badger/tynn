@@ -42,10 +42,13 @@
   Tynn.plugin(Tynn::Protection, ssl: true, hsts: false)
   ```
 
-**4 enhancements:**
+**5 enhancements:**
 
 - `Tynn::SSL` always sets `secure` flag on cookies. This tells the browser to only
   transmit them over HTTPS.
+
+- Tynn::SSL doesn't apply the HSTS header to all of the site's subdomains
+  by default.
 
 - `Tynn::SSL` always executes before other middleware.
 

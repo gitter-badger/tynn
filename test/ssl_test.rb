@@ -50,14 +50,14 @@ class SSLTest < Tynn::TestCase
     app.get("/", {}, "HTTPS" => "on")
 
     header = app.res.headers["Strict-Transport-Security"]
-    result = "max-age=15552000; includeSubdomains"
+    result = "max-age=15552000"
 
     assert_equal result, header
   end
 
   test "hsts header with options" do
     App.plugin(Tynn::SSL, hsts: {
-      expires: 1, subdomains: false, preload: true
+      expires: 1, subdomains: true, preload: true
     })
 
     App.define {}
@@ -66,7 +66,7 @@ class SSLTest < Tynn::TestCase
     app.get("/", {}, "HTTPS" => "on")
 
     header = app.res.headers["Strict-Transport-Security"]
-    result = "max-age=1; preload"
+    result = "max-age=1; includeSubdomains; preload"
 
     assert_equal result, header
   end
@@ -79,7 +79,7 @@ class SSLTest < Tynn::TestCase
     app.get("/", {}, "HTTPS" => "on")
 
     header = app.res.headers["Strict-Transport-Security"]
-    result = "max-age=0; includeSubdomains"
+    result = "max-age=0"
 
     assert_equal result, header
   end
