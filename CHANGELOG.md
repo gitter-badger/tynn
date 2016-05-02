@@ -1,7 +1,7 @@
 2.0.0 (unreleased)
 ------------------
 
-**3 Breaking changes:**
+**4 Breaking changes:**
 
 - Tynn 2 will only support versions of Ruby greater than 2.3.0.
 
@@ -24,6 +24,9 @@
 - Remove `Tynn::AllMethods`. Syro 2.1.0 includes matchers for
   `HEAD` and `OPTIONS` by default.
 
+- `Tynn::SSL` doesn't apply the HSTS header to all of the site's subdomains
+  by default.
+
 **2 new features:**
 
 - Add `#staging?` method to `Tynn::Environment`. Returns `true` if `environment`
@@ -42,13 +45,10 @@
   Tynn.plugin(Tynn::Protection, ssl: true, hsts: false)
   ```
 
-**5 enhancements:**
+**4 enhancements:**
 
 - `Tynn::SSL` always sets `secure` flag on cookies. This tells the browser to only
   transmit them over HTTPS.
-
-- Tynn::SSL doesn't apply the HSTS header to all of the site's subdomains
-  by default.
 
 - `Tynn::SSL` always executes before other middleware.
 
