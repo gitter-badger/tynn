@@ -6,7 +6,7 @@ Gem::Specification.new do |s|
   s.summary     = "Thin library to create web applications"
   s.description = s.summary
   s.author      = "Francesco Rodríguez"
-  s.email       = "frodsan@protonmail.ch"
+  s.email       = "hello@frodsan.com"
   s.homepage    = "https://github.com/frodsan/tynn"
   s.license     = "MIT"
 
@@ -16,7 +16,6 @@ Gem::Specification.new do |s|
   s.required_ruby_version = ">= 2.3.0"
 
   s.add_dependency "syro", "~> 2.1"
-
   s.add_development_dependency "erubis", "~> 2.7"
   s.add_development_dependency "hmote", "~> 1.5"
   s.add_development_dependency "minitest", "~> 5.8"
