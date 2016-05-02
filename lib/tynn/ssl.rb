@@ -97,7 +97,7 @@ class Tynn
       private
 
       def build_hsts_header(options)
-        header = format("max-age=%i", options.fetch(:expires, HSTS_MAX_AGE))
+        header = sprintf("max-age=%i", options.fetch(:expires, HSTS_MAX_AGE))
         header << "; includeSubdomains" if options[:subdomains]
         header << "; preload" if options[:preload]
 
