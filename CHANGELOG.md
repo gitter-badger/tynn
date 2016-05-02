@@ -24,6 +24,8 @@
 - Remove `Tynn::AllMethods`. Syro 2.1.0 includes matchers for
   `HEAD` and `OPTIONS` by default.
 
+- Remove `Tynn::HMote` plugin.
+
 - `Tynn::SSL` doesn't apply the HSTS header to all of the site's subdomains
   by default.
 
