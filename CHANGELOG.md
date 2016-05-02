@@ -27,7 +27,12 @@
 - `Tynn::SSL` doesn't apply the HSTS header to all of the site's subdomains
   by default.
 
-**2 new features:**
+**4 new features:**
+
+- Add `#configure` method to `Tynn::Environment`. Executes a given block
+  if current environment matches one of the given environments.
+
+- Add `#headers` method to `Tynn::Request` to easy access HTTP headers.
 
 - Add `#staging?` method to `Tynn::Environment`. Returns `true` if `environment`
   is `:staging`. Otherwise, returns `false`.
