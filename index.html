@@ -1,0 +1,118 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Tynn by frodsan</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/github-light.css">
+    <meta name="viewport" content="width=device-width">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Tynn</h1>
+        <p>A thin library for web development</p>
+
+        <p class="view"><a href="https://github.com/frodsan/tynn">View the Project on GitHub <small>frodsan/tynn</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/frodsan/tynn/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/frodsan/tynn/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/frodsan/tynn">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>
+<a id="tynn-" class="anchor" href="#tynn-" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Tynn <a href="https://travis-ci.org/frodsan/tynn"><img src="https://travis-ci.org/frodsan/tynn.svg" alt="Build Status"></a>
+</h1>
+
+<p>A thin library for web development.</p>
+
+<h2>
+<a id="description" class="anchor" href="#description" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Description</h2>
+
+<p>Tynn is a thin abstraction on top of <a href="http://soveran.github.io/syro/">Syro</a>, a very simple and fast
+router for web applications.</p>
+
+<h2>
+<a id="getting-started" class="anchor" href="#getting-started" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Getting Started</h2>
+
+<ol>
+<li>
+<p>Install Tynn if you haven't yet:</p>
+
+<pre><code>$ gem install tynn
+</code></pre>
+</li>
+<li>
+<p>Here is a simple application. Save the contents as <em>config.ru</em>.</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-c"># config.ru</span>
+<span class="pl-k">require</span> <span class="pl-s"><span class="pl-pds">"</span>tynn<span class="pl-pds">"</span></span>
+
+<span class="pl-k">class</span> <span class="pl-en">MyApp<span class="pl-e"> &lt; Tynn</span></span>
+  define <span class="pl-k">do</span>
+    get <span class="pl-k">do</span>
+      res.write(<span class="pl-s"><span class="pl-pds">"</span>Hello World!<span class="pl-pds">"</span></span>)
+    <span class="pl-k">end</span>
+  <span class="pl-k">end</span>
+<span class="pl-k">end</span>
+
+run(<span class="pl-c1">MyApp</span>)</pre></div>
+</li>
+<li>
+<p>Start the web server with:</p>
+
+<pre><code>$ rackup
+</code></pre>
+</li>
+<li><p>Visit <a href="http://localhost:9292">http://localhost:9292</a> and you'll see the greeting message.</p></li>
+<li><p>Check the <a href="http://tynn.xyz/tutorial.html">tutorial</a>, the <a href="http://tynn.xyz">guides</a>,
+and the <a href="http://rdoc.info/github/frodsan/tynn/master">API documentation</a> for
+more information.</p></li>
+</ol>
+
+<h2>
+<a id="contributing" class="anchor" href="#contributing" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Contributing</h2>
+
+<p>Fork the project with:</p>
+
+<pre><code>$ git clone git@github.com:frodsan/tynn.git
+</code></pre>
+
+<p>To install dependencies, use:</p>
+
+<pre><code>$ bundle install
+</code></pre>
+
+<p>To run the test suite, do:</p>
+
+<pre><code>$ rake test
+</code></pre>
+
+<p>Use <a href="https://github.com/frodsan/tynn/issues">GitHub Issues</a> for reporting bugs, discussing features and
+general feedback.  If you've found a problem in Tynn, be sure to check
+the <a href="https://github.com/frodsan/tynn/issues?state=closed">past issues</a>
+before open a new one. For new features, it's important to explain the
+use case to solve, we want to keep the code base simple.</p>
+
+<h2>
+<a id="license" class="anchor" href="#license" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>License</h2>
+
+<p>Tynn is released under the <a href="http://www.opensource.org/licenses/MIT">MIT License</a>.</p>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/frodsan">frodsan</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
+</html>
