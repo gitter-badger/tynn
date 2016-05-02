@@ -21,7 +21,7 @@ class Tynn
   #
   class Request < Rack::Request
     class Headers
-      CGI_VARIABLES = Set.new(%W[
+      CGI_VARIABLES = Set.new(%w(
         AUTH_TYPE
         CONTENT_LENGTH
         CONTENT_TYPE
@@ -40,7 +40,7 @@ class Tynn
         SERVER_PORT
         SERVER_PROTOCOL
         SERVER_SOFTWARE
-      ]).freeze
+      )).freeze
 
       def initialize(req)
         @req = req
