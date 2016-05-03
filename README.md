@@ -70,12 +70,7 @@ class GuestsRouteTest < Minitest::Test
 
     assert_equal 200, @app.res.status
     assert_equal "Hello World!", @app.res.body
-  end
-
-  def test_signup
-    @app.post("/signup", username: "bob", password: "secret")
-
-    assert_equal 201, @app.res.status
+    assert_equal "text/html", @app.res.headers["Content-Type"]
   end
 end
 ```
