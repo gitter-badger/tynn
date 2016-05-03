@@ -49,7 +49,7 @@ By default, static files are served from the folder `public` in the current
 directory. You can specify a different location by passing the `:root` option:
 
 ```ruby
-Tynn.plugin(Tynn::Static, ["/js", "/css", "/images"], root: "assets")
+Tynn.plugin(Tynn::Static, %w(/js /css /images), root: "assets")
 ```
 
 As you can see in the table below, the name of static directory is not
