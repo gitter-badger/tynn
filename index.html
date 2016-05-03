@@ -34,12 +34,77 @@
 <p>A thin library for web development in Ruby.</p>
 
 <ul>
+<li><a href="#installation">Installation</a></li>
+<li><a href="#testing">Testing</a></li>
+<li><a href="#development">Development</a></li>
 <li><a href="#contributing">Contributing</a></li>
 <li><a href="#license">License</a></li>
 </ul>
 
 <h2>
-<a id="contributing" class="anchor" href="#contributing" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Contributing</h2>
+<a id="installation" class="anchor" href="#installation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Installation</h2>
+
+<p>Add this line to your application's Gemfile:</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-k">gem</span> <span class="pl-s"><span class="pl-pds">"</span>tynn<span class="pl-pds">"</span></span></pre></div>
+
+<p>And then execute:</p>
+
+<pre><code>$ bundle
+</code></pre>
+
+<p>Or install it yourself as:</p>
+
+<pre><code>$ gem install tynn
+</code></pre>
+
+<h2>
+<a id="testing" class="anchor" href="#testing" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Testing</h2>
+
+<p>Tynn ships with <a href="https://github.com/frodsan/tynn/blob/master/lib/tynn/test.rb">Tynn::Test</a>, a simple helper class to simulate
+requests to your application.</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-k">require</span> <span class="pl-s"><span class="pl-pds">"</span>tynn<span class="pl-pds">"</span></span>
+<span class="pl-k">require</span> <span class="pl-s"><span class="pl-pds">"</span>tynn/test<span class="pl-pds">"</span></span>
+
+<span class="pl-c1">Tynn</span>.define <span class="pl-k">do</span>
+  root <span class="pl-k">do</span>
+    res.write(<span class="pl-s"><span class="pl-pds">"</span>hei<span class="pl-pds">"</span></span>)
+  <span class="pl-k">end</span>
+<span class="pl-k">end</span>
+
+app <span class="pl-k">=</span> <span class="pl-c1">Tynn</span>::<span class="pl-c1">Test</span>.<span class="pl-k">new</span>
+app.get(<span class="pl-s"><span class="pl-pds">"</span>/<span class="pl-pds">"</span></span>)
+
+<span class="pl-c1">200</span>   <span class="pl-k">==</span> app.res.status <span class="pl-c"># =&gt; true</span>
+<span class="pl-s"><span class="pl-pds">"</span>hei<span class="pl-pds">"</span></span> <span class="pl-k">==</span> app.res.body   <span class="pl-c"># =&gt; true</span></pre></div>
+
+<p><a href="https://github.com/frodsan/tynn/blob/master/lib/tynn/test.rb">Tynn::Test</a> is test-framework agnostic. The following example
+uses <a href="https://github.com/seattlerb/minitest">Minitest</a>:</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-k">require</span> <span class="pl-s"><span class="pl-pds">"</span>minitest/autorun<span class="pl-pds">"</span></span>
+<span class="pl-k">require</span> <span class="pl-s"><span class="pl-pds">"</span>tynn/test<span class="pl-pds">"</span></span>
+
+<span class="pl-k">class</span> <span class="pl-en">GuestsRouteTest<span class="pl-e"> &lt; Minitest::Test</span></span>
+  <span class="pl-k">def</span> <span class="pl-en">setup</span>
+    <span class="pl-smi">@app</span> <span class="pl-k">=</span> <span class="pl-c1">Tynn</span>::<span class="pl-c1">Test</span>.<span class="pl-k">new</span>
+  <span class="pl-k">end</span>
+
+  <span class="pl-k">def</span> <span class="pl-en">test_home</span>
+    <span class="pl-smi">@app</span>.get(<span class="pl-s"><span class="pl-pds">"</span>/<span class="pl-pds">"</span></span>)
+
+    assert_equal <span class="pl-c1">200</span>, <span class="pl-smi">@app</span>.res.status
+    assert_equal <span class="pl-s"><span class="pl-pds">"</span>Hello World!<span class="pl-pds">"</span></span>, <span class="pl-smi">@app</span>.res.body
+    assert_equal <span class="pl-s"><span class="pl-pds">"</span>text/html<span class="pl-pds">"</span></span>, <span class="pl-smi">@app</span>.res[<span class="pl-s"><span class="pl-pds">"</span>Content-Type<span class="pl-pds">"</span></span>]
+  <span class="pl-k">end</span>
+<span class="pl-k">end</span></pre></div>
+
+<p>If this is not of your flavor, you can use any Rack-based
+testing library or framework, like: <a href="https://github.com/brynary/rack-test">Rack::Test</a>
+or <a href="https://github.com/jnicklas/capybara">Capybara</a>.</p>
+
+<h2>
+<a id="development" class="anchor" href="#development" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Development</h2>
 
 <p>Fork the project with:</p>
 
@@ -56,11 +121,13 @@
 <pre><code>$ rake test
 </code></pre>
 
+<h2>
+<a id="contributing" class="anchor" href="#contributing" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Contributing</h2>
+
 <p>Use <a href="https://github.com/frodsan/tynn/issues">GitHub Issues</a> for reporting
 bugs, discussing features and general feedback.  If you've found a problem
 in Tynn, be sure to check the <a href="https://github.com/frodsan/tynn/issues?state=closed">past issues</a>
-before open a new one. For new features, it's important to explain the use
-case to solve, we want to keep the code base simple.</p>
+before open a new one.</p>
 
 <h2>
 <a id="license" class="anchor" href="#license" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>License</h2>
