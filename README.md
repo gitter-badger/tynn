@@ -4,6 +4,7 @@ Tynn
 A thin library for web development in Ruby.
 
 * [Installation](#installation)
+* [Static Files](#static-files)
 * [Testing](#testing)
 * [Development](#development)
 * [Contributing](#contributing)
@@ -29,6 +30,51 @@ Or install it yourself as:
 ```
 $ gem install tynn
 ```
+
+Static Files
+------------
+
+Tynn ships with [Tynn::Static][tynn-static] to serve static files such as
+images, CSS, JavaScript and others.
+
+```ruby
+require "tynn"
+require "tynn/static"
+
+Tynn.plugin(Tynn::Static, ["/js", "/css", "/images"])
+```
+
+By default, static files are served from the folder `public` in the current
+directory. You can specify a different location by passing the `:root` option:
+
+```ruby
+Tynn.plugin(Tynn::Static, ["/js", "/css", "/images"], root: "assets")
+```
+
+As you can see in the table below, the name of static directory is not
+included in the URL because the files are looked up relative to that
+directory.
+
+
+| File                         | URL                                    |
+| ---------------------------- | -------------------------------------- |
+| ./public/js/application.js   | http://example.org/js/application.js   |
+| ./public/css/application.css | http://example.org/css/application.css |
+| ./public/images/logo.png     | http://example.org/images/logo.png     |
+
+It's important to mention that the path of the static directory path is
+relative to the directory where you run the application. If you run the
+application from another directory, it's safer to use an absolute path:
+
+```ruby
+Tynn.plugin(
+  Tynn::Static,
+  ["/js", "/css", "/images"],
+  root: File.expand_path("public", __dir__)
+)
+```
+
+[tynn-static]: https://github.com/frodsan/tynn/blob/master/lib/tynn/static.rb
 
 Testing
 -------
