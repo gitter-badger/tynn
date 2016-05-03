@@ -27,7 +27,7 @@ $ bundle
 Or install it yourself as:
 
 ```
-$ gem install envoker
+$ gem install tynn
 ```
 
 Testing
