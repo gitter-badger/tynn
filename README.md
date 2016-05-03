@@ -89,14 +89,6 @@ or [Capybara][capybara].
 [rack-test]: https://github.com/brynary/rack-test
 [tynn-test]: https://github.com/frodsan/tynn/blob/master/lib/tynn/test.rb
 
-Reporting an Issue
-------------------
-
-Use [GitHub Issues](https://github.com/frodsan/tynn/issues) for reporting
-bugs, discussing features and general feedback.  If you've found a problem
-in Tynn, be sure to check the [past issues](https://github.com/frodsan/tynn/issues?state=closed)
-before open a new one.
-
 Development
 ------------
 
@@ -118,8 +110,13 @@ To run the test suite, do:
 $ rake test
 ```
 
-Open a [pull request](https://github.com/frodsan/tynn/compare)
-explaining the proposed change.
+Issues/Feature Requests
+-----------------------
+
+Use [GitHub Issues](https://github.com/frodsan/tynn/issues) for reporting
+bugs, discussing features and general feedback.  If you've found a problem
+in Tynn, be sure to check the [past issues](https://github.com/frodsan/tynn/issues?state=closed)
+before open a new one.
 
 License
 -------
