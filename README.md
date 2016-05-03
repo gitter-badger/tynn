@@ -3,9 +3,31 @@ Tynn
 
 A thin library for web development in Ruby.
 
+* [Installation](#installation)
 * [Testing](#testing)
 * [Contributing](#contributing)
 * [License](#license)
+
+Installation
+------------
+
+Add this line to your application's Gemfile:
+
+```ruby
+gem "tynn"
+```
+
+And then execute:
+
+```
+$ bundle
+```
+
+Or install it yourself as:
+
+```
+$ gem install envoker
+```
 
 Testing
 -------
