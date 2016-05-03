@@ -38,6 +38,7 @@
 
 <ul>
 <li><a href="#installation">Installation</a></li>
+<li><a href="#environments">Environments</a></li>
 <li><a href="#static-files">Static Files</a></li>
 <li><a href="#testing">Testing</a></li>
 <li><a href="#changelog">Changelog</a></li>
@@ -63,6 +64,34 @@
 
 <pre><code>$ gem install tynn
 </code></pre>
+
+<h2>
+<a id="environments" class="anchor" href="#environments" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Environments</h2>
+
+<p>Tynn ships with <a href="https://github.com/frodsan/tynn/blob/master/lib/tynn/environment.rb">Tynn::Environment</a> to set and check
+the current environment.</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-k">require</span> <span class="pl-s"><span class="pl-pds">"</span>tynn<span class="pl-pds">"</span></span>
+<span class="pl-k">require</span> <span class="pl-s"><span class="pl-pds">"</span>tynn/environment<span class="pl-pds">"</span></span>
+
+<span class="pl-c1">Tynn</span>.plugin(<span class="pl-c1">Tynn</span>::<span class="pl-c1">Environment</span>)
+
+<span class="pl-c1">Tynn</span>.environment
+<span class="pl-c"># =&gt; :development</span></pre></div>
+
+<p>The default value is <code>:development</code>. You can change it through the
+<code>RACK_ENV</code> environment variable.</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-c1">ENV</span>[<span class="pl-s"><span class="pl-pds">"</span>RACK_ENV<span class="pl-pds">"</span></span>]
+<span class="pl-c"># =&gt; "test"</span>
+
+<span class="pl-c1">Tynn</span>.environment
+<span class="pl-c"># =&gt; :test</span></pre></div>
+
+<p>You can use <code>development?</code>, <code>test?</code>, <code>production?</code> or <code>staging?</code> to check
+the current environment.</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-c1">Tynn</span>.plugin(<span class="pl-c1">Tynn</span>::<span class="pl-c1">Protection</span>, <span class="pl-c1">ssl:</span> <span class="pl-c1">Tynn</span>.production?)</pre></div>
 
 <h2>
 <a id="static-files" class="anchor" href="#static-files" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Static Files</h2>
