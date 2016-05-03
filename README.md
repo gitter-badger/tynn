@@ -4,6 +4,7 @@ Tynn
 A thin library for web development in Ruby.
 
 * [Installation](#installation)
+* [Environments](#environments)
 * [Static Files](#static-files)
 * [Testing](#testing)
 * [Changelog](#changelog)
@@ -31,6 +32,40 @@ Or install it yourself as:
 
 ```
 $ gem install tynn
+```
+
+Environments
+------------
+
+Tynn ships with [Tynn::Environment][tynn-environment] to set and check
+the current environment.
+
+```ruby
+require "tynn"
+require "tynn/environment"
+
+Tynn.plugin(Tynn::Environment)
+
+Tynn.environment
+# => :development
+```
+
+The default value is `:development`. You can change it through the
+`RACK_ENV` environment variable.
+
+```ruby
+ENV["RACK_ENV"]
+# => "test"
+
+Tynn.environment
+# => :test
+```
+
+You can use `development?`, `test?`, `production?` or `staging?` to check
+the current environment.
+
+```ruby
+Tynn.plugin(Tynn::Protection, ssl: Tynn.production?)
 ```
 
 Static Files
@@ -173,5 +208,6 @@ Tynn is released under the [MIT License](http://www.opensource.org/licenses/MIT)
 [capybara]: https://github.com/jnicklas/capybara
 [minitest]: https://github.com/seattlerb/minitest
 [rack-test]: https://github.com/brynary/rack-test
+[tynn-environment]: https://github.com/frodsan/tynn/blob/master/lib/tynn/environment.rb
 [tynn-static]: https://github.com/frodsan/tynn/blob/master/lib/tynn/static.rb
 [tynn-test]: https://github.com/frodsan/tynn/blob/master/lib/tynn/test.rb
