@@ -5,8 +5,8 @@ A thin library for web development in Ruby.
 
 * [Installation](#installation)
 * [Testing](#testing)
-* [Reporting an Issue](#reporting-an-issue)
 * [Development](#development)
+* [Contributing](#contributing)
 * [License](#license)
 
 Installation
