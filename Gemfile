@@ -4,4 +4,4 @@ source "https://rubygems.org"
 
 gemspec
 
-gem "rdoc", "~> 4.2"
+gem "rdoc", "~> 4.2.2"
