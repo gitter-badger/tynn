@@ -118,7 +118,8 @@ To run the test suite, do:
 $ rake test
 ```
 
-Open a pull request explaining the proposed change.
+Open a [pull request](https://github.com/frodsan/tynn/compare)
+explaining the proposed change.
 
 License
 -------
