@@ -70,7 +70,7 @@ class GuestsRouteTest < Minitest::Test
 
     assert_equal 200, @app.res.status
     assert_equal "Hello World!", @app.res.body
-    assert_equal "text/html", @app.res.headers["Content-Type"]
+    assert_equal "text/html", @app.res["Content-Type"]
   end
 end
 ```
