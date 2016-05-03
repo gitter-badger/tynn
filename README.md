@@ -6,6 +6,7 @@ A thin library for web development in Ruby.
 * [Installation](#installation)
 * [Static Files](#static-files)
 * [Testing](#testing)
+* [Changelog](#changelog)
 * [Development](#development)
 * [Contributing](#contributing)
 * [Code Status](#code-status)
@@ -123,6 +124,12 @@ end
 If this is not of your flavor, you can use any Rack-based
 testing library or framework, like: [Rack::Test][rack-test]
 or [Capybara][capybara].
+
+Changelog
+---------
+
+To learn about new features, bug fixes, and changes, please refer to
+the [CHANGELOG](https://github.com/frodsan/tynn/blob/master/CHANGELOG.md).
 
 Development
 ------------
