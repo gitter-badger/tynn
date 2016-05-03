@@ -38,9 +38,12 @@
 
 <ul>
 <li><a href="#installation">Installation</a></li>
+<li><a href="#static-files">Static Files</a></li>
 <li><a href="#testing">Testing</a></li>
+<li><a href="#changelog">Changelog</a></li>
 <li><a href="#development">Development</a></li>
 <li><a href="#contributing">Contributing</a></li>
+<li><a href="#code-status">Code Status</a></li>
 <li><a href="#license">License</a></li>
 </ul>
 
@@ -60,6 +63,59 @@
 
 <pre><code>$ gem install tynn
 </code></pre>
+
+<h2>
+<a id="static-files" class="anchor" href="#static-files" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Static Files</h2>
+
+<p>Tynn ships with <a href="https://github.com/frodsan/tynn/blob/master/lib/tynn/static.rb">Tynn::Static</a> to serve static files such as
+images, CSS, JavaScript and others.</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-k">require</span> <span class="pl-s"><span class="pl-pds">"</span>tynn<span class="pl-pds">"</span></span>
+<span class="pl-k">require</span> <span class="pl-s"><span class="pl-pds">"</span>tynn/static<span class="pl-pds">"</span></span>
+
+<span class="pl-c1">Tynn</span>.plugin(<span class="pl-c1">Tynn</span>::<span class="pl-c1">Static</span>, <span class="pl-s"><span class="pl-pds">%w(</span>/js /css /images<span class="pl-pds">)</span></span>)</pre></div>
+
+<p>By default, static files are served from the folder <code>public</code> in the current
+directory. You can specify a different location by passing the <code>:root</code> option:</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-c1">Tynn</span>.plugin(<span class="pl-c1">Tynn</span>::<span class="pl-c1">Static</span>, <span class="pl-s"><span class="pl-pds">%w(</span>/js /css /images<span class="pl-pds">)</span></span>, <span class="pl-c1">root:</span> <span class="pl-s"><span class="pl-pds">"</span>assets<span class="pl-pds">"</span></span>)</pre></div>
+
+<p>As you can see in the table below, the name of static directory is not
+included in the URL because the files are looked up relative to that
+directory.</p>
+
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>URL</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>./public/js/application.js</td>
+<td><a href="http://example.org/js/application.js">http://example.org/js/application.js</a></td>
+</tr>
+<tr>
+<td>./public/css/application.css</td>
+<td><a href="http://example.org/css/application.css">http://example.org/css/application.css</a></td>
+</tr>
+<tr>
+<td>./public/images/logo.png</td>
+<td><a href="http://example.org/images/logo.png">http://example.org/images/logo.png</a></td>
+</tr>
+</tbody>
+</table>
+
+<p>It's important to mention that the path of the static directory path is
+relative to the directory where you run the application. If you run the
+application from another directory, it's safer to use an absolute path:</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-c1">Tynn</span>.plugin(
+  <span class="pl-c1">Tynn</span>::<span class="pl-c1">Static</span>,
+  <span class="pl-s"><span class="pl-pds">%w(</span>/js /css /images<span class="pl-pds">)</span></span>,
+  <span class="pl-c1">root:</span> <span class="pl-c1">File</span>.expand_path(<span class="pl-s"><span class="pl-pds">"</span>public<span class="pl-pds">"</span></span>, __dir__)
+)</pre></div>
 
 <h2>
 <a id="testing" class="anchor" href="#testing" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Testing</h2>
@@ -107,6 +163,12 @@ testing library or framework, like: <a href="https://github.com/brynary/rack-tes
 or <a href="https://github.com/jnicklas/capybara">Capybara</a>.</p>
 
 <h2>
+<a id="changelog" class="anchor" href="#changelog" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Changelog</h2>
+
+<p>To learn about new features, bug fixes, and changes, please refer to
+the <a href="https://github.com/frodsan/tynn/blob/master/CHANGELOG.md">CHANGELOG</a>.</p>
+
+<h2>
 <a id="development" class="anchor" href="#development" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Development</h2>
 
 <p>Fork the project with:</p>
@@ -131,6 +193,11 @@ or <a href="https://github.com/jnicklas/capybara">Capybara</a>.</p>
 bugs, discussing features and general feedback.  If you've found a problem
 in Tynn, be sure to check the <a href="https://github.com/frodsan/tynn/issues?state=closed">past issues</a>
 before open a new one.</p>
+
+<h2>
+<a id="code-status" class="anchor" href="#code-status" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Code Status</h2>
+
+<p><a href="https://travis-ci.org/frodsan/tynn"><img src="https://travis-ci.org/frodsan/tynn.svg?branch=master" alt="Build Status"></a></p>
 
 <h2>
 <a id="license" class="anchor" href="#license" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>License</h2>
