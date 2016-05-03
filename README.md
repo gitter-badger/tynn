@@ -8,6 +8,7 @@ A thin library for web development in Ruby.
 * [Testing](#testing)
 * [Development](#development)
 * [Contributing](#contributing)
+* [Code Status](#code-status)
 * [License](#license)
 
 Installation
@@ -151,6 +152,11 @@ Use [GitHub Issues](https://github.com/frodsan/tynn/issues) for reporting
 bugs, discussing features and general feedback.  If you've found a problem
 in Tynn, be sure to check the [past issues](https://github.com/frodsan/tynn/issues?state=closed)
 before open a new one.
+
+Code Status
+-----------
+
+[![Build Status](https://travis-ci.org/frodsan/tynn.svg?branch=master)](https://travis-ci.org/frodsan/tynn)
 
 License
 -------
