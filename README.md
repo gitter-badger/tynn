@@ -74,8 +74,6 @@ Tynn.plugin(
 )
 ```
 
-[tynn-static]: https://github.com/frodsan/tynn/blob/master/lib/tynn/static.rb
-
 Testing
 -------
 
@@ -125,11 +123,6 @@ If this is not of your flavor, you can use any Rack-based
 testing library or framework, like: [Rack::Test][rack-test]
 or [Capybara][capybara].
 
-[capybara]: https://github.com/jnicklas/capybara
-[minitest]: https://github.com/seattlerb/minitest
-[rack-test]: https://github.com/brynary/rack-test
-[tynn-test]: https://github.com/frodsan/tynn/blob/master/lib/tynn/test.rb
-
 Development
 ------------
 
@@ -163,3 +156,9 @@ License
 -------
 
 Tynn is released under the [MIT License](http://www.opensource.org/licenses/MIT).
+
+[capybara]: https://github.com/jnicklas/capybara
+[minitest]: https://github.com/seattlerb/minitest
+[rack-test]: https://github.com/brynary/rack-test
+[tynn-static]: https://github.com/frodsan/tynn/blob/master/lib/tynn/static.rb
+[tynn-test]: https://github.com/frodsan/tynn/blob/master/lib/tynn/test.rb
