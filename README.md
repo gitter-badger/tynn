@@ -42,7 +42,7 @@ images, CSS, JavaScript and others.
 require "tynn"
 require "tynn/static"
 
-Tynn.plugin(Tynn::Static, ["/js", "/css", "/images"])
+Tynn.plugin(Tynn::Static, %w(/js /css /images))
 ```
 
 By default, static files are served from the folder `public` in the current
@@ -70,7 +70,7 @@ application from another directory, it's safer to use an absolute path:
 ```ruby
 Tynn.plugin(
   Tynn::Static,
-  ["/js", "/css", "/images"],
+  %w(/js /css /images),
   root: File.expand_path("public", __dir__)
 )
 ```
