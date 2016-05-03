@@ -7,6 +7,7 @@ A thin library for web development in Ruby.
 * [Environments](#environments)
 * [Static Files](#static-files)
 * [Testing](#testing)
+* [API Reference](http://api.tynn.xyz/)
 * [Changelog](#changelog)
 * [Development](#development)
 * [Contributing](#contributing)
