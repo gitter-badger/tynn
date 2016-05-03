@@ -110,8 +110,8 @@ To run the test suite, do:
 $ rake test
 ```
 
-Issues/Feature Requests
------------------------
+Contributing
+------------
 
 Use [GitHub Issues](https://github.com/frodsan/tynn/issues) for reporting
 bugs, discussing features and general feedback.  If you've found a problem
