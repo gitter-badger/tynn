@@ -52,7 +52,7 @@ Tynn.environment
 ```
 
 The default value is `:development`. You can change it through the
-`RACK_ENV` environment variable.
+`RACK_ENV` environment variable or with the `#environment=` method.
 
 ```ruby
 ENV["RACK_ENV"]
@@ -60,6 +60,11 @@ ENV["RACK_ENV"]
 
 Tynn.environment
 # => :test
+
+Tynn.environment = :development
+
+Tynn.environment
+# => :development
 ```
 
 You can use `development?`, `test?`, `production?` or `staging?` to check
