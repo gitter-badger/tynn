@@ -209,6 +209,6 @@ Tynn is released under the [MIT License](http://www.opensource.org/licenses/MIT)
 [capybara]: https://github.com/jnicklas/capybara
 [minitest]: https://github.com/seattlerb/minitest
 [rack-test]: https://github.com/brynary/rack-test
-[tynn-environment]: https://github.com/frodsan/tynn/blob/master/lib/tynn/environment.rb
+[tynn-environment]: http://api.tynn.xyz/Tynn/Environment.html
 [tynn-static]: http://api.tynn.xyz/Tynn/Static.html
 [tynn-test]: http://api.tynn.xyz/Tynn/Test.html

@@ -2,38 +2,33 @@
 
 class Tynn
   # Adds helper methods to get and check the current environment.
-  # By default, the environment is based on `ENV["RACK_ENV"]`.
+  # By default, the environment is based on +ENV["RACK_ENV"]+.
   #
-  # @example Setting up the plugin
   #   require "tynn"
   #   require "tynn/environment"
   #
   #   Tynn.plugin(Tynn::Environment)
   #
-  # @example Accessing the current environment
+  #   # Accessing the current environment
   #   Tynn.environment  # => :development
   #
-  # @example Check the current environment
+  #   # Check the current environment
   #   Tynn.development? # => true
   #   Tynn.production?  # => false
   #   Tynn.test?        # => false
   #   Tynn.staging?     # => false
   #
-  # @example Setting a custom environment
+  #   # Setting a custom environment
   #   Tynn.set(:environment, :test)
   #
-  # @see http://tynn.xyz/environments.html
-  #
   module Environment
-    # @private
-    def self.setup(app, env: ENV["RACK_ENV"])
+    def self.setup(app, env: ENV["RACK_ENV"]) # :nodoc:
       app.set(:environment, (env || :development).to_sym)
     end
 
     module ClassMethods
       # Yields if current environment matches one of the given environments.
       #
-      # @example
       #   class MyApp < Tynn
       #     configure(:development, :staging) do
       #       use(BetterErrors::Middleware)
@@ -44,15 +39,12 @@ class Tynn
       #     end
       #   end
       #
-      # @return [void]
-      #
       def configure(*envs)
         yield if envs.include?(environment)
       end
 
       # Returns the current environment for the application.
       #
-      # @example
       #   Tynn.environment
       #   # => :development
       #
@@ -61,71 +53,61 @@ class Tynn
       #   Tynn.environment
       #   # => :test
       #
-      # @return [Symbol] current environment
-      #
       def environment
         settings[:environment]
       end
 
       # Checks if current environment is development.
+      # Returns +true+ if +environment+ is +:development+.
+      # Otherwise, +false+.
       #
-      # @example
       #   Tynn.set(:environment, :test)
       #   Tynn.development? # => false
       #
       #   Tynn.set(:environment, :development)
       #   Tynn.development? # => true
       #
-      # @return [Boolean] Returns `true` if `environment`
-      #   is `:development`. Otherwise, `false`.
-      #
       def development?
         environment == :development
       end
 
       # Checks if current environment is test.
+      # Returns +true+ if +environment+ is +:test+.
+      # Otherwise, +false+.
       #
-      # @example
       #   Tynn.set(:environment, :development)
       #   Tynn.test? # => false
       #
       #   Tynn.set(:environment, :test)
       #   Tynn.test? # => true
       #
-      # @return [Boolean] Returns `true` if `environment`
-      #   is `:test`. Otherwise, `false`.
-      #
       def test?
         environment == :test
       end
 
       # Checks if current environment is production.
+      # Returns +true+ if +environment+ is +:production+.
+      # Otherwise, +false+.
       #
-      # @example
       #   Tynn.set(:environment, :development)
       #   Tynn.production? # => false
       #
       #   Tynn.set(:environment, :production)
       #   Tynn.production? # => true
       #
-      # @return [Boolean] Returns `true` if `environment`
-      #   is `:production`. Otherwise, `false`.
-      #
       def production?
         environment == :production
       end
 
       # Checks if current environment is staging.
+      # Returns +true+ if +environment+ is +:staging+.
+      # Otherwise, +false+.
       #
-      # @example
       #   Tynn.set(:environment, :test)
       #   Tynn.staging? # => false
       #
       #   Tynn.set(:environment, :staging)
       #   Tynn.staging? # => true
-      #
-      # @return [Boolean] Returns `true` if `environment`
-      #   is `:staging`. Otherwise, `false`.
       #
       def staging?
         environment == :staging
