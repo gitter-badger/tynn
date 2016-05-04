@@ -19,11 +19,11 @@ class Tynn
   #   Tynn.staging?     # => false
   #
   #   # Setting a custom environment
-  #   Tynn.set(:environment, :test)
+  #   Tynn.environment = :test
   #
   module Environment
     def self.setup(app, env: ENV["RACK_ENV"]) # :nodoc:
-      app.set(:environment, (env || :development).to_sym)
+      app.environment = (env || :development).to_sym
     end
 
     module ClassMethods
@@ -48,7 +48,7 @@ class Tynn
       #   Tynn.environment
       #   # => :development
       #
-      #   Tynn.set(:environment, :test)
+      #   Tynn.environment = :test
       #
       #   Tynn.environment
       #   # => :test
@@ -57,14 +57,18 @@ class Tynn
         settings[:environment]
       end
 
+      def environment=(environment)
+        set(:environment, environment.to_sym)
+      end
+
       # Checks if current environment is development.
       # Returns +true+ if +environment+ is +:development+.
       # Otherwise, +false+.
       #
-      #   Tynn.set(:environment, :test)
+      #   Tynn.environment = :test
       #   Tynn.development? # => false
       #
-      #   Tynn.set(:environment, :development)
+      #   Tynn.environment = :development
       #   Tynn.development? # => true
       #
       def development?
@@ -75,10 +79,10 @@ class Tynn
       # Returns +true+ if +environment+ is +:test+.
       # Otherwise, +false+.
       #
-      #   Tynn.set(:environment, :development)
+      #   Tynn.environment = :development
       #   Tynn.test? # => false
       #
-      #   Tynn.set(:environment, :test)
+      #   Tynn.environment = :test
       #   Tynn.test? # => true
       #
       def test?
@@ -89,10 +93,10 @@ class Tynn
       # Returns +true+ if +environment+ is +:production+.
       # Otherwise, +false+.
       #
-      #   Tynn.set(:environment, :development)
+      #   Tynn.environment = :development
       #   Tynn.production? # => false
       #
-      #   Tynn.set(:environment, :production)
+      #   Tynn.environment = :production
       #   Tynn.production? # => true
       #
       def production?
@@ -103,10 +107,10 @@ class Tynn
       # Returns +true+ if +environment+ is +:staging+.
       # Otherwise, +false+.
       #
-      #   Tynn.set(:environment, :test)
+      #   Tynn.environment = :test
       #   Tynn.staging? # => false
       #
-      #   Tynn.set(:environment, :staging)
+      #   Tynn.environment = :staging
       #   Tynn.staging? # => true
       #
       def staging?

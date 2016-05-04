@@ -26,7 +26,10 @@
 
 - Remove `Tynn::HMote` plugin.
 
-**4 new features:**
+**5 new features:**
+
+- Add `#environment=` method to `Tynn::Environment`. This changes
+  the value of the current environment.
 
 - Add `#configure` method to `Tynn::Environment`. Executes a given block
   if current environment matches one of the given environments.

@@ -9,7 +9,7 @@ class EnvironmentTest < Tynn::TestCase
 
   setup do
     App.reset!
-    App.set(:environment, :development)
+    App.environment = :development
   end
 
   test "defaults to development if RACK_ENV is nil" do
@@ -37,8 +37,8 @@ class EnvironmentTest < Tynn::TestCase
     end
   end
 
-  test "environment setting" do
-    App.set(:environment, :test)
+  test "set environment" do
+    App.environment = "test"
 
     assert_equal :test, App.environment
   end
@@ -52,7 +52,7 @@ class EnvironmentTest < Tynn::TestCase
 
   test "configure" do
     class App
-      set(:environment, :test)
+      self.environment = :test
 
       configure(:test) do
         set(:test, true)
