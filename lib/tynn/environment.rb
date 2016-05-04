@@ -57,6 +57,11 @@ class Tynn
         settings[:environment]
       end
 
+      # Sets current environment.
+      #
+      #   Tynn.environment = "test"
+      #   Tynn.environment # => :test
+      #
       def environment=(environment)
         set(:environment, environment.to_sym)
       end
