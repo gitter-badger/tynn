@@ -2,7 +2,7 @@
 
 class Tynn
   # Adds helper methods to get and check the current environment.
-  # By default, the environment is based on +ENV["RACK_ENV"]+.
+  # By default, the environment is based on <tt>ENV["RACK_ENV"]</tt>.
   #
   #   require "tynn"
   #   require "tynn/environment"
