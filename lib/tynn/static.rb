@@ -1,18 +1,14 @@
 # frozen_string_literal: true
 
 class Tynn
-  # Adds support for static files (javascript files, images,
-  # stylesheets, etc).
+  # Serves static files (javascript files, images, stylesheets, etc).
   #
-  # By default, serves all requests beginning with the given paths from
-  # the folder `public/` in the current directory (e.g. `public/js/*`,
-  # `public/css/*`). You can change the default by passing the `:root`
-  # option.
+  # By default, these files are served from the +./public+ folder.
+  # A different location can be specified through the +:root+ option.
   #
-  # Under the hood, it uses the `Rack::Static` middleware. Thus,
-  # supports all the options available by the middleware.
+  # Under the hood, it uses the Rack::Static middleware.
+  # Thus, supports all the options available by the middleware.
   #
-  # @example
   #   require "tynn"
   #   require "tynn/static"
   #
@@ -20,12 +16,11 @@ class Tynn
   #   Tynn.plugin(Tynn::Static, ["/js", "/css"], root: "assets")
   #   Tynn.plugin(Tynn::Static, ["/js", "/css"], index: "index.html")
   #
-  # @see http://tynn.xyz/static-files.html
-  # @see http://www.rubydoc.info/gems/rack/Rack/Static
+  # For more information on the supported options, please see
+  # Rack::Static[http://www.rubydoc.info/gems/rack/Rack/Static].
   #
   module Static
-    # @private
-    def self.setup(app, urls, opts = {})
+    def self.setup(app, urls, opts = {}) # :nodoc:
       options = opts.dup
 
       options[:urls] ||= urls
