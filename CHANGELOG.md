@@ -3,7 +3,7 @@
 
 **4 Breaking changes:**
 
-- Tynn 2 only supports versions of Ruby greater than 2.3.0.
+- Tynn 2 will target Ruby 2.3+ and Rack 2.0+.
 
 - Bump Syro version to 2.1.1+. The functionality to yield the
   capture to the block has been removed in Syro. This version
