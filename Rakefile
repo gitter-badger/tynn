@@ -14,7 +14,7 @@ end
 require "rdoc/task"
 
 RDoc::Task.new do |rdoc|
-  rdoc.rdoc_dir = "doc"
+  rdoc.rdoc_dir = ENV.fetch("RDOC_DIR", "doc")
   rdoc.rdoc_files.add("lib/**/*.rb")
   rdoc.options += ["--title", "Tynn: A thin library for web development"]
 end
