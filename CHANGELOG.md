@@ -5,7 +5,7 @@
 
 - Tynn 2 only supports versions of Ruby greater than 2.3.0.
 
-- Bump Syro version to 2.1.0. The functionality to yield the
+- Bump Syro version to 2.1.1+. The functionality to yield the
   capture to the block has been removed in Syro. This version
   encourages the use of `inbox`.
 
