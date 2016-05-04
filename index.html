@@ -150,7 +150,7 @@ application from another directory, it's safer to use an absolute path:</p>
 <h2>
 <a id="testing" class="anchor" href="#testing" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Testing</h2>
 
-<p>Tynn ships with <a href="https://github.com/frodsan/tynn/blob/master/lib/tynn/test.rb">Tynn::Test</a>, a simple helper class to simulate
+<p>Tynn ships with <a href="http://api.tynn.xyz/Tynn/Test.html">Tynn::Test</a>, a simple helper class to simulate
 requests to your application.</p>
 
 <div class="highlight highlight-source-ruby"><pre><span class="pl-k">require</span> <span class="pl-s"><span class="pl-pds">"</span>tynn<span class="pl-pds">"</span></span>
@@ -168,7 +168,7 @@ app.get(<span class="pl-s"><span class="pl-pds">"</span>/<span class="pl-pds">"<
 <span class="pl-c1">200</span>   <span class="pl-k">==</span> app.res.status <span class="pl-c"># =&gt; true</span>
 <span class="pl-s"><span class="pl-pds">"</span>hei<span class="pl-pds">"</span></span> <span class="pl-k">==</span> app.res.body   <span class="pl-c"># =&gt; true</span></pre></div>
 
-<p><a href="https://github.com/frodsan/tynn/blob/master/lib/tynn/test.rb">Tynn::Test</a> is test-framework agnostic. The following example
+<p><a href="http://api.tynn.xyz/Tynn/Test.html">Tynn::Test</a> is test-framework agnostic. The following example
 uses <a href="https://github.com/seattlerb/minitest">Minitest</a>:</p>
 
 <div class="highlight highlight-source-ruby"><pre><span class="pl-k">require</span> <span class="pl-s"><span class="pl-pds">"</span>minitest/autorun<span class="pl-pds">"</span></span>
