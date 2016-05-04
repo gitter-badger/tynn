@@ -1,15 +1,14 @@
 # frozen_string_literal: true
 
 class Tynn
-  # A simple helper class to simulate requests to your application.
+  # A simple helper class to simulate requests to the application.
   #
-  # @example
   #   require "tynn"
   #   require "tynn/test"
   #
   #   Tynn.define do
   #     root do
-  #       res.write("hei")
+  #       res.write("Hei!")
   #     end
   #   end
   #
@@ -17,34 +16,27 @@ class Tynn
   #   app.get("/")
   #
   #   app.res.status # => 200
-  #   app.res.body   # => "hei"
-  #
-  # @see http://tynn.xyz/testing.html
+  #   app.res.body   # => "Hei!"
   #
   class Test
-    # @return [Tynn] the application class that handles the mock requests.
-    attr_reader :app
+    attr_reader :app # :nodoc:
 
     # Initializes a new Tynn::Test object.
     #
-    # @param [Tynn] app The application class to test
-    #
-    # @example
     #   class API < Tynn
     #   end
     #
     #   app = Tynn::Test.new(API)
-    #   app.get("/json")
+    #   app.get("/user.json")
     #
     def initialize(app = Tynn)
       @app = app
     end
 
-    # This module provides the {Tynn::Test} API methods. If you don't
-    # like the stand-alone version, you can integrate this module to your
-    # preferred testing environment.
+    # This module provides the Tynn::Test API methods. If the stand-alone
+    # version is not preferred, this module can be integrated into the
+    # testing environment. The following example uses Minitest:
     #
-    # @example Using Minitest
     #   class HomeTest < Minitest::Test
     #     include Tynn::Test::Methods
     #
@@ -60,144 +52,110 @@ class Tynn
     #   end
     #
     module Methods
-      # Returns the current request object.
+      # If a request has been issued, returns an instance of
+      # Rack::Request[http://www.rubydoc.info/gems/rack/Rack/Request].
+      # Otherwise, returns +nil+.
       #
-      # @example
       #   app = Tynn::Test.new
-      #   app.get("/", {}, { "HTTP_USER_AGENT" => "Tynn::Test" })
+      #   app.get("/", { foo: "foo" }, { "HTTP_USER_AGENT" => "Tynn::Test" })
       #
       #   app.req.get?
       #   # => true
       #
+      #   app.req.params["foo"]
+      #   # => "foo"
+      #
       #   app.req.env["HTTP_USER_AGENT"]
       #   # => "Tynn::Test"
-      #
-      # @return [Rack::Request, nil] an instance of `Rack::Request`
-      #   or `nil` if no requests have been issued yet.
-      #
-      # @see http://www.rubydoc.info/gems/rack/Rack/Request
       #
       def req
         @__req
       end
 
-      # Returns the current response object.
+      # If a request has been issued, returns an instance of
+      # Rack::MockResponse[http://www.rubydoc.info/gems/rack/Rack/MockResponse].
+      # Otherwise, returns +nil+.
       #
-      # @example
       #   app = Tynn::Test.new
-      #   app.get("/", name: "alice")
+      #   app.get("/", name: "Jane")
       #
       #   app.res.status
       #   # => 200
       #
       #   app.res.body
-      #   # => "Hello alice!"
+      #   # => "Hello Jane!"
       #
-      # @return [Rack::MockResponse, nil] an instance of `Rack::MockResponse`
-      #   or `nil` if no requests have been issued yet.
-      #
-      # @see http://www.rubydoc.info/gems/rack/Rack/MockResponse
+      #   app.res["Content-Type"]
+      #   # => "text/html"
       #
       def res
         @__res
       end
 
-      # Issues a `GET` request.
+      # Issues a +GET+ request.
       #
-      # @param [String] path A request path
-      # @param [Hash, String, nil] params A Hash of query/post parameters,
-      #   a `String` request body, or `nil`
-      # @param [Hash] env A Hash of Rack environment values
+      # [path]   A request path.
+      # [params] A Hash of query/post parameters, a String request body,
+      #          or +nil+.
+      # [env]    A Hash of Rack environment values
       #
-      # @example
       #   app = Tynn::Test.new
-      #   app.get("/search", name: "alice")
-      #
-      # @return [void]
+      #   app.get("/search", name: "jane")
+      #   app.get("/cart", {}, { "HTTPS" => "on" })
       #
       def get(path, params = {}, env = {})
         request(path, env.merge(method: "GET", params: params))
       end
 
-      # Issues a `POST` request.
+      # Issues a +POST+ request. See #get for more information.
       #
-      # @param (see #get)
-      #
-      # @example
       #   app = Tynn::Test.new
-      #   app.post("/signup", username: "alice", password: "secret")
-      #
-      # @return [void]
+      #   app.post("/signup", username: "janedoe", password: "secret")
       #
       def post(path, params = {}, env = {})
         request(path, env.merge(method: "POST", params: params))
       end
 
-      # Issues a `PUT` request.
+      # Issues a +PUT+ request. See #get for more information.
       #
-      # @param (see #get)
-      #
-      # @example
       #   app = Tynn::Test.new
-      #   app.put("/users/1", username: "bob", name: "Bob")
-      #
-      # @return [void]
+      #   app.put("/users/1", username: "johndoe", name: "John")
       #
       def put(path, params = {}, env = {})
         request(path, env.merge(method: "PUT", params: params))
       end
 
-      # Issues a `PATCH` request.
+      # Issues a +PATCH+ request. See #get for more information.
       #
-      # @param (see #get)
-      #
-      # @example
       #   app = Tynn::Test.new
-      #   app.patch("/users/1", username: "alice")
-      #
-      # @return [void]
+      #   app.patch("/users/1", username: "janedoe")
       #
       def patch(path, params = {}, env = {})
         request(path, env.merge(method: "PATCH", params: params))
       end
 
-      # Issues a `DELETE` request.
+      # Issues a +DELETE+ request. See #get for more information.
       #
-      # @param (see #get)
-      #
-      # @example
       #   app = Tynn::Test.new
       #   app.delete("/users/1")
-      #
-      # @return [void]
       #
       def delete(path, params = {}, env = {})
         request(path, env.merge(method: "DELETE", params: params))
       end
 
-      # Issues a `HEAD` request.
+      # Issues a +HEAD+ request. See #get for more information.
       #
-      # @param (see #get)
-      #
-      # @example
       #   app = Tynn::Test.new
       #   app.head("/users/1")
-      #
-      # @return [void]
       #
       def head(path, params = {}, env = {})
         request(path, env.merge(method: Rack::HEAD, params: params))
       end
 
-      # Issues a `OPTIONS` request.
+      # Issues a +OPTIONS+ request. See #get for more information.
       #
-      # @param (see #get)
-      #
-      # @example
       #   app = Tynn::Test.new
       #   app.options("/users")
-      #
-      # @return [void]
       #
       def options(path, params = {}, env = {})
         request(path, env.merge(method: "OPTIONS", params: params))

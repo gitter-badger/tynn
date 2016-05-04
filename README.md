@@ -211,4 +211,4 @@ Tynn is released under the [MIT License](http://www.opensource.org/licenses/MIT)
 [rack-test]: https://github.com/brynary/rack-test
 [tynn-environment]: https://github.com/frodsan/tynn/blob/master/lib/tynn/environment.rb
 [tynn-static]: https://github.com/frodsan/tynn/blob/master/lib/tynn/static.rb
-[tynn-test]: https://github.com/frodsan/tynn/blob/master/lib/tynn/test.rb
+[tynn-test]: http://api.tynn.xyz/Tynn/Test.html
