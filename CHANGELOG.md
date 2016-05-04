@@ -1,7 +1,7 @@
 2.0.0 (unreleased)
 ------------------
 
-**5 Breaking changes:**
+**4 Breaking changes:**
 
 - Tynn 2 only supports versions of Ruby greater than 2.3.0.
 
@@ -26,9 +26,6 @@
 
 - Remove `Tynn::HMote` plugin.
 
-- `Tynn::SSL` doesn't apply the HSTS header to all of the site's subdomains
-  by default.
-
 **4 new features:**
 
 - Add `#configure` method to `Tynn::Environment`. Executes a given block
@@ -52,12 +49,15 @@
   Tynn.plugin(Tynn::Protection, ssl: true, hsts: false)
   ```
 
-**4 enhancements:**
+**5 enhancements:**
 
 - `Tynn::SSL` always sets `secure` flag on cookies. This tells the browser to only
   transmit them over HTTPS.
 
 - `Tynn::SSL` always executes before other middleware.
+
+- `Tynn::SSL` doesn't apply the HSTS header to all of the site's subdomains
+  by default.
 
 - Raise error if application handler is missing:
 
