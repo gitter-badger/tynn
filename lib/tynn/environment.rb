@@ -23,7 +23,7 @@ class Tynn
   #
   module Environment
     def self.setup(app, env: ENV["RACK_ENV"]) # :nodoc:
-      app.environment = (env || :development).to_sym
+      app.environment = env || :development
     end
 
     module ClassMethods
