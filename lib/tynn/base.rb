@@ -6,8 +6,7 @@ require_relative "response"
 
 class Tynn
   module Base
-    # @private
-    def self.setup(app)
+    def self.setup(app) # :nodoc:
       app.include(Syro::Deck::API)
     end
 
@@ -59,30 +58,25 @@ class Tynn
         self.middleware.unshift(proc { |app| middleware.new(app, *args, &block) })
       end
 
-      # @private
-      def call(env)
+      def call(env) # :nodoc:
         app.call(env)
       end
 
-      # @private
-      def middleware
+      def middleware # :nodoc:
         @__middleware ||= []
       end
 
-      # @private
-      def app
+      def app # :nodoc:
         @__app or raise("Application handler is missing. Try #{ self }.define { }")
       end
 
-      # @private
-      def reset!
+      def reset! # :nodoc:
         @__app = nil
         @__middleware = []
       end
     end
 
-    # @private
-    module InstanceMethods
+    module InstanceMethods # :nodoc:
       def request_class
         Tynn::Request
       end

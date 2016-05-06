@@ -21,13 +21,11 @@ class Tynn
   #   # => { "Content-Type" => "application/json" }
   #
   module DefaultHeaders
-    # @private
-    def self.setup(app)
+    def self.setup(app) # :nodoc:
       app.settings[:default_headers] = {}
     end
 
-    # @private
-    module InstanceMethods
+    module InstanceMethods # :nodoc:
       def default_headers
         Hash[settings[:default_headers]]
       end

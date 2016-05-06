@@ -28,16 +28,14 @@ class Tynn
   # [x-content-type]: https://msdn.microsoft.com/library/gg622941(v=vs.85).aspx
   #
   module SecureHeaders
-    # @private
     HEADERS = {
       "X-Content-Type-Options" => "nosniff",
       "X-Frame-Options" => "SAMEORIGIN",
       "X-Permitted-Cross-Domain-Policies" => "none",
       "X-XSS-Protection" => "1; mode=block"
-    }.freeze
+    }.freeze # :nodoc:
 
-    # @private
-    def self.setup(app)
+    def self.setup(app) # :nodoc:
       app.settings[:default_headers].update(HEADERS)
     end
   end

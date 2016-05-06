@@ -64,8 +64,7 @@ class Tynn
   #   )
   #
   module Session
-    # @private
-    def self.setup(app, options = {})
+    def self.setup(app, options = {}) # :nodoc:
       unless options[:secret]
         raise <<~MSG
           No secret option provided to Tynn::Session.

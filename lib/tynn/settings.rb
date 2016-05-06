@@ -25,8 +25,7 @@ class Tynn
   #   # => "MyApp"
   #
   module Settings
-    # @private
-    def self.deepclone(hash)
+    def self.deepclone(hash) # :nodoc:
       default_proc, hash.default_proc = hash.default_proc, nil
 
       return Marshal.load(Marshal.dump(hash))
@@ -35,9 +34,9 @@ class Tynn
     end
 
     module ClassMethods
-      # @private Copies settings into the subclass. If a setting is not found,
+      # Copies settings into the subclass. If a setting is not found,
       # checks parent's settings.
-      def inherited(subclass)
+      def inherited(subclass) # :nodoc:
         subclass.settings.replace(Tynn::Settings.deepclone(settings))
         subclass.settings.default_proc = proc { |h, k| h[k] = settings[k] }
       end

@@ -4,8 +4,7 @@ require "tilt"
 
 class Tynn
   module Render
-    # @private
-    def self.setup(app, options = {})
+    def self.setup(app, options = {}) # :nodoc:
       app.settings.update(
         layout: options.fetch(:layout, "layout"),
         views: options.fetch(:views, File.expand_path("views", Dir.pwd)),

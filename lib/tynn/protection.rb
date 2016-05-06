@@ -19,8 +19,7 @@ class Tynn
   #   Tynn.plugin(Tynn::Protection, ssl: true)
   #
   module Protection
-    # @private
-    def self.setup(app, ssl: false, hsts: {})
+    def self.setup(app, ssl: false, hsts: {}) # :nodoc:
       app.plugin(Tynn::SecureHeaders)
       app.plugin(Tynn::SSL, hsts: hsts) if ssl
     end

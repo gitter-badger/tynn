@@ -64,8 +64,7 @@ class Tynn
   #   Tynn.plugin(Tynn::SSL, hsts: false)
   #
   module SSL
-    # @private
-    def self.setup(app, hsts: {})
+    def self.setup(app, hsts: {}) # :nodoc:
       middleware = proc do |_app_|
         Tynn::SSL::Middleware.new(_app_, hsts: hsts)
       end
@@ -73,8 +72,7 @@ class Tynn
       app.middleware.push(middleware)
     end
 
-    # @private
-    class Middleware
+    class Middleware # :nodoc:
       HSTS_MAX_AGE = 15_552_000 # 180 days
 
       def initialize(app, hsts: {})

@@ -2,8 +2,7 @@
 
 class Tynn
   module NotFound
-    # @private
-    module InstanceMethods
+    module InstanceMethods # :nodoc:
       def call(*)
         result = super
 
