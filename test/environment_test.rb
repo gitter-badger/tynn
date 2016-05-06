@@ -41,7 +41,7 @@ class EnvironmentTest < Tynn::TestCase
   end
 
   test "adds predicate methods" do
-    @app.plugin(Tynn::Environment)
+    @app.plugin(Tynn::Environment, env: :development)
 
     assert_equal true, @app.development?
     assert_equal false, @app.production?
