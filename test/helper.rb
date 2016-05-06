@@ -13,8 +13,8 @@ class Tynn
       Tynn.reset!
     end
 
-    def new_app
-      Class.new(Tynn)
+    def new_app(parent = Tynn)
+      Class.new(parent)
     end
   end
 end
