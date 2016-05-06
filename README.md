@@ -17,20 +17,6 @@ A thin library for web development in Ruby.
 Installation
 ------------
 
-Add this line to your application's Gemfile:
-
-```ruby
-gem "tynn"
-```
-
-And then execute:
-
-```
-$ bundle
-```
-
-Or install it yourself as:
-
 ```
 $ gem install tynn
 ```
@@ -38,21 +24,16 @@ $ gem install tynn
 Environments
 ------------
 
-Tynn ships with [Tynn::Environment][tynn-environment] to set and check
-the current environment.
+Tynn ships with [Tynn::Environment] to set and check the current environment for the application.
 
 ```ruby
 require "tynn"
 require "tynn/environment"
 
 Tynn.plugin(Tynn::Environment)
-
-Tynn.environment
-# => :development
 ```
 
-The default value is `:development`. You can change it through the
-`RACK_ENV` environment variable or with the `#environment=` method.
+The default environment is based on the `RACK_ENV` environment variable.
 
 ```ruby
 ENV["RACK_ENV"]
@@ -60,25 +41,47 @@ ENV["RACK_ENV"]
 
 Tynn.environment
 # => :test
+```
 
+If `ENV["RACK_ENV"]` is `nil`, the default value is `:development`.
+
+```ruby
+Tynn.environment
+# => :development
+```
+
+To change the current environment, use the `environment=` method.
+
+```ruby
 Tynn.environment = :development
 
 Tynn.environment
 # => :development
 ```
 
-You can use `development?`, `test?`, `production?` or `staging?` to check
-the current environment.
+To check the current environment, use: `development?`, `test?`,
+`production?` or `staging?`.
 
 ```ruby
 Tynn.plugin(Tynn::Protection, ssl: Tynn.production?)
 ```
 
+Perform operations on specific environments with the `configure` method.
+
+```ruby
+Tynn.configure(:development) do
+  use(Tynn::Static, %w(/js /css /images))
+end
+
+Tynn.configure(:production) do
+  use(Tynn::SSL)
+end
+```
+
 Static Files
 ------------
 
-Tynn ships with [Tynn::Static][tynn-static] to serve static files such as
-images, CSS, JavaScript and others.
+Tynn ships with [Tynn::Static][tynn-static] to serve static files such as images, CSS, JavaScript and others.
 
 ```ruby
 require "tynn"
@@ -87,16 +90,13 @@ require "tynn/static"
 Tynn.plugin(Tynn::Static, %w(/js /css /images))
 ```
 
-By default, static files are served from the folder `public` in the current
-directory. You can specify a different location by passing the `:root` option:
+By default, static files are served from the folder `public` in the current directory. You can specify a different location by passing the `:root` option:
 
 ```ruby
 Tynn.plugin(Tynn::Static, %w(/js /css /images), root: "assets")
 ```
 
-As you can see in the table below, the name of static directory is not
-included in the URL because the files are looked up relative to that
-directory.
+As you can see in the table below, the name of static directory is not included in the URL because the files are looked up relative to that directory.
 
 
 | File                         | URL                                    |
@@ -105,9 +105,7 @@ directory.
 | ./public/css/application.css | http://example.org/css/application.css |
 | ./public/images/logo.png     | http://example.org/images/logo.png     |
 
-It's important to mention that the path of the static directory path is
-relative to the directory where you run the application. If you run the
-application from another directory, it's safer to use an absolute path:
+It's important to mention that the path of the static directory path is relative to the directory where you run the application. If you run the application from another directory, it's safer to use an absolute path:
 
 ```ruby
 Tynn.plugin(
@@ -120,8 +118,7 @@ Tynn.plugin(
 Testing
 -------
 
-Tynn ships with [Tynn::Test][tynn-test], a simple helper class to simulate
-requests to your application.
+Tynn ships with [Tynn::Test][tynn-test], a simple helper class to simulate requests to your application.
 
 ```ruby
 require "tynn"
@@ -140,8 +137,7 @@ app.get("/")
 "hei" == app.res.body   # => true
 ```
 
-[Tynn::Test][tynn-test] is test-framework agnostic. The following example
-uses [Minitest][minitest]:
+[Tynn::Test][tynn-test] is test-framework agnostic. The following example uses [Minitest][minitest]:
 
 ```ruby
 require "minitest/autorun"
@@ -162,15 +158,12 @@ class GuestsRouteTest < Minitest::Test
 end
 ```
 
-If this is not of your flavor, you can use any Rack-based
-testing library or framework, like: [Rack::Test][rack-test]
-or [Capybara][capybara].
+If this is not of your flavor, you can use any Rack-based testing library or framework, like: [Rack::Test][rack-test] or [Capybara][capybara].
 
 Changelog
 ---------
 
-To learn about new features, bug fixes, and changes, please refer to
-the [CHANGELOG](https://github.com/frodsan/tynn/blob/master/CHANGELOG.md).
+To learn about new features, bug fixes, and changes, please refer to the [CHANGELOG](https://github.com/frodsan/tynn/blob/master/CHANGELOG.md).
 
 Development
 ------------
@@ -196,10 +189,7 @@ $ rake test
 Contributing
 ------------
 
-Use [GitHub Issues](https://github.com/frodsan/tynn/issues) for reporting
-bugs, discussing features and general feedback.  If you've found a problem
-in Tynn, be sure to check the [past issues](https://github.com/frodsan/tynn/issues?state=closed)
-before open a new one.
+Use [GitHub Issues](https://github.com/frodsan/tynn/issues) for reporting bugs, discussing features and general feedback. If you've found a problem in Tynn, be sure to check the [past issues](https://github.com/frodsan/tynn/issues?state=closed) before open a new one.
 
 Code Status
 -----------
@@ -214,6 +204,6 @@ Tynn is released under the [MIT License](http://www.opensource.org/licenses/MIT)
 [capybara]: https://github.com/jnicklas/capybara
 [minitest]: https://github.com/seattlerb/minitest
 [rack-test]: https://github.com/brynary/rack-test
-[tynn-environment]: http://api.tynn.xyz/Tynn/Environment.html
+[Tynn::Environment]: http://api.tynn.xyz/Tynn/Environment.html
 [tynn-static]: http://api.tynn.xyz/Tynn/Static.html
 [tynn-test]: http://api.tynn.xyz/Tynn/Test.html

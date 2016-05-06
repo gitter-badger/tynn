@@ -9,17 +9,22 @@ class Tynn
   #
   #   Tynn.plugin(Tynn::Environment)
   #
-  #   # Accessing the current environment
+  #   # Accessing the current environment.
   #   Tynn.environment  # => :development
   #
-  #   # Check the current environment
+  #   # Checking the current environment.
   #   Tynn.development? # => true
   #   Tynn.production?  # => false
   #   Tynn.test?        # => false
   #   Tynn.staging?     # => false
   #
-  #   # Setting a custom environment
+  #   # Changing the current environment.
   #   Tynn.environment = :test
+  #
+  #   # Performing operations in specific environments.
+  #   Tynn.configure(:development, :test) do
+  #     # ...
+  #   end
   #
   module Environment
     def self.setup(app, env: ENV["RACK_ENV"]) # :nodoc:
