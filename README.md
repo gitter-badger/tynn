@@ -69,12 +69,12 @@ Tynn.plugin(Tynn::Protection, ssl: Tynn.production?)
 Perform operations on specific environments with the `configure` method.
 
 ```ruby
-Tynn.configure(:development) do
-  use(Tynn::Static, %w(/js /css /images))
+Tynn.configure(:development) do |app|
+  app.use(Tynn::Static, %w(/js /css /images))
 end
 
-Tynn.configure(:production) do
-  use(Tynn::SSL)
+Tynn.configure(:production) do |app|
+  app.use(Tynn::SSL)
 end
 ```
 

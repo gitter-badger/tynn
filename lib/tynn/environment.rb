@@ -45,7 +45,7 @@ class Tynn
       #   end
       #
       def configure(*envs)
-        yield if envs.include?(environment)
+        yield(self) if envs.include?(environment)
       end
 
       # Returns the current environment for the application.

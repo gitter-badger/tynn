@@ -58,8 +58,8 @@ class EnvironmentTest < Tynn::TestCase
         set(:test, true)
       end
 
-      configure(:development, :test) do
-        set(:production, false)
+      configure(:development, :test) do |app|
+        app.set(:production, false)
       end
 
       configure(:production) do
