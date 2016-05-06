@@ -12,5 +12,9 @@ class Tynn
     setup do
       Tynn.reset!
     end
+
+    def new_app
+      Class.new(Tynn)
+    end
   end
 end

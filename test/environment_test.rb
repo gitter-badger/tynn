@@ -4,22 +4,17 @@ require_relative "helper"
 require_relative "../lib/tynn/environment"
 
 class EnvironmentTest < Tynn::TestCase
-  App = Class.new(Tynn)
-  App.plugin(Tynn::Environment)
-
   setup do
-    App.reset!
-    App.environment = :development
+    @app = new_app
   end
 
   test "defaults to development if RACK_ENV is nil" do
     begin
       env, ENV["RACK_ENV"] = ENV.to_h, nil
 
-      NewApp = Class.new(Tynn)
-      NewApp.plugin(Tynn::Environment)
+      @app.plugin(Tynn::Environment)
 
-      assert_equal :development, NewApp.environment
+      assert_equal :development, @app.environment
     ensure
       ENV.replace(env)
     end
@@ -29,45 +24,49 @@ class EnvironmentTest < Tynn::TestCase
     begin
       env, ENV["RACK_ENV"] = ENV.to_h, "test"
 
-      App.plugin(Tynn::Environment)
+      @app.plugin(Tynn::Environment)
 
-      assert_equal :test, App.environment
+      assert_equal :test, @app.environment
     ensure
       ENV.replace(env)
     end
   end
 
   test "set environment" do
-    App.environment = "test"
+    @app.plugin(Tynn::Environment)
 
-    assert_equal :test, App.environment
+    @app.environment = "test"
+
+    assert_equal :test, @app.environment
   end
 
   test "adds predicate methods" do
-    assert_equal true, App.development?
-    assert_equal false, App.production?
-    assert_equal false, App.test?
-    assert_equal false, App.staging?
+    @app.plugin(Tynn::Environment)
+
+    assert_equal true, @app.development?
+    assert_equal false, @app.production?
+    assert_equal false, @app.test?
+    assert_equal false, @app.staging?
   end
 
   test "configure" do
-    class App
-      self.environment = :test
+    @app.plugin(Tynn::Environment)
 
-      configure(:test) do
-        set(:test, true)
-      end
+    @app.environment = :test
 
-      configure(:development, :test) do |app|
-        app.set(:production, false)
-      end
-
-      configure(:production) do
-        raise "This should not be executed"
-      end
+    @app.configure(:test) do
+      @app.set(:test, true)
     end
 
-    assert_equal true, App.settings[:test]
-    assert_equal false, App.settings[:production]
+    @app.configure(:development, :test) do |app|
+      app.set(:production, false)
+    end
+
+    @app.configure(:production) do
+      raise "This should not be executed"
+    end
+
+    assert_equal true, @app.settings[:test]
+    assert_equal false, @app.settings[:production]
   end
 end
