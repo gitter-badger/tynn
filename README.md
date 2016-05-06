@@ -196,6 +196,8 @@ Code Status
 
 [![Build Status](https://travis-ci.org/frodsan/tynn.svg?branch=master)](https://travis-ci.org/frodsan/tynn)
 
+[![Build History](https://buildstats.info/travisci/chart/frodsan/tynn?branch=master)](https://travis-ci.org/frodsan/tynn/builds)
+
 License
 -------
 
