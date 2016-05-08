@@ -81,7 +81,7 @@ end
 Static Files
 ------------
 
-Tynn ships with [Tynn::Static][tynn-static] to serve static files such as images, CSS, JavaScript and others.
+Tynn ships with [Tynn::Static] to serve static files such as images, CSS, JavaScript and others.
 
 ```ruby
 require "tynn"
@@ -118,7 +118,7 @@ Tynn.plugin(
 Testing
 -------
 
-Tynn ships with [Tynn::Test][tynn-test], a simple helper class to simulate requests to your application.
+Tynn ships with [Tynn::Test], a simple helper class to simulate requests to your application.
 
 ```ruby
 require "tynn"
@@ -137,7 +137,7 @@ app.get("/")
 "hei" == app.res.body   # => true
 ```
 
-[Tynn::Test][tynn-test] is test-framework agnostic. The following example uses [Minitest][minitest]:
+[Tynn::Test] is test-framework agnostic. The following example uses [Minitest]:
 
 ```ruby
 require "minitest/autorun"
@@ -158,7 +158,7 @@ class GuestsRouteTest < Minitest::Test
 end
 ```
 
-If this is not of your flavor, you can use any Rack-based testing library or framework, like: [Rack::Test][rack-test] or [Capybara][capybara].
+If this is not of your flavor, you can use any Rack-based testing library or framework, like: [Rack::Test] or [Capybara].
 
 Changelog
 ---------
@@ -205,7 +205,7 @@ Tynn is released under the [MIT License](http://www.opensource.org/licenses/MIT)
 
 [capybara]: https://github.com/jnicklas/capybara
 [minitest]: https://github.com/seattlerb/minitest
-[rack-test]: https://github.com/brynary/rack-test
-[Tynn::Environment]: http://api.tynn.xyz/Tynn/Environment.html
-[tynn-static]: http://api.tynn.xyz/Tynn/Static.html
-[tynn-test]: http://api.tynn.xyz/Tynn/Test.html
+[rack::test]: https://github.com/brynary/rack-test
+[tynn::environment]: http://api.tynn.xyz/Tynn/Environment.html
+[tynn::static]: http://api.tynn.xyz/Tynn/Static.html
+[tynn::test]: http://api.tynn.xyz/Tynn/Test.html
