@@ -12,9 +12,5 @@ class Tynn
     setup do
       Tynn.reset!
     end
-
-    def new_app(parent = Tynn)
-      Class.new(parent)
-    end
   end
 end

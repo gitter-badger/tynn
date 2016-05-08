@@ -5,7 +5,7 @@ require_relative "../lib/tynn/environment"
 
 class EnvironmentTest < Tynn::TestCase
   setup do
-    @app = new_app
+    @app = Class.new(Tynn)
   end
 
   test "defaults to development if RACK_ENV is nil" do
