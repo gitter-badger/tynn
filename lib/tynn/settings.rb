@@ -27,7 +27,7 @@ class Tynn
     def self.deepclone(hash) # :nodoc:
       default_proc, hash.default_proc = hash.default_proc, nil
 
-      return Marshal.load(Marshal.dump(hash))
+      Marshal.load(Marshal.dump(hash))
     ensure
       hash.default_proc = default_proc
     end
