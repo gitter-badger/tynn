@@ -9,6 +9,8 @@ A thin library for web development in Ruby.
   * [Handling Request and Response](#handling-request-and-response)
   * [Composing Applications](#composing-applications)
   * [Extending Tynn](#extending-tynn)
+* [Routing Basics](#routing-basics)
+  * [Halting](#halting)
 * [Middleware](#middleware)
 * [Environments](#environments)
 * [Static Files](#static-files)
@@ -279,6 +281,28 @@ Tynn is minimal. You might miss features from time to time. Tynn is designed to 
 * [Middleware](/middleware.html) via `use`: Rewrite requests before they enter your application and responses after they left your application.
 
 Tynn also ships with some [default plugins](/default-plugins.html) that you can add to your application if you need them.
+
+## Routing basics
+
+### Halting
+
+To immediately stop a request within a route, you can use the `halt` method.
+
+```ruby
+halt([status, headers, body])
+```
+
+You can use `res.finish` to return a response as per Rack's specification.
+
+```ruby
+if current_user.nil?
+  res.redirect("/login")
+
+  halt(res.finish)
+else
+  # do something else ...
+end
+```
 
 ## Middleware
 
