@@ -42,7 +42,7 @@ class BaseTest < Tynn::TestCase
     Tynn.define do
       on(:foo) do
         on(:bar) do
-          res.write(format("%{foo}:%{bar}", inbox))
+          res.write(sprintf("%{foo}:%{bar}", inbox))
         end
       end
     end
