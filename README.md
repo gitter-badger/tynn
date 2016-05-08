@@ -12,6 +12,7 @@ A thin library for web development in Ruby.
 * [Routing Basics](#routing-basics)
   * [Halting](#halting)
 * [Middleware](#middleware)
+* [Settings](#settings)
 * [Environments](#environments)
 * [Static Files](#static-files)
 * [Testing](#testing)
@@ -347,6 +348,41 @@ new dependencies to your application as it is included in Rack already.
 
 [middleware]: https://github.com/rack/rack/wiki/list-of-middleware
 [method-override]: https://github.com/rack/rack/blob/master/lib/rack/method_override.rb
+
+## Settings
+
+Each application has a `settings` hash where you can store configuration. By default, settings are inherited.
+
+```ruby
+Tynn.set(:layout, "layout")
+
+class Guests < Tynn; end
+class Users < Tynn; end
+class Adminds < Tynn; end
+
+Users.set(:layout, "users/layout")
+Admins.set(:layout, "admins/layout")
+
+Guests.settings[:layout] # => "layout"
+Users.settings[:layout]  # => "users/layout"
+Admins.settings[:layout] # => "admins/layout"
+```
+
+This features comes in handy when developing plugins:
+
+```ruby
+module AppName
+  module ClassMethods
+    def app_name=(name)
+      set(:app_name, name)
+    end
+
+    def app_name
+      settings.fetch(:app_name, "MyApp")
+    end
+  end
+end
+```
 
 ## Environments
 
