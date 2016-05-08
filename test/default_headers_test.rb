@@ -5,7 +5,7 @@ require_relative "helper"
 class DefaultHeadersTest < Tynn::TestCase
   setup do
     @app_class = Class.new(Tynn)
-    @app_class.define { }
+    @app_class.define {}
   end
 
   test "respond with default headers" do

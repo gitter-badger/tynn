@@ -23,6 +23,8 @@ A thin library for web development in Ruby.
 * [Code Status](#code-status)
 * [License](#license)
 
+**NOTE: Tynn 2 is in an alpha phase. Anything can change at any time. Usage is not recommended until a stable version gets released.**
+
 ## Installation
 
 ```
