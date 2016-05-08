@@ -9,6 +9,7 @@ A thin library for web development in Ruby.
   * [Handling Request and Response](#handling-request-and-response)
   * [Composing Applications](#composing-applications)
   * [Extending Tynn](#extending-tynn)
+* [Middleware](#middleware)
 * [Environments](#environments)
 * [Static Files](#static-files)
 * [Testing](#testing)
@@ -278,6 +279,50 @@ Tynn is minimal. You might miss features from time to time. Tynn is designed to 
 * [Middleware](/middleware.html) via `use`: Rewrite requests before they enter your application and responses after they left your application.
 
 Tynn also ships with some [default plugins](/default-plugins.html) that you can add to your application if you need them.
+
+## Middleware
+
+Tynn runs on [Rack](https://github.com/rack/rack). Therefore it is possible
+to use Rack middleware in Tynn. This is how you add a middleware (for example
+`YourMiddleware`) to your app:
+
+```ruby
+Tynn.use(YourMiddleware)
+```
+
+You can use any Rack middleware to your app, it is not specific to Tynn. You
+can find a list of Rack middleware [here][middleware].
+
+### Example Usage: Allow method override
+
+HTML Forms currently only support GET and POST requests. You may want to have
+a form that performs other actions such as PUT though. The usual solution to
+simulate a PUT is using a POST form, but adding a hidden input field with the
+name `_method` and the value `put`. For example:
+
+```html
+<form method="post" action="/update">
+  <input type="hidden" name="_method" value="put">
+  ...
+</form>
+```
+
+In Tynn this would however trigger the `post` action, as it is send as
+a post request from your browser. With a middleware we can now rewrite
+this request and change the method to be `PUT`. There is a middleware
+called [Rack::MethodOverride][method-override] included in Rack that
+does exactly that, so let's add it to our Tynn app:
+
+```ruby
+Tynn.use(Rack::MethodOverride)
+```
+
+Now this will trigger the `put` action in your app. It will also work for
+other missing methods like `DELETE`. Note that you do not need to add any
+new dependencies to your application as it is included in Rack already.
+
+[middleware]: https://github.com/rack/rack/wiki/list-of-middleware
+[method-override]: https://github.com/rack/rack/blob/master/lib/rack/method_override.rb
 
 ## Environments
 
