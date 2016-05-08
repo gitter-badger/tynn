@@ -2,7 +2,6 @@
 
 class Tynn
   # It provides a settings API for applications and plugins.
-  # This plugin is included by default.
   #
   #   require "tynn"
   #
@@ -22,6 +21,8 @@ class Tynn
   #
   #   Tynn.app_name
   #   # => "MyApp"
+  #
+  # # This plugin is included by default.
   #
   module Settings
     def self.deepclone(hash) # :nodoc:

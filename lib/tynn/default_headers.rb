@@ -2,15 +2,13 @@
 
 class Tynn
   # Adds support to set default headers for responses.
-  # This plugin is included by default.
   #
-  # @example
   #   require "tynn"
   #   require "tynn/test"
   #
-  #   Tynn.set(:default_headers, {
+  #   Tynn.default_headers = {
   #     "Content-Type" => "application/json"
-  #   })
+  #   }
   #
   #   Tynn.define { }
   #
@@ -20,14 +18,44 @@ class Tynn
   #   app.res.headers
   #   # => { "Content-Type" => "application/json" }
   #
+  # This plugin is included by default.
+  #
   module DefaultHeaders
     def self.setup(app) # :nodoc:
-      app.settings[:default_headers] = {}
+      app.default_headers = {}
+    end
+
+    module ClassMethods
+      # Sets the default headers for the application.
+      #
+      #   Tynn.default_headers = {
+      #     "Content-Type" => "application/json"
+      #   }
+      #
+      #   Tynn.default_headers["Content-Type"]
+      #   # => "application/json"
+      #
+      def default_headers=(headers)
+        set(:default_headers, headers)
+      end
+
+      # Returns a Hash with the default headers.
+      #
+      #   Tynn.default_headers = {
+      #     "Content-Type" => "application/json"
+      #   }
+      #
+      #   Tynn.default_headers["Content-Type"]
+      #   # => "application/json"
+      #
+      def default_headers
+        settings[:default_headers]
+      end
     end
 
     module InstanceMethods # :nodoc:
       def default_headers
-        Hash[settings[:default_headers]]
+        Hash[self.class.default_headers]
       end
     end
   end

@@ -26,7 +26,9 @@
 
 - Remove `Tynn::HMote` plugin.
 
-**5 new features:**
+**6 new features:**
+
+- Add `#default_headers` and `#default_headers=` to `Tynn::DefaultHeaders`.
 
 - Add `#environment=` method to `Tynn::Environment`. This changes
   the value of the current environment.

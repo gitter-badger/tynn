@@ -3,16 +3,17 @@
 require_relative "helper"
 
 class DefaultHeadersTest < Tynn::TestCase
-  class App < Tynn
-    define {}
+  setup do
+    @app_class = Class.new(Tynn)
+    @app_class.define { }
   end
 
   test "respond with default headers" do
-    App.set(:default_headers, "Content-Type" => "text/plain")
+    @app_class.default_headers = { "Content-Type" => "text/plain" }
 
-    app = Tynn::Test.new(App)
+    app = Tynn::Test.new(@app_class)
     app.get("/")
 
-    assert_equal "text/plain", app.res.content_type
+    assert_equal @app_class.default_headers, app.res.headers
   end
 end
