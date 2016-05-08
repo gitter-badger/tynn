@@ -52,36 +52,20 @@
 <h2>
 <a id="installation" class="anchor" href="#installation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Installation</h2>
 
-<p>Add this line to your application's Gemfile:</p>
-
-<div class="highlight highlight-source-ruby"><pre><span class="pl-k">gem</span> <span class="pl-s"><span class="pl-pds">"</span>tynn<span class="pl-pds">"</span></span></pre></div>
-
-<p>And then execute:</p>
-
-<pre><code>$ bundle
-</code></pre>
-
-<p>Or install it yourself as:</p>
-
 <pre><code>$ gem install tynn
 </code></pre>
 
 <h2>
 <a id="environments" class="anchor" href="#environments" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Environments</h2>
 
-<p>Tynn ships with <a href="http://api.tynn.xyz/Tynn/Environment.html">Tynn::Environment</a> to set and check
-the current environment.</p>
+<p>Tynn ships with <a href="http://api.tynn.xyz/Tynn/Environment.html">Tynn::Environment</a> to set and check the current environment for the application.</p>
 
 <div class="highlight highlight-source-ruby"><pre><span class="pl-k">require</span> <span class="pl-s"><span class="pl-pds">"</span>tynn<span class="pl-pds">"</span></span>
 <span class="pl-k">require</span> <span class="pl-s"><span class="pl-pds">"</span>tynn/environment<span class="pl-pds">"</span></span>
 
-<span class="pl-c1">Tynn</span>.plugin(<span class="pl-c1">Tynn</span>::<span class="pl-c1">Environment</span>)
+<span class="pl-c1">Tynn</span>.plugin(<span class="pl-c1">Tynn</span>::<span class="pl-c1">Environment</span>)</pre></div>
 
-<span class="pl-c1">Tynn</span>.environment
-<span class="pl-c"># =&gt; :development</span></pre></div>
-
-<p>The default value is <code>:development</code>. You can change it through the
-<code>RACK_ENV</code> environment variable.</p>
+<p>The default environment is based on the <code>RACK_ENV</code> environment variable.</p>
 
 <div class="highlight highlight-source-ruby"><pre><span class="pl-c1">ENV</span>[<span class="pl-s"><span class="pl-pds">"</span>RACK_ENV<span class="pl-pds">"</span></span>]
 <span class="pl-c"># =&gt; "test"</span>
@@ -89,30 +73,48 @@ the current environment.</p>
 <span class="pl-c1">Tynn</span>.environment
 <span class="pl-c"># =&gt; :test</span></pre></div>
 
-<p>You can use <code>development?</code>, <code>test?</code>, <code>production?</code> or <code>staging?</code> to check
-the current environment.</p>
+<p>If <code>ENV["RACK_ENV"]</code> is <code>nil</code>, the default value is <code>:development</code>.</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-c1">Tynn</span>.environment
+<span class="pl-c"># =&gt; :development</span></pre></div>
+
+<p>To change the current environment, use the <code>environment=</code> method.</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-c1">Tynn</span>.environment <span class="pl-k">=</span> <span class="pl-c1">:development</span>
+
+<span class="pl-c1">Tynn</span>.environment
+<span class="pl-c"># =&gt; :development</span></pre></div>
+
+<p>To check the current environment, use: <code>development?</code>, <code>test?</code>,
+<code>production?</code> or <code>staging?</code>.</p>
 
 <div class="highlight highlight-source-ruby"><pre><span class="pl-c1">Tynn</span>.plugin(<span class="pl-c1">Tynn</span>::<span class="pl-c1">Protection</span>, <span class="pl-c1">ssl:</span> <span class="pl-c1">Tynn</span>.production?)</pre></div>
+
+<p>Perform operations on specific environments with the <code>configure</code> method.</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-c1">Tynn</span>.configure(<span class="pl-c1">:development</span>) <span class="pl-k">do </span>|<span class="pl-smi">app</span>|
+  app.use(<span class="pl-c1">Tynn</span>::<span class="pl-c1">Static</span>, <span class="pl-s"><span class="pl-pds">%w(</span>/js /css /images<span class="pl-pds">)</span></span>)
+<span class="pl-k">end</span>
+
+<span class="pl-c1">Tynn</span>.configure(<span class="pl-c1">:production</span>) <span class="pl-k">do </span>|<span class="pl-smi">app</span>|
+  app.use(<span class="pl-c1">Tynn</span>::<span class="pl-c1">SSL</span>)
+<span class="pl-k">end</span></pre></div>
 
 <h2>
 <a id="static-files" class="anchor" href="#static-files" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Static Files</h2>
 
-<p>Tynn ships with <a href="http://api.tynn.xyz/Tynn/Static.html">Tynn::Static</a> to serve static files such as
-images, CSS, JavaScript and others.</p>
+<p>Tynn ships with <a href="http://api.tynn.xyz/Tynn/Static.html">Tynn::Static</a> to serve static files such as images, CSS, JavaScript and others.</p>
 
 <div class="highlight highlight-source-ruby"><pre><span class="pl-k">require</span> <span class="pl-s"><span class="pl-pds">"</span>tynn<span class="pl-pds">"</span></span>
 <span class="pl-k">require</span> <span class="pl-s"><span class="pl-pds">"</span>tynn/static<span class="pl-pds">"</span></span>
 
 <span class="pl-c1">Tynn</span>.plugin(<span class="pl-c1">Tynn</span>::<span class="pl-c1">Static</span>, <span class="pl-s"><span class="pl-pds">%w(</span>/js /css /images<span class="pl-pds">)</span></span>)</pre></div>
 
-<p>By default, static files are served from the folder <code>public</code> in the current
-directory. You can specify a different location by passing the <code>:root</code> option:</p>
+<p>By default, static files are served from the folder <code>public</code> in the current directory. You can specify a different location by passing the <code>:root</code> option:</p>
 
 <div class="highlight highlight-source-ruby"><pre><span class="pl-c1">Tynn</span>.plugin(<span class="pl-c1">Tynn</span>::<span class="pl-c1">Static</span>, <span class="pl-s"><span class="pl-pds">%w(</span>/js /css /images<span class="pl-pds">)</span></span>, <span class="pl-c1">root:</span> <span class="pl-s"><span class="pl-pds">"</span>assets<span class="pl-pds">"</span></span>)</pre></div>
 
-<p>As you can see in the table below, the name of static directory is not
-included in the URL because the files are looked up relative to that
-directory.</p>
+<p>As you can see in the table below, the name of static directory is not included in the URL because the files are looked up relative to that directory.</p>
 
 <table>
 <thead>
@@ -137,9 +139,7 @@ directory.</p>
 </tbody>
 </table>
 
-<p>It's important to mention that the path of the static directory path is
-relative to the directory where you run the application. If you run the
-application from another directory, it's safer to use an absolute path:</p>
+<p>It's important to mention that the path of the static directory path is relative to the directory where you run the application. If you run the application from another directory, it's safer to use an absolute path:</p>
 
 <div class="highlight highlight-source-ruby"><pre><span class="pl-c1">Tynn</span>.plugin(
   <span class="pl-c1">Tynn</span>::<span class="pl-c1">Static</span>,
@@ -150,8 +150,7 @@ application from another directory, it's safer to use an absolute path:</p>
 <h2>
 <a id="testing" class="anchor" href="#testing" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Testing</h2>
 
-<p>Tynn ships with <a href="http://api.tynn.xyz/Tynn/Test.html">Tynn::Test</a>, a simple helper class to simulate
-requests to your application.</p>
+<p>Tynn ships with <a href="http://api.tynn.xyz/Tynn/Test.html">Tynn::Test</a>, a simple helper class to simulate requests to your application.</p>
 
 <div class="highlight highlight-source-ruby"><pre><span class="pl-k">require</span> <span class="pl-s"><span class="pl-pds">"</span>tynn<span class="pl-pds">"</span></span>
 <span class="pl-k">require</span> <span class="pl-s"><span class="pl-pds">"</span>tynn/test<span class="pl-pds">"</span></span>
@@ -168,8 +167,7 @@ app.get(<span class="pl-s"><span class="pl-pds">"</span>/<span class="pl-pds">"<
 <span class="pl-c1">200</span>   <span class="pl-k">==</span> app.res.status <span class="pl-c"># =&gt; true</span>
 <span class="pl-s"><span class="pl-pds">"</span>hei<span class="pl-pds">"</span></span> <span class="pl-k">==</span> app.res.body   <span class="pl-c"># =&gt; true</span></pre></div>
 
-<p><a href="http://api.tynn.xyz/Tynn/Test.html">Tynn::Test</a> is test-framework agnostic. The following example
-uses <a href="https://github.com/seattlerb/minitest">Minitest</a>:</p>
+<p><a href="http://api.tynn.xyz/Tynn/Test.html">Tynn::Test</a> is test-framework agnostic. The following example uses <a href="https://github.com/seattlerb/minitest">Minitest</a>:</p>
 
 <div class="highlight highlight-source-ruby"><pre><span class="pl-k">require</span> <span class="pl-s"><span class="pl-pds">"</span>minitest/autorun<span class="pl-pds">"</span></span>
 <span class="pl-k">require</span> <span class="pl-s"><span class="pl-pds">"</span>tynn/test<span class="pl-pds">"</span></span>
@@ -188,15 +186,12 @@ uses <a href="https://github.com/seattlerb/minitest">Minitest</a>:</p>
   <span class="pl-k">end</span>
 <span class="pl-k">end</span></pre></div>
 
-<p>If this is not of your flavor, you can use any Rack-based
-testing library or framework, like: <a href="https://github.com/brynary/rack-test">Rack::Test</a>
-or <a href="https://github.com/jnicklas/capybara">Capybara</a>.</p>
+<p>If this is not of your flavor, you can use any Rack-based testing library or framework, like: <a href="https://github.com/brynary/rack-test">Rack::Test</a> or <a href="https://github.com/jnicklas/capybara">Capybara</a>.</p>
 
 <h2>
 <a id="changelog" class="anchor" href="#changelog" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Changelog</h2>
 
-<p>To learn about new features, bug fixes, and changes, please refer to
-the <a href="https://github.com/frodsan/tynn/blob/master/CHANGELOG.md">CHANGELOG</a>.</p>
+<p>To learn about new features, bug fixes, and changes, please refer to the <a href="https://github.com/frodsan/tynn/blob/master/CHANGELOG.md">CHANGELOG</a>.</p>
 
 <h2>
 <a id="development" class="anchor" href="#development" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Development</h2>
@@ -219,15 +214,14 @@ the <a href="https://github.com/frodsan/tynn/blob/master/CHANGELOG.md">CHANGELOG
 <h2>
 <a id="contributing" class="anchor" href="#contributing" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Contributing</h2>
 
-<p>Use <a href="https://github.com/frodsan/tynn/issues">GitHub Issues</a> for reporting
-bugs, discussing features and general feedback.  If you've found a problem
-in Tynn, be sure to check the <a href="https://github.com/frodsan/tynn/issues?state=closed">past issues</a>
-before open a new one.</p>
+<p>Use <a href="https://github.com/frodsan/tynn/issues">GitHub Issues</a> for reporting bugs, discussing features and general feedback. If you've found a problem in Tynn, be sure to check the <a href="https://github.com/frodsan/tynn/issues?state=closed">past issues</a> before open a new one.</p>
 
 <h2>
 <a id="code-status" class="anchor" href="#code-status" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Code Status</h2>
 
 <p><a href="https://travis-ci.org/frodsan/tynn"><img src="https://travis-ci.org/frodsan/tynn.svg?branch=master" alt="Build Status"></a></p>
+
+<p><a href="https://travis-ci.org/frodsan/tynn/builds"><img src="https://buildstats.info/travisci/chart/frodsan/tynn?branch=master" alt="Build History"></a></p>
 
 <h2>
 <a id="license" class="anchor" href="#license" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>License</h2>
