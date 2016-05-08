@@ -368,7 +368,7 @@ Users.settings[:layout]  # => "users/layout"
 Admins.settings[:layout] # => "admins/layout"
 ```
 
-This features comes in handy when developing plugins:
+This features comes in handy when authoring your own plugins.
 
 ```ruby
 module AppName
