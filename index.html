@@ -38,6 +38,25 @@
 
 <ul>
 <li><a href="#installation">Installation</a></li>
+<li>
+<a href="#getting-started">Getting Started</a>
+
+<ul>
+<li><a href="#hello-world">Hello World!</a></li>
+<li><a href="#capturing-path-segments-and-the-inbox">Capturing Path Segments and the Inbox</a></li>
+<li><a href="#handling-request-and-response">Handling Request and Response</a></li>
+<li><a href="#composing-applications">Composing Applications</a></li>
+<li><a href="#extending-tynn">Extending Tynn</a></li>
+</ul>
+</li>
+<li>
+<a href="#routing-basics">Routing Basics</a>
+
+<ul>
+<li><a href="#halting">Halting</a></li>
+</ul>
+</li>
+<li><a href="#middleware">Middleware</a></li>
 <li><a href="#environments">Environments</a></li>
 <li><a href="#static-files">Static Files</a></li>
 <li><a href="#testing">Testing</a></li>
@@ -54,6 +73,305 @@
 
 <pre><code>$ gem install tynn
 </code></pre>
+
+<h2>
+<a id="getting-started" class="anchor" href="#getting-started" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Getting Started</h2>
+
+<p>In this tutorial we will assume that you have basic knowledge about HTTP and Ruby. You will learn about Rack, Tynn and cURL along the way. To code along all you need to do is <code>gem install tynn</code> and then create a folder that should contain your first app.</p>
+
+<h3>
+<a id="hello-world" class="anchor" href="#hello-world" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Hello World!</h3>
+
+<p>Tynn is a routing library that sits on top of Rack. So in order to get your first Tynn app running, we need to write a <code>config.ru</code> file. This file is used by Rack to find an application and run it. The most basic version of <code>config.ru</code> file looks like this:</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-k">require</span> <span class="pl-c1">File</span>.expand_path(<span class="pl-s"><span class="pl-pds">"</span>app<span class="pl-pds">"</span></span>, __dir__)
+
+run(<span class="pl-c1">Tynn</span>)</pre></div>
+
+<p>This will require the <code>app.rb</code> file in the current directory and then run the Rack application that is contained in it. So let's write the <code>app.rb</code> file:</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-k">require</span> <span class="pl-s"><span class="pl-pds">"</span>tynn<span class="pl-pds">"</span></span>
+
+<span class="pl-c1">Tynn</span>.define <span class="pl-k">do</span>
+  res.write(<span class="pl-s"><span class="pl-pds">"</span>Hello World!<span class="pl-pds">"</span></span>)
+<span class="pl-k">end</span></pre></div>
+
+<p>In this file we first require the Tynn library, then we define our application. It will write "Hello World" to something called <code>res</code>. In Tynn, <code>res</code> is the result of the request. So in other words: Our application will answer with <code>"Hello World"</code>.</p>
+
+<p>To run this application now, we will use a commandline tool called <code>rackup</code>. It is included in the Rack gem, so you already have it installed. You run it like this:</p>
+
+<pre><code>rackup
+</code></pre>
+
+<p>It will then boot up and tell you something like this:</p>
+
+<pre><code>[2015-11-30 17:27:37] INFO  WEBrick 1.3.1
+[2015-11-30 17:27:37] INFO  ruby 2.2.2 (2015-04-13) [x86_64-linux]
+[2015-11-30 17:27:37] INFO  WEBrick::HTTPServer#start: pid=25355 port=9292
+</code></pre>
+
+<p>This means that we are using <a href="http://ruby-doc.org/stdlib-2.2.3/libdoc/webrick/rdoc/index.html">WEBrick</a> from the Ruby standard library as our web server, and we are using the port 9292. So now you can either type <code>localhost:9292</code> in your browser of choice or use curl. curl is probably installed on your system already. If it is not, you can find information on how to install it <a href="http://curl.haxx.se/docs/install.html">here</a>. In a second terminal (while your server keeps running in the first one), type:</p>
+
+<pre><code>curl localhost:9292
+</code></pre>
+
+<p>The result will be:</p>
+
+<pre><code>Hello World!
+</code></pre>
+
+<p>Congratulations, you now have your first working Tynn app! But wait, on what path does it listen? As we've seen above, it definitely listens on the root path. But what about the other paths? Let's try it out with <code>curl localhost:9292/somepath</code> – and you will see the same result! Our app listens on all paths. Let's change that to only responding to the root path:</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-c1">Tynn</span>.define <span class="pl-k">do</span>
+  root <span class="pl-k">do</span>
+    res.write(<span class="pl-s"><span class="pl-pds">"</span>Hello World!<span class="pl-pds">"</span></span>)
+  <span class="pl-k">end</span>
+<span class="pl-k">end</span></pre></div>
+
+<p>Now <code>curl localhost:9292</code> will still return the greeting, but <code>curl localhost:9292/somepath</code> will return an empty response. As the request was not matched, it will also return a 404 status code which means "not found" in HTTP speak. You can check that with curl using the <code>-i</code> option: <code>curl -i localhost:9292/somepath</code>. If you want to learn more about status codes, check out the <a href="https://en.wikipedia.org/wiki/List_of_HTTP_status_codes">Wikipedia page</a>.</p>
+
+<p>Ok, so now you know how to react to the root path only. Let's continue with checking for the HTTP method. If you are not familiar with HTTP methods, check out <a href="https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol#Request_methods">this Wikipedia page</a>. By default, curl does a GET request. Let us try a POST request instead: <code>curl -d "" localhost:9292</code> (the <code>""</code> is just an empty body for the post request). The result is the same as for the GET request. How can we restrict it to only react to GET requests?</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-c1">Tynn</span>.define <span class="pl-k">do</span>
+  root <span class="pl-k">do</span>
+    get <span class="pl-k">do</span>
+      res.write(<span class="pl-s"><span class="pl-pds">"</span>Hello World!<span class="pl-pds">"</span></span>)
+    <span class="pl-k">end</span>
+  <span class="pl-k">end</span>
+<span class="pl-k">end</span></pre></div>
+
+<p>Now you might want to match to another path than the root path as well, so let's try this:</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-c1">Tynn</span>.define <span class="pl-k">do</span>
+  root <span class="pl-k">do</span>
+    get <span class="pl-k">do</span>
+      res.write(<span class="pl-s"><span class="pl-pds">"</span>Hello World!<span class="pl-pds">"</span></span>)
+    <span class="pl-k">end</span>
+  <span class="pl-k">end</span>
+
+  on(<span class="pl-s"><span class="pl-pds">"</span>tynn<span class="pl-pds">"</span></span>) <span class="pl-k">do</span>
+    get <span class="pl-k">do</span>
+      res.write(<span class="pl-s"><span class="pl-pds">"</span>Hello Tynn!<span class="pl-pds">"</span></span>)
+    <span class="pl-k">end</span>
+  <span class="pl-k">end</span>
+<span class="pl-k">end</span></pre></div>
+
+<p>Now we will get <code>Hello World</code> when we GET the root path, <code>Hello Tynn</code> when we GET the Tynn path and a 404 when we do anything else. Now one more thing about <code>on</code>: It is very flexible. You can either give it a single segment of the path (like above) or give it an entire path (like <code>on('a/pretty/long/path')</code>). You can also nest it, and this is what makes it really flexible:</p>
+
+<div class="highlight highlight-source-ruby"><pre>on(<span class="pl-s"><span class="pl-pds">"</span>hello<span class="pl-pds">"</span></span>) <span class="pl-k">do</span>
+  on(<span class="pl-s"><span class="pl-pds">"</span>tynn<span class="pl-pds">"</span></span>) <span class="pl-k">do</span>
+    get <span class="pl-k">do</span>
+      res.write(<span class="pl-s"><span class="pl-pds">"</span>Hello Tynn!<span class="pl-pds">"</span></span>)
+    <span class="pl-k">end</span>
+  <span class="pl-k">end</span>
+<span class="pl-k">end</span></pre></div>
+
+<p>Now you know the basics of Tynn – but there is still more to learn. Keep exploring this page!</p>
+
+<h3>
+<a id="capturing-path-segments-and-the-inbox" class="anchor" href="#capturing-path-segments-and-the-inbox" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Capturing Path Segments and the Inbox</h3>
+
+<p>We now know how to handle static URLs and different request methods. But what about dynamic parts in the request, like an ID or the name of a blog post? Tynn has you covered:</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-c1">Tynn</span>.define <span class="pl-k">do</span>
+  on(<span class="pl-s"><span class="pl-pds">"</span>hello<span class="pl-pds">"</span></span>) <span class="pl-k">do</span>
+    on(<span class="pl-c1">:name</span>) <span class="pl-k">do</span>
+      get <span class="pl-k">do</span>
+        res.write(<span class="pl-s"><span class="pl-pds">"</span>Hello Tynn!<span class="pl-pds">"</span></span>)
+      <span class="pl-k">end</span>
+    <span class="pl-k">end</span>
+  <span class="pl-k">end</span>
+<span class="pl-k">end</span></pre></div>
+
+<p>This will work for all URLs that have <code>hello</code> as their first segment and some other string as the second segment. For example <code>/hello/tynn</code> or <code>/hello/world</code>. Notice however that it will not match <code>/hello/beautiful/world</code>, as it has a third segment which we don't match (<code>world</code>). When you provide <code>on</code> with a String then it matches it as an exact match (of one or more segments), if you provide a symbol it matches a single segment regardless of what it is.</p>
+
+<p>Our current application will always greet the user with the same message, regardless of the second segment. If we want to change that, we need to access the value of the second segment. This is where the inbox comes in. The inbox is a hash, which in our example has a key <code>:name</code> with the value set to the segment. So let's use that:</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-c1">Tynn</span>.define <span class="pl-k">do</span>
+  on(<span class="pl-s"><span class="pl-pds">"</span>hello<span class="pl-pds">"</span></span>) <span class="pl-k">do</span>
+    on(<span class="pl-c1">:name</span>) <span class="pl-k">do</span>
+      get <span class="pl-k">do</span>
+        res.write(<span class="pl-s"><span class="pl-pds">"</span>Hello <span class="pl-pse">#{</span><span class="pl-s1">inbox[<span class="pl-c1">:name</span>]</span><span class="pl-pse"><span class="pl-s1">}</span></span>!<span class="pl-pds">"</span></span>)
+      <span class="pl-k">end</span>
+    <span class="pl-k">end</span>
+  <span class="pl-k">end</span>
+<span class="pl-k">end</span></pre></div>
+
+<p>With this change, the visitor will now be greeted with what they provided in the URL. So for example <code>curl -i localhost:9292/hello/alice</code> will reply with <code>hello alice</code>. You can nest the <code>on</code> calls in any way you like, so you can also match URLs like <code>/people/:name/articles</code>.</p>
+
+<h3>
+<a id="handling-request-and-response" class="anchor" href="#handling-request-and-response" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Handling Request and Response</h3>
+
+<p>When handling HTTP requests, you have a <code>req</code> and a <code>res</code> object available inside your <code>Tynn.define</code> block:</p>
+
+<ul>
+<li>
+<code>req</code> is an instance of <a href="http://www.rubydoc.info/github/frodsan/tynn/master/Tynn/Request">Tynn::Request</a> and provides information about the request.</li>
+<li>
+<code>res</code> is an instance of <a href="http://www.rubydoc.info/github/frodsan/tynn/master/Tynn/Response">Tynn::Response</a> and provides information about the response.</li>
+</ul>
+
+<p>In this section of the tutorial, we will go through accessing parameters. For more information about routing, check out <a href="/routing-basics.html">the guide</a>. The request object <code>req</code> gives you access to all parameters. When we say "parameters" we mean two things:</p>
+
+<ul>
+<li>The data received from the <a href="https://en.wikipedia.org/wiki/Query_string">Query String</a>
+</li>
+<li>The data received from the <a href="https://en.wikipedia.org/wiki/HTTP_message_body">HTTP message body</a>
+</li>
+</ul>
+
+<p>Let's start with the query string. The query string is a part of an URL and can therefore occur in every kind of request. It is a collection of key value pairs. The URL <code>http://localhost:9292/hello/alice?a=12&amp;b=hello</code> for example has two pairs of key and value: <code>a</code> has the value <code>"12"</code> and <code>b</code> has the value <code>"hello"</code>. We can access them via the <code>[]</code> method on Tynn::Request:</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-c1">Tynn</span>.define <span class="pl-k">do</span>
+  on(<span class="pl-s"><span class="pl-pds">"</span>hello<span class="pl-pds">"</span></span>) <span class="pl-k">do</span>
+    on(<span class="pl-c1">:name</span>) <span class="pl-k">do</span>
+      get <span class="pl-k">do</span>
+        res.write(<span class="pl-s"><span class="pl-pds">"</span>Hello <span class="pl-pse">#{</span><span class="pl-s1">inbox[<span class="pl-c1">:name</span>]</span><span class="pl-pse"><span class="pl-s1">}</span></span> with your 'a' being '<span class="pl-pse">#{</span><span class="pl-s1">req[<span class="pl-s"><span class="pl-pds">'</span>a<span class="pl-pds">'</span></span>]</span><span class="pl-pse"><span class="pl-s1">}</span></span>'!<span class="pl-pds">"</span></span>)
+      <span class="pl-k">end</span>
+    <span class="pl-k">end</span>
+  <span class="pl-k">end</span>
+<span class="pl-k">end</span></pre></div>
+
+<p>Now let's try it out by sending the request via curl: <code>curl -i "http://localhost:9292/hello/alice?a=12&amp;b=hello"</code> and we will see <code>Hello alice with your 'a' being '12!'</code>. Be aware that the value will be <code>nil</code> when the key is not in the query string (it behaves like a Ruby Hash). Note that another name for this kind of parameter is a "Get parameter", because an HTML form using the GET method with use a query string to transmit its data. You can however use it with any method not just GET.</p>
+
+<p>The other kind of parameters is the information stored in the HTTP message body. The body can contain any kind of data – for example JSON encoded data or binary data. One way this is used is when you submit an HTML form with the <code>POST</code> method. The body is then encoded in a way that is called "form URL encoded". The format is described <a href="https://en.wikipedia.org/wiki/Percent-encoding#The_application.2Fx-www-form-urlencoded_type">here</a> for example. curl speaks this encoding fluently, so we can use it like this: <code>curl -d "name=Daniel%20Stenberg&amp;occupation=Hacker" http://localhost:9292/hello/alice</code>. curl does a few things for us: It sets the request method to POST, sets the content type to <code>application/x-www-form-urlencoded</code>, determines the content length and sets the body. Now how to we react to that in our Tynn app?</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-c1">Tynn</span>.define <span class="pl-k">do</span>
+  on(<span class="pl-s"><span class="pl-pds">"</span>hello<span class="pl-pds">"</span></span>) <span class="pl-k">do</span>
+    on(<span class="pl-c1">:name</span>) <span class="pl-k">do</span>
+      post <span class="pl-k">do</span>
+        res.write(<span class="pl-s"><span class="pl-pds">"</span>Created user '<span class="pl-pse">#{</span><span class="pl-s1">req[<span class="pl-s"><span class="pl-pds">'</span>name<span class="pl-pds">'</span></span>]</span><span class="pl-pse"><span class="pl-s1">}</span></span>' with occupation '<span class="pl-pse">#{</span><span class="pl-s1">req[<span class="pl-s"><span class="pl-pds">'</span>occupation<span class="pl-pds">'</span></span>]</span><span class="pl-pse"><span class="pl-s1">}</span></span>'<span class="pl-pds">"</span></span>)
+      <span class="pl-k">end</span>
+    <span class="pl-k">end</span>
+  <span class="pl-k">end</span>
+<span class="pl-k">end</span></pre></div>
+
+<p>If you try it out with <code>curl -d "name=Daniel%20Stenberg&amp;occupation=Hacker" http://localhost:9292/hello/alice</code> you will get a response stating <code>Created user 'Daniel Stenberg' with occupation 'Hacker'</code>. As you can see, we use the same method to access these parameters as we did for the parameters in the query part of our URL. Another common usage for the body is sending JSON encoded data, for example when talking to an API. We can do that with curl as follows (sending the same content, just encoded differently): <code>curl -H "Content-Type: application/json" -X POST -d '{"name": "Daniel Stenberg", "occupation": "Hacker"}' http://localhost:9292/hello/alice</code>. As Tynn doesn't understand JSON natively in the same way it does form encoded data, we have to do the following:</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-k">require</span> <span class="pl-s"><span class="pl-pds">"</span>json<span class="pl-pds">"</span></span>
+
+<span class="pl-c1">Tynn</span>.define <span class="pl-k">do</span>
+  on(<span class="pl-s"><span class="pl-pds">"</span>hello<span class="pl-pds">"</span></span>) <span class="pl-k">do</span>
+    on(<span class="pl-c1">:name</span>) <span class="pl-k">do</span>
+      post <span class="pl-k">do</span>
+        <span class="pl-k">if</span> req.content_type <span class="pl-k">==</span> <span class="pl-s"><span class="pl-pds">"</span>application/json<span class="pl-pds">"</span></span>
+          user <span class="pl-k">=</span> <span class="pl-c1">JSON</span>.parse(req.body.read)
+          res.write(<span class="pl-s"><span class="pl-pds">"</span>Created user '<span class="pl-pse">#{</span><span class="pl-s1">user[<span class="pl-s"><span class="pl-pds">'</span>name<span class="pl-pds">'</span></span>]</span><span class="pl-pse"><span class="pl-s1">}</span></span>' with occupation '<span class="pl-pse">#{</span><span class="pl-s1">user[<span class="pl-s"><span class="pl-pds">'</span>occupation<span class="pl-pds">'</span></span>]</span><span class="pl-pse"><span class="pl-s1">}</span></span>'<span class="pl-pds">"</span></span>)
+        <span class="pl-k">end</span>
+      <span class="pl-k">end</span>
+    <span class="pl-k">end</span>
+  <span class="pl-k">end</span>
+<span class="pl-k">end</span></pre></div>
+
+<p>We do two things here: We check if the content type is set correctly, and if it is, we parse the body of the request as JSON and then do what we did before. The result therefore will be the same as in the form encoded example. Note that not all HTTP methods support sending a body. Notably GET and HEAD <strong>do not support</strong> it.</p>
+
+<h3>
+<a id="composing-applications" class="anchor" href="#composing-applications" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Composing Applications</h3>
+
+<p>At this point you may wonder if you need to put your entire routing logic or even application into one giant Tynn application. No, you don't need to. In fact, composing applications is one of the guiding principles of Tynn.</p>
+
+<p>In our examples so far we only had one Tynn app. What if we want to create a second one?</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-k">class</span> <span class="pl-en">Users<span class="pl-e"> &lt; Tynn</span></span>
+<span class="pl-k">end</span>
+
+<span class="pl-c1">Users</span>.define <span class="pl-k">do</span>
+  <span class="pl-c"># ... add handlers here</span>
+<span class="pl-k">end</span></pre></div>
+
+<p>We can run a Tynn inside of another app. We can for example use this to run our <code>Users</code> app for all routes that start with <code>/users</code> like this:</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-k">class</span> <span class="pl-en">Users<span class="pl-e"> &lt; Tynn</span></span>
+<span class="pl-k">end</span>
+
+<span class="pl-c1">Users</span>.define <span class="pl-k">do</span>
+  get <span class="pl-k">do</span>
+    res.write(<span class="pl-s"><span class="pl-pds">"</span>All the users<span class="pl-pds">"</span></span>)
+  <span class="pl-k">end</span>
+
+  on(<span class="pl-c1">:id</span>) <span class="pl-k">do</span>
+    get <span class="pl-k">do</span>
+      res.write(<span class="pl-s"><span class="pl-pds">"</span>Only the user with ID <span class="pl-pse">#{</span><span class="pl-s1">inbox[<span class="pl-c1">:id</span>]</span><span class="pl-pse"><span class="pl-s1">}</span></span><span class="pl-pds">"</span></span>)
+    <span class="pl-k">end</span>
+  <span class="pl-k">end</span>
+<span class="pl-k">end</span>
+
+<span class="pl-c1">Tynn</span>.define <span class="pl-k">do</span>
+  on(<span class="pl-s"><span class="pl-pds">"</span>users<span class="pl-pds">"</span></span>) <span class="pl-k">do</span>
+    run(<span class="pl-c1">Users</span>)
+  <span class="pl-k">end</span>
+<span class="pl-k">end</span></pre></div>
+
+<h3>
+<a id="extending-tynn" class="anchor" href="#extending-tynn" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Extending Tynn</h3>
+
+<p>Tynn is minimal. You might miss features from time to time. Tynn is designed to be extended, so you add the functionality that you need. There are two ways to extend it:</p>
+
+<ul>
+<li>
+<a href="/plugins.html">Plugins</a> via <code>plugin</code>: Add class and instance methods to your application.</li>
+<li>
+<a href="/middleware.html">Middleware</a> via <code>use</code>: Rewrite requests before they enter your application and responses after they left your application.</li>
+</ul>
+
+<p>Tynn also ships with some <a href="/default-plugins.html">default plugins</a> that you can add to your application if you need them.</p>
+
+<h2>
+<a id="routing-basics" class="anchor" href="#routing-basics" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Routing basics</h2>
+
+<h3>
+<a id="halting" class="anchor" href="#halting" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Halting</h3>
+
+<p>To immediately stop a request within a route, you can use the <code>halt</code> method.</p>
+
+<div class="highlight highlight-source-ruby"><pre>halt([status, headers, body])</pre></div>
+
+<p>You can use <code>res.finish</code> to return a response as per Rack's specification.</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-k">if</span> current_user.nil?
+  res.redirect(<span class="pl-s"><span class="pl-pds">"</span>/login<span class="pl-pds">"</span></span>)
+
+  halt(res.finish)
+<span class="pl-k">else</span>
+  <span class="pl-c"># do something else ...</span>
+<span class="pl-k">end</span></pre></div>
+
+<h2>
+<a id="middleware" class="anchor" href="#middleware" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Middleware</h2>
+
+<p>Tynn runs on <a href="https://github.com/rack/rack">Rack</a>. Therefore it is possible
+to use Rack middleware in Tynn. This is how you add a middleware (for example
+<code>YourMiddleware</code>) to your app:</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-c1">Tynn</span>.use(<span class="pl-c1">YourMiddleware</span>)</pre></div>
+
+<p>You can use any Rack middleware to your app, it is not specific to Tynn. You
+can find a list of Rack middleware <a href="https://github.com/rack/rack/wiki/list-of-middleware">here</a>.</p>
+
+<h3>
+<a id="example-usage-allow-method-override" class="anchor" href="#example-usage-allow-method-override" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Example Usage: Allow method override</h3>
+
+<p>HTML Forms currently only support GET and POST requests. You may want to have
+a form that performs other actions such as PUT though. The usual solution to
+simulate a PUT is using a POST form, but adding a hidden input field with the
+name <code>_method</code> and the value <code>put</code>. For example:</p>
+
+<div class="highlight highlight-text-html-basic"><pre>&lt;<span class="pl-ent">form</span> <span class="pl-e">method</span>=<span class="pl-s"><span class="pl-pds">"</span>post<span class="pl-pds">"</span></span> <span class="pl-e">action</span>=<span class="pl-s"><span class="pl-pds">"</span>/update<span class="pl-pds">"</span></span>&gt;
+  &lt;<span class="pl-ent">input</span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>hidden<span class="pl-pds">"</span></span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>_method<span class="pl-pds">"</span></span> <span class="pl-e">value</span>=<span class="pl-s"><span class="pl-pds">"</span>put<span class="pl-pds">"</span></span>&gt;
+  ...
+&lt;/<span class="pl-ent">form</span>&gt;</pre></div>
+
+<p>In Tynn this would however trigger the <code>post</code> action, as it is send as
+a post request from your browser. With a middleware we can now rewrite
+this request and change the method to be <code>PUT</code>. There is a middleware
+called <a href="https://github.com/rack/rack/blob/master/lib/rack/method_override.rb">Rack::MethodOverride</a> included in Rack that
+does exactly that, so let's add it to our Tynn app:</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-c1">Tynn</span>.use(<span class="pl-c1">Rack</span>::<span class="pl-c1">MethodOverride</span>)</pre></div>
+
+<p>Now this will trigger the <code>put</code> action in your app. It will also work for
+other missing methods like <code>DELETE</code>. Note that you do not need to add any
+new dependencies to your application as it is included in Rack already.</p>
 
 <h2>
 <a id="environments" class="anchor" href="#environments" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Environments</h2>
