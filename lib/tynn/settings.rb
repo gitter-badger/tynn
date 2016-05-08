@@ -1,10 +1,9 @@
 # frozen_string_literal: true
 
 class Tynn
-  # It provides a settings API for applications.
+  # It provides a settings API for applications and plugins.
   # This plugin is included by default.
   #
-  # @example
   #   require "tynn"
   #
   #   module AppName
@@ -43,27 +42,21 @@ class Tynn
 
       # Returns a Hash with the application settings.
       #
-      # @example
       #   Tynn.set(:environment, :development)
       #
       #   Tynn.settings
       #   # => { :environment => :development }
       #
-      # @return [Hash] application settings.
-      #
       def settings
         @settings ||= {}
       end
 
-      # Sets an `option` to the given `value`.
+      # Sets an +option+ to the given +value+.
       #
-      # @example
       #   Tynn.set(:environment, :staging)
       #
       #   Tynn.settings[:environment]
       #   # => :staging
-      #
-      # @return [void]
       #
       def set(option, value)
         settings[option] = value
@@ -73,7 +66,6 @@ class Tynn
     module InstanceMethods
       # Returns a Hash with the application settings.
       #
-      # @example
       #   Tynn.set(:environment, :development)
       #
       #   Tynn.define do
@@ -83,8 +75,6 @@ class Tynn
       #   end
       #
       #   # GET / # => 200 "development"
-      #
-      # @return (see Tynn::Settings::ClassMethods#settings)
       #
       def settings
         self.class.settings
