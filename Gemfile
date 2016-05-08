@@ -6,4 +6,4 @@ gemspec
 
 gem "rack", github: "rack/rack"
 gem "rdoc", "~> 4.2.2"
-gem "rubocop", "~> 0.39"
+gem "rubocop", "~> 0.39", require: false
