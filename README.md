@@ -351,7 +351,7 @@ new dependencies to your application as it is included in Rack already.
 
 ## Settings
 
-Each application has a `settings` hash where you can store configuration. By default, settings are inherited.
+Each application has a `settings` hash where configuration can be stored. By default, settings are inherited.
 
 ```ruby
 Tynn.set(:layout, "layout")
@@ -368,7 +368,7 @@ Users.settings[:layout]  # => "users/layout"
 Admins.settings[:layout] # => "admins/layout"
 ```
 
-This features comes in handy when authoring your own plugins.
+This features comes in handy when authoring plugins.
 
 ```ruby
 module AppName
