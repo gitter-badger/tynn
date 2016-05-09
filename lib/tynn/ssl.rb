@@ -65,11 +65,7 @@ class Tynn
   #
   module SSL
     def self.setup(app, hsts: {}) # :nodoc:
-      middleware = proc do |_app_|
-        Tynn::SSL::Middleware.new(_app_, hsts: hsts)
-      end
-
-      app.middleware.push(middleware)
+      app.middleware.unshift(Tynn::SSL::Middleware, hsts: hsts)
     end
 
     class Middleware # :nodoc:

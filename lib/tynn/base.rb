@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "syro"
+require_relative "middleware_stack"
 require_relative "request"
 require_relative "response"
 
@@ -34,7 +35,7 @@ class Tynn
       # @return [void]
       #
       def define(&block)
-        @__app = middleware.inject(Syro.new(self, &block)) { |a, m| m.call(a) }
+        @__app = middleware.build(Syro.new(self, &block))
       end
 
       # Adds given Rack `middleware` to the stack.
@@ -55,7 +56,7 @@ class Tynn
       # @see http://tynn.xyz/middleware.html
       #
       def use(middleware, *args, &block)
-        self.middleware.unshift(proc { |app| middleware.new(app, *args, &block) })
+        self.middleware.use(middleware, *args, &block)
       end
 
       def call(env) # :nodoc:
@@ -63,7 +64,7 @@ class Tynn
       end
 
       def middleware # :nodoc:
-        @__middleware ||= []
+        @__middleware ||= MiddlewareStack.new
       end
 
       def app # :nodoc:
@@ -72,7 +73,7 @@ class Tynn
 
       def reset! # :nodoc:
         @__app = nil
-        @__middleware = []
+        @__middleware = MiddlewareStack.new
       end
     end
 
