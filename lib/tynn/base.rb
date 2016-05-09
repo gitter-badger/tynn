@@ -39,7 +39,7 @@ class Tynn
       end
 
       def app # :nodoc:
-        (defined?(@__app) && @__app) or raise(HandlerNotFound, self)
+        (defined?(@__app) && @__app) or raise(MissingHandlerError, self)
       end
 
       def app=(app) # :nodoc:

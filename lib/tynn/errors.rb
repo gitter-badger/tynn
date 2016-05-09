@@ -4,7 +4,7 @@ class Tynn
   class Error < StandardError
   end
 
-  class HandlerNotFound < Error
+  class MissingHandlerError < Error
     def initialize(app) # :nodoc:
       super("Application handler is missing. Try #{ app }.define {}")
     end

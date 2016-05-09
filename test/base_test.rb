@@ -3,8 +3,8 @@
 require_relative "helper"
 
 class BaseTest < Minitest::Test
-  test "raises if handler is nil" do
-    assert_raises do
+  test "raises if handler is not set" do
+    assert_raises(Tynn::MissingHandlerError) do
       new_app.call({})
     end
   end
