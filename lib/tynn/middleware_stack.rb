@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Tynn
   class MiddlewareStack # :nodoc:
     attr_reader :middlewares
