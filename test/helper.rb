@@ -7,7 +7,8 @@ require "minitest/pride"
 require_relative "../lib/tynn"
 require_relative "../lib/tynn/test"
 
-class Tynn
-  class TestCase < Minitest::Test
+class Minitest::Test
+  def new_app(app = Tynn)
+    Class.new(app)
   end
 end

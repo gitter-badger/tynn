@@ -3,9 +3,9 @@
 require_relative "helper"
 require_relative "../lib/tynn/environment"
 
-class EnvironmentTest < Tynn::TestCase
+class EnvironmentTest < Minitest::Test
   setup do
-    @app = Class.new(Tynn)
+    @app = new_app
   end
 
   test "defaults to development if RACK_ENV is nil" do
@@ -40,7 +40,7 @@ class EnvironmentTest < Tynn::TestCase
     assert_equal :test, @app.environment
   end
 
-  test "adds predicate methods" do
+  test "predicate methods" do
     @app.plugin(Tynn::Environment, env: :development)
 
     assert_equal true, @app.development?

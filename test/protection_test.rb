@@ -4,62 +4,74 @@ require_relative "helper"
 require_relative "../lib/tynn/protection"
 require_relative "../lib/tynn/session"
 
-class ProtectionTest < Tynn::TestCase
-  class App < Tynn
-    plugin(Tynn::Protection)
-  end
+class ProtectionTest < Minitest::Test
+  SECURE_HEADERS = Tynn::SecureHeaders::HEADERS
 
-  class SSLApp < Tynn
-    plugin(Tynn::Protection, ssl: true, hsts: {
+  SSL_OPTIONS = {
+    ssl: true,
+    hsts: {
       expires: 1,
       subdomains: false,
       preload: true
-    })
+    }
+  }
+
+  test "adds secure headers" do
+    app = new_app
+
+    app.plugin(Tynn::Protection)
+
+    assert_equal SECURE_HEADERS, app.default_headers
   end
 
-  class SecureCookies < Tynn
-    plugin(Tynn::SSL)
-    plugin(Tynn::Session, key: "session", secret: "__an_insecure_secret_key__")
+  test "adds ssl redirect" do
+    app = new_app
 
-    define do
-      get do
-        session[:foo] = "foo"
-      end
-    end
+    app.plugin(Tynn::Protection, SSL_OPTIONS)
+
+    app.define {}
+
+    ts = Tynn::Test.new(app)
+    ts.get("/")
+
+    assert_equal 301, ts.res.status
+    assert_equal "https://example.org/", ts.res.location
   end
 
-  test "secure headers" do
-    assert_equal Tynn::SecureHeaders::HEADERS, App.settings[:default_headers]
-  end
+  test "adds hsts header" do
+    app = new_app
 
-  test "ssl" do
-    SSLApp.define {}
+    app.plugin(Tynn::Protection, SSL_OPTIONS)
 
-    app = Tynn::Test.new(SSLApp)
-    app.get("/")
+    app.define {}
 
-    assert_equal 301, app.res.status
-    assert_equal "https://example.org/", app.res.location
-  end
+    ts = Tynn::Test.new(app)
+    ts.get("/", {}, "HTTPS" => "on")
 
-  test "hsts" do
-    SSLApp.define {}
-
-    app = Tynn::Test.new(SSLApp)
-    app.get("/", {}, "HTTPS" => "on")
-
-    header = app.res.headers["Strict-Transport-Security"]
+    header = ts.res.headers["Strict-Transport-Security"]
     result = "max-age=1; preload"
 
     assert_equal result, header
   end
 
   test "secure cookies" do
-    app = Tynn::Test.new(SecureCookies)
-    app.get("/", {}, "HTTPS" => "on")
+    app = new_app
+
+    app.plugin(Tynn::SSL)
+
+    app.plugin(Tynn::Session, key: "session", secret: "__an_insecure_secret_key__")
+
+    app.define do
+      get do
+        session[:foo] = "foo"
+      end
+    end
+
+    ts = Tynn::Test.new(app)
+    ts.get("/", {}, "HTTPS" => "on")
 
     regexp = /; secure/
-    session = app.res.headers["Set-Cookie"]
+    session = ts.res.headers["Set-Cookie"]
 
     assert_match regexp, session
   end

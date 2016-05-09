@@ -2,44 +2,50 @@
 
 require_relative "helper"
 
-class BaseTest < Tynn::TestCase
-  test "raises" do
+class BaseTest < Minitest::Test
+  test "raises if handler is nil" do
     assert_raises do
-      Tynn.call({})
+      new_app.call({})
     end
   end
 
   test "hello" do
-    Tynn.define do
+    app = new_app
+
+    app.define do
       get do
         res.write("hello")
       end
     end
 
-    app = Tynn::Test.new
-    app.get("/")
+    ts = Tynn::Test.new(app)
+    ts.get("/")
 
-    assert_equal 200, app.res.status
-    assert_equal "hello", app.res.body
+    assert_equal 200, ts.res.status
+    assert_equal "hello", ts.res.body
   end
 
   test "http methods" do
     methods = %i(get post put patch delete head options)
 
+    app = new_app
+
     methods.each do |method|
-      Tynn.define do
+      app.define do
         send(method) { res.write "" }
       end
 
-      app = Tynn::Test.new
-      app.send(method, "/")
+      ts = Tynn::Test.new(app)
+      ts.send(method, "/")
 
-      assert_equal 200, app.res.status
+      assert_equal 200, ts.res.status
     end
   end
 
   test "captures" do
-    Tynn.define do
+    app = new_app
+
+    app.define do
       on(:foo) do
         on(:bar) do
           res.write(sprintf("%{foo}:%{bar}", inbox))
@@ -47,33 +53,33 @@ class BaseTest < Tynn::TestCase
       end
     end
 
-    app = Tynn::Test.new
-    app.get("/foo/bar")
+    ts = Tynn::Test.new(app)
+    ts.get("/foo/bar")
 
-    assert_equal 200, app.res.status
-    assert_equal "foo:bar", app.res.body
+    assert_equal 200, ts.res.status
+    assert_equal "foo:bar", ts.res.body
   end
 
   test "composition" do
-    class Foo < Tynn
+    app = new_app
+    foo = new_app(app)
+
+    app.define do
+      on("foo") do
+        run(foo, foo: 42)
+      end
     end
 
-    Foo.define do
+    foo.define do
       get do
         res.write(inbox[:foo])
       end
     end
 
-    Tynn.define do
-      on("foo") do
-        run(Foo, foo: 42)
-      end
-    end
+    ts = Tynn::Test.new(app)
+    ts.get("/foo")
 
-    app = Tynn::Test.new
-    app.get("/foo")
-
-    assert_equal 200, app.res.status
-    assert_equal "42", app.res.body
+    assert_equal 200, ts.res.status
+    assert_equal "42", ts.res.body
   end
 end

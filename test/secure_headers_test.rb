@@ -3,12 +3,14 @@
 require_relative "helper"
 require_relative "../lib/tynn/secure_headers"
 
-class SecureHeadersTest < Tynn::TestCase
+class SecureHeadersTest < Minitest::Test
   HEADERS = Tynn::SecureHeaders::HEADERS
 
-  test "secure headers" do
-    Tynn.plugin(Tynn::SecureHeaders)
+  test "adds secure headers to default headers" do
+    app = new_app
 
-    assert_equal HEADERS, Tynn.settings[:default_headers]
+    app.plugin(Tynn::SecureHeaders)
+
+    assert_equal HEADERS, app.default_headers
   end
 end
