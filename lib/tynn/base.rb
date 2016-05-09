@@ -41,11 +41,6 @@ class Tynn
       def app # :nodoc:
         @__app or raise("Application handler is missing. Try #{ self }.define { }")
       end
-
-      def reset! # :nodoc:
-        @__app = nil
-        @__middleware = Middleware::Stack.new
-      end
     end
 
     module InstanceMethods # :nodoc:
