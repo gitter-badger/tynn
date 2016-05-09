@@ -31,7 +31,7 @@ class Tynn
       #   end
       #
       def define(&block)
-        @__app = Syro.new(self, &block)
+        self.app = Syro.new(self, &block)
       end
 
       def call(env) # :nodoc:
@@ -39,7 +39,11 @@ class Tynn
       end
 
       def app # :nodoc:
-        @__app or raise("Application handler is missing. Try #{ self }.define { }")
+        (defined?(@__app) && @__app) or raise(HandlerNotFound, self)
+      end
+
+      def app=(app) # :nodoc:
+        @__app = app
       end
     end
 

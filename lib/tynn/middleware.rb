@@ -4,7 +4,7 @@ class Tynn
   class Middleware
     module ClassMethods
       def define(&block) # :nodoc:
-        @__app = middleware.build_app(super)
+        self.app = middleware.build_app(super)
       end
 
       # Adds given Rack +middleware+ to the stack.
