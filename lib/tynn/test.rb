@@ -97,7 +97,7 @@ class Tynn
       # [path]   A request path.
       # [params] A Hash of query/post parameters, a String request body,
       #          or +nil+.
-      # [env]    A Hash of Rack environment values
+      # [env]    A Hash of Rack environment values.
       #
       #   app = Tynn::Test.new
       #   app.get("/search", name: "jane")
