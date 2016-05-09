@@ -2,6 +2,7 @@
 
 require_relative "tynn/base"
 require_relative "tynn/default_headers"
+require_relative "tynn/middleware"
 require_relative "tynn/settings"
 require_relative "tynn/version"
 
@@ -56,6 +57,7 @@ class Tynn
   end
 
   plugin(Tynn::Base)
+  plugin(Tynn::Middleware)
   plugin(Tynn::Settings)
   plugin(Tynn::DefaultHeaders)
 end
