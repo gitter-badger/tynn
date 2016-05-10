@@ -12,6 +12,7 @@ A thin library for web development in Ruby.
 * [Routing Basics](#routing-basics)
   * [Halting](#halting)
 * [Middleware](#middleware)
+* [Plugins](#plugins)
 * [Settings](#settings)
 * [Environments](#environments)
 * [Method Override](#method-override)
@@ -323,6 +324,63 @@ can find a list of Rack middleware [here][middleware].
 
 [middleware]: https://github.com/rack/rack/wiki/list-of-middleware
 
+## Plugins
+
+A way to extend Tynn is to use the plugin API. A plugin is just a module which can contain any of the following rules:
+
+- If a `ClassMethods` module is defined, it extends the application class.
+
+- If a `InstanceMethods` module is defined, it's included in the application.
+
+- If a `setup` method is defined, it will be called last. This method can be used to configure the plugin.
+
+The following is a complete example of the plugin API.
+
+```ruby
+require "valuta"
+
+module CurrencyHelper
+  def self.setup(app, currency: "$")
+    self.currency = currency
+  end
+
+  module ClassMethods
+    def currency
+      @currency
+    end
+
+    def currency=(currency)
+      @currency = currency
+    end
+  end
+
+  module InstanceMethods
+    def to_currency(value)
+      Valuta.convert(value, prefix: self.class.currency)
+    end
+  end
+end
+```
+
+To load a plugin use the `plugin` method.
+
+```ruby
+App.plugin(CurrencyHelper, currency: "$")
+```
+
+Here is the plugin in action:
+
+```ruby
+App.currency # => "$"
+
+App.define do
+  get do
+    res.write(to_currency(4567))
+  end
+end
+# GET / => 200 $4,567
+```
+
 ## Settings
 
 Each application has a `settings` hash where configuration can be stored. By default, settings are inherited.
@@ -566,5 +624,6 @@ Tynn is released under the [MIT License](http://www.opensource.org/licenses/MIT)
 [rack::test]: https://github.com/brynary/rack-test
 [rack::methodoverride]: http://www.rubydoc.info/github/rack/rack/Rack/MethodOverride
 [tynn::environment]: http://api.tynn.xyz/2.0.0/Tynn/Environment.html
+[tynn::render]: http://api.tynn.xyz/2.0.0/Tynn/Render.html
 [tynn::static]: http://api.tynn.xyz/2.0.0/Tynn/Static.html
 [tynn::test]: http://api.tynn.xyz/2.0.0/Tynn/Test.html
