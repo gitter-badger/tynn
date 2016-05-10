@@ -416,6 +416,21 @@ module CurrencyHelper
 end
 ```
 
+## Default Plugins
+
+Tynn ships with a set of default plugins:
+
+| Name                  | Description
+| --------------------- | -----------------------------------------------------------------
+| [Tynn::Environment    | Adds helper methods to get and check the current environment.
+| [Tynn::JSON]          | Adds helper methods for json generation.
+| [Tynn::Protection]    | Adds security measures against common attacks.
+| [Tynn::Render]        | Adds support for rendering templates through different engines.
+| [Tynn::Session]       | Adds simple cookie based session management.
+| [Tynn::Static]        | Adds support for static files (javascript files, images, etc.).
+
+The following sections cover the extensions shipped with Tynn.
+
 ## Environments
 
 Tynn ships with [Tynn::Environment] to set and check the current environment for the application.
@@ -624,6 +639,9 @@ Tynn is released under the [MIT License](http://www.opensource.org/licenses/MIT)
 [rack::test]: https://github.com/brynary/rack-test
 [rack::methodoverride]: http://www.rubydoc.info/github/rack/rack/Rack/MethodOverride
 [tynn::environment]: http://api.tynn.xyz/2.0.0/Tynn/Environment.html
+[tynn::json]: http://api.tynn.xyz/2.0.0/Tynn/JSON.html
+[tynn::protection]: http://api.tynn.xyz/2.0.0/Tynn/Protection.html
 [tynn::render]: http://api.tynn.xyz/2.0.0/Tynn/Render.html
+[tynn::session]: http://api.tynn.xyz/2.0.0/Tynn/Session.html
 [tynn::static]: http://api.tynn.xyz/2.0.0/Tynn/Static.html
 [tynn::test]: http://api.tynn.xyz/2.0.0/Tynn/Test.html
