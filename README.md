@@ -430,7 +430,7 @@ Tynn ships with a set of default plugins:
 | [Tynn::Session]       | Adds simple cookie based session management.
 | [Tynn::Static]        | Adds support for static files (javascript files, images, etc.).
 
-The following sections cover the extensions shipped with Tynn.
+The following sections cover the default plugins and extensions shipped with Tynn.
 
 ## Environments
 
