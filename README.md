@@ -423,7 +423,7 @@ Tynn ships with a set of default plugins:
 
 | Name                  | Description
 | --------------------- | -----------------------------------------------------------------
-| [Tynn::Environment    | Adds helper methods to get and check the current environment.
+| [Tynn::Environment]   | Adds helper methods to get and check the current environment.
 | [Tynn::JSON]          | Adds helper methods for json generation.
 | [Tynn::Protection]    | Adds security measures against common attacks.
 | [Tynn::Render]        | Adds support for rendering templates through different engines.
