@@ -8,15 +8,15 @@ require_relative "tynn/settings"
 require_relative "tynn/version"
 
 class Tynn
-  # Loads given `plugin` into the application.
+  # Loads given +plugin+ into the application.
   #
-  # @param plugin A module that can contain a `ClassMethods` or `InstanceMethods`
-  #   module to extend Tynn. If `plugin` responds to `setup`, it will be called
-  #   last, and should be used to set up the plugin.
-  # @param *args A list of arguments passed to `plugin#setup`
-  # @param &block A block passed to `plugin#setup`
+  # [plugin] A module that can contain a +ClassMethods+ or +InstanceMethods+
+  #          module to extend Tynn. If +plugin+ responds to +setup+, it will
+  #          be called last, and should be used to set up the plugin.
+  # [*args]  A list of arguments passed to <tt>plugin#setup</tt>.
+  # [&block] A block passed to <tt>plugin#setup</tt>.
   #
-  # @example Using a default plugin
+  #   # Using a default plugin
   #   require "tynn"
   #   require "tynn/environment"
   #   require "tynn/protection"
@@ -24,37 +24,43 @@ class Tynn
   #   Tynn.plugin(Tynn::Environment)
   #   Tynn.plugin(Tynn::Protection, ssl: true)
   #
-  # @example Using a custom plugin
+  #   # Using a custom plugin
   #   class MyAppNamePlugin
   #     def self.setup(app, name, &block)
-  #       settings[:app_name] = name
+  #       app.app_name = name
   #     end
   #
   #     module ClassMethods
   #       def app_name
-  #         return settings[:app_name]
+  #         @app_name
+  #       end
+  #
+  #       def app_name=(name)
+  #         @app_name = name
   #       end
   #     end
   #
   #     module InstanceMethods
   #       def app_name
-  #         return self.class.app_name
+  #         self.class.app_name
   #       end
   #     end
   #   end
   #
   #   Tynn.plugin(MyAppNamePlugin, "MyApp")
   #
-  # @return [void]
-  #
-  # @see http://tynn.xyz/plugins.html
-  #
   def self.plugin(plugin, *args, &block)
-    include(plugin::InstanceMethods) if defined?(plugin::InstanceMethods)
+    if defined?(plugin::InstanceMethods)
+      include(plugin::InstanceMethods)
+    end
 
-    extend(plugin::ClassMethods) if defined?(plugin::ClassMethods)
+    if defined?(plugin::ClassMethods)
+      extend(plugin::ClassMethods)
+    end
 
-    plugin.setup(self, *args, &block) if plugin.respond_to?(:setup)
+    if plugin.respond_to?(:setup)
+      plugin.setup(self, *args, &block)
+    end
   end
 
   plugin(Tynn::Base)
