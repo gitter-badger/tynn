@@ -14,6 +14,7 @@ A thin library for web development in Ruby.
 * [Middleware](#middleware)
 * [Settings](#settings)
 * [Environments](#environments)
+* [Method Override](#method-override)
 * [Static Files](#static-files)
 * [Testing](#testing)
 * [API Reference](http://api.tynn.xyz/2.0.0)
@@ -320,36 +321,7 @@ Tynn.use(YourMiddleware)
 You can use any Rack middleware to your app, it is not specific to Tynn. You
 can find a list of Rack middleware [here][middleware].
 
-### Example Usage: Allow method override
-
-HTML Forms currently only support GET and POST requests. You may want to have
-a form that performs other actions such as PUT though. The usual solution to
-simulate a PUT is using a POST form, but adding a hidden input field with the
-name `_method` and the value `put`. For example:
-
-```html
-<form method="post" action="/update">
-  <input type="hidden" name="_method" value="put">
-  ...
-</form>
-```
-
-In Tynn this would however trigger the `post` action, as it is send as
-a post request from your browser. With a middleware we can now rewrite
-this request and change the method to be `PUT`. There is a middleware
-called [Rack::MethodOverride][method-override] included in Rack that
-does exactly that, so let's add it to our Tynn app:
-
-```ruby
-Tynn.use(Rack::MethodOverride)
-```
-
-Now this will trigger the `put` action in your app. It will also work for
-other missing methods like `DELETE`. Note that you do not need to add any
-new dependencies to your application as it is included in Rack already.
-
 [middleware]: https://github.com/rack/rack/wiki/list-of-middleware
-[method-override]: https://github.com/rack/rack/blob/master/lib/rack/method_override.rb
 
 ## Settings
 
@@ -439,6 +411,34 @@ end
 
 Tynn.configure(:production) do |app|
   app.use(Tynn::SSL)
+end
+```
+
+## Method Override
+
+HTML Forms only support GET and POST requests. To perform other actions such as PUT, PATCH or DELETE, use the [Rack::MethodOverride] middleware. Note that there is no need to add any new dependencies to the application as it's included in Rack already.
+
+```ruby
+Tynn.use(Rack::MethodOverride)
+```
+
+This uses a POST form to simulate a request with a non-supported method. In order to succeed, a hidden input field, with the name `_method` and the method name as the value, needs to be included. The following example simulates a PUT
+request.
+
+```html
+<form method="POST" action="/posts/1">
+  <input type="hidden" name="_method" value="PUT">
+  <!-- ... -->
+</form>
+```
+
+Now, this will trigger the `put` matcher in the application.
+
+```ruby
+Posts.define do
+  put do
+    post.update(req.params["post"])
+  end
 end
 ```
 
@@ -564,6 +564,7 @@ Tynn is released under the [MIT License](http://www.opensource.org/licenses/MIT)
 [capybara]: https://github.com/jnicklas/capybara
 [minitest]: https://github.com/seattlerb/minitest
 [rack::test]: https://github.com/brynary/rack-test
+[rack::methodoverride]: http://www.rubydoc.info/github/rack/rack/Rack/MethodOverride
 [tynn::environment]: http://api.tynn.xyz/2.0.0/Tynn/Environment.html
 [tynn::static]: http://api.tynn.xyz/2.0.0/Tynn/Static.html
 [tynn::test]: http://api.tynn.xyz/2.0.0/Tynn/Test.html
