@@ -45,8 +45,11 @@
 </ul>
 </li>
 <li><a href="#middleware">Middleware</a></li>
+<li><a href="#plugins">Plugins</a></li>
 <li><a href="#settings">Settings</a></li>
+<li><a href="#default-plugins">Default Plugins</a></li>
 <li><a href="#environments">Environments</a></li>
+<li><a href="#method-override">Method Override</a></li>
 <li><a href="#static-files">Static Files</a></li>
 <li><a href="#testing">Testing</a></li>
 <li><a href="http://api.tynn.xyz/2.0.0">API Reference</a></li>
@@ -339,30 +342,57 @@ to use Rack middleware in Tynn. This is how you add a middleware (for example
 <p>You can use any Rack middleware to your app, it is not specific to Tynn. You
 can find a list of Rack middleware <a href="https://github.com/rack/rack/wiki/list-of-middleware">here</a>.</p>
 
-<h3>
-<a id="example-usage-allow-method-override" class="anchor" href="#example-usage-allow-method-override" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Example Usage: Allow method override</h3>
+<h2>
+<a id="plugins" class="anchor" href="#plugins" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Plugins</h2>
 
-<p>HTML Forms currently only support GET and POST requests. You may want to have
-a form that performs other actions such as PUT though. The usual solution to
-simulate a PUT is using a POST form, but adding a hidden input field with the
-name <code>_method</code> and the value <code>put</code>. For example:</p>
+<p>A way to extend Tynn is to use the plugin API. A plugin is just a module which can contain any of the following rules:</p>
 
-<div class="highlight highlight-text-html-basic"><pre>&lt;<span class="pl-ent">form</span> <span class="pl-e">method</span>=<span class="pl-s"><span class="pl-pds">"</span>post<span class="pl-pds">"</span></span> <span class="pl-e">action</span>=<span class="pl-s"><span class="pl-pds">"</span>/update<span class="pl-pds">"</span></span>&gt;
-  &lt;<span class="pl-ent">input</span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>hidden<span class="pl-pds">"</span></span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>_method<span class="pl-pds">"</span></span> <span class="pl-e">value</span>=<span class="pl-s"><span class="pl-pds">"</span>put<span class="pl-pds">"</span></span>&gt;
-  ...
-&lt;/<span class="pl-ent">form</span>&gt;</pre></div>
+<ul>
+<li><p>If a <code>ClassMethods</code> module is defined, it extends the application class.</p></li>
+<li><p>If a <code>InstanceMethods</code> module is defined, it's included in the application.</p></li>
+<li><p>If a <code>setup</code> method is defined, it will be called last. This method can be used to configure the plugin.</p></li>
+</ul>
 
-<p>In Tynn this would however trigger the <code>post</code> action, as it is send as
-a post request from your browser. With a middleware we can now rewrite
-this request and change the method to be <code>PUT</code>. There is a middleware
-called <a href="https://github.com/rack/rack/blob/master/lib/rack/method_override.rb">Rack::MethodOverride</a> included in Rack that
-does exactly that, so let's add it to our Tynn app:</p>
+<p>The following is a complete example of the plugin API.</p>
 
-<div class="highlight highlight-source-ruby"><pre><span class="pl-c1">Tynn</span>.use(<span class="pl-c1">Rack</span>::<span class="pl-c1">MethodOverride</span>)</pre></div>
+<div class="highlight highlight-source-ruby"><pre><span class="pl-k">require</span> <span class="pl-s"><span class="pl-pds">"</span>valuta<span class="pl-pds">"</span></span>
 
-<p>Now this will trigger the <code>put</code> action in your app. It will also work for
-other missing methods like <code>DELETE</code>. Note that you do not need to add any
-new dependencies to your application as it is included in Rack already.</p>
+<span class="pl-k">module</span> <span class="pl-en">CurrencyHelper</span>
+  <span class="pl-k">def</span> <span class="pl-en">self.setup</span>(<span class="pl-smi">app</span>, <span class="pl-smi">currency</span>: <span class="pl-s"><span class="pl-pds">"</span>$<span class="pl-pds">"</span></span>)
+    <span class="pl-v">self</span>.currency <span class="pl-k">=</span> currency
+  <span class="pl-k">end</span>
+
+  <span class="pl-k">module</span> <span class="pl-en">ClassMethods</span>
+    <span class="pl-k">def</span> <span class="pl-en">currency</span>
+      <span class="pl-smi">@currency</span>
+    <span class="pl-k">end</span>
+
+    <span class="pl-k">def</span> <span class="pl-en">currency=</span>(<span class="pl-smi">currency</span>)
+      <span class="pl-smi">@currency</span> <span class="pl-k">=</span> currency
+    <span class="pl-k">end</span>
+  <span class="pl-k">end</span>
+
+  <span class="pl-k">module</span> <span class="pl-en">InstanceMethods</span>
+    <span class="pl-k">def</span> <span class="pl-en">to_currency</span>(<span class="pl-smi">value</span>)
+      <span class="pl-c1">Valuta</span>.convert(value, <span class="pl-c1">prefix:</span> <span class="pl-v">self</span>.class.currency)
+    <span class="pl-k">end</span>
+  <span class="pl-k">end</span>
+<span class="pl-k">end</span></pre></div>
+
+<p>To load the plugin into the application, use the <code>plugin</code> method.</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-c1">App</span>.plugin(<span class="pl-c1">CurrencyHelper</span>, <span class="pl-c1">currency:</span> <span class="pl-s"><span class="pl-pds">"</span>$<span class="pl-pds">"</span></span>)</pre></div>
+
+<p>Here is the plugin in action:</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-c1">App</span>.currency <span class="pl-c"># =&gt; "$"</span>
+
+<span class="pl-c1">App</span>.define <span class="pl-k">do</span>
+  get <span class="pl-k">do</span>
+    res.write(to_currency(<span class="pl-c1">4567</span>))
+  <span class="pl-k">end</span>
+<span class="pl-k">end</span>
+<span class="pl-c"># GET / =&gt; 200 $4,567</span></pre></div>
 
 <h2>
 <a id="settings" class="anchor" href="#settings" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Settings</h2>
@@ -384,17 +414,59 @@ new dependencies to your application as it is included in Rack already.</p>
 
 <p>This features comes in handy when authoring plugins.</p>
 
-<div class="highlight highlight-source-ruby"><pre><span class="pl-k">module</span> <span class="pl-en">AppName</span>
+<div class="highlight highlight-source-ruby"><pre><span class="pl-k">module</span> <span class="pl-en">CurrencyHelper</span>
   <span class="pl-k">module</span> <span class="pl-en">ClassMethods</span>
-    <span class="pl-k">def</span> <span class="pl-en">app_name=</span>(<span class="pl-smi">name</span>)
-      set(<span class="pl-c1">:app_name</span>, name)
+    <span class="pl-k">def</span> <span class="pl-en">currency=</span>(<span class="pl-smi">currency</span>)
+      set(<span class="pl-c1">:currency</span>, currency)
     <span class="pl-k">end</span>
 
-    <span class="pl-k">def</span> <span class="pl-en">app_name</span>
-      settings.fetch(<span class="pl-c1">:app_name</span>, <span class="pl-s"><span class="pl-pds">"</span>MyApp<span class="pl-pds">"</span></span>)
+    <span class="pl-k">def</span> <span class="pl-en">currency</span>
+      settings.fetch(<span class="pl-c1">:currency</span>, <span class="pl-s"><span class="pl-pds">"</span>$<span class="pl-pds">"</span></span>)
     <span class="pl-k">end</span>
   <span class="pl-k">end</span>
 <span class="pl-k">end</span></pre></div>
+
+<h2>
+<a id="default-plugins" class="anchor" href="#default-plugins" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Default Plugins</h2>
+
+<p>Tynn ships with a set of default plugins:</p>
+
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="http://api.tynn.xyz/2.0.0/Tynn/Environment.html">Tynn::Environment</a></td>
+<td>Adds helper methods to get and check the current environment.</td>
+</tr>
+<tr>
+<td><a href="http://api.tynn.xyz/2.0.0/Tynn/JSON.html">Tynn::JSON</a></td>
+<td>Adds helper methods for json generation.</td>
+</tr>
+<tr>
+<td><a href="http://api.tynn.xyz/2.0.0/Tynn/Protection.html">Tynn::Protection</a></td>
+<td>Adds security measures against common attacks.</td>
+</tr>
+<tr>
+<td><a href="http://api.tynn.xyz/2.0.0/Tynn/Render.html">Tynn::Render</a></td>
+<td>Adds support for rendering templates through different engines.</td>
+</tr>
+<tr>
+<td><a href="http://api.tynn.xyz/2.0.0/Tynn/Session.html">Tynn::Session</a></td>
+<td>Adds simple cookie based session management.</td>
+</tr>
+<tr>
+<td><a href="http://api.tynn.xyz/2.0.0/Tynn/Static.html">Tynn::Static</a></td>
+<td>Adds support for static files (javascript files, images, etc.).</td>
+</tr>
+</tbody>
+</table>
+
+<p>The following sections cover the default plugins and extensions shipped with Tynn.</p>
 
 <h2>
 <a id="environments" class="anchor" href="#environments" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Environments</h2>
@@ -439,6 +511,29 @@ new dependencies to your application as it is included in Rack already.</p>
 
 <span class="pl-c1">Tynn</span>.configure(<span class="pl-c1">:production</span>) <span class="pl-k">do </span>|<span class="pl-smi">app</span>|
   app.use(<span class="pl-c1">Tynn</span>::<span class="pl-c1">SSL</span>)
+<span class="pl-k">end</span></pre></div>
+
+<h2>
+<a id="method-override" class="anchor" href="#method-override" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Method Override</h2>
+
+<p>HTML Forms only support GET and POST requests. To perform other actions such as PUT, PATCH or DELETE, use the <a href="http://www.rubydoc.info/github/rack/rack/Rack/MethodOverride">Rack::MethodOverride</a> middleware. Note that there is no need to add any new dependencies to the application as it's included in Rack already.</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-c1">Tynn</span>.use(<span class="pl-c1">Rack</span>::<span class="pl-c1">MethodOverride</span>)</pre></div>
+
+<p>This uses a POST form to simulate a request with a non-supported method. In order to succeed, a hidden input field, with the name <code>_method</code> and the method name as the value, needs to be included. The following example simulates a PUT
+request.</p>
+
+<div class="highlight highlight-text-html-basic"><pre>&lt;<span class="pl-ent">form</span> <span class="pl-e">method</span>=<span class="pl-s"><span class="pl-pds">"</span>POST<span class="pl-pds">"</span></span> <span class="pl-e">action</span>=<span class="pl-s"><span class="pl-pds">"</span>/posts/1<span class="pl-pds">"</span></span>&gt;
+  &lt;<span class="pl-ent">input</span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>hidden<span class="pl-pds">"</span></span> <span class="pl-e">name</span>=<span class="pl-s"><span class="pl-pds">"</span>_method<span class="pl-pds">"</span></span> <span class="pl-e">value</span>=<span class="pl-s"><span class="pl-pds">"</span>PUT<span class="pl-pds">"</span></span>&gt;
+  <span class="pl-c">&lt;!-- ... --&gt;</span>
+&lt;/<span class="pl-ent">form</span>&gt;</pre></div>
+
+<p>Now, this will trigger the <code>put</code> matcher in the application.</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-c1">Posts</span>.define <span class="pl-k">do</span>
+  put <span class="pl-k">do</span>
+    post.update(req.params[<span class="pl-s"><span class="pl-pds">"</span>post<span class="pl-pds">"</span></span>])
+  <span class="pl-k">end</span>
 <span class="pl-k">end</span></pre></div>
 
 <h2>
