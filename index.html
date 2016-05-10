@@ -14,6 +14,8 @@
       <h1 class="project-name">Tynn</h1>
       <h2 class="project-tagline">A thin library for web development in Ruby</h2>
       <a href="https://github.com/frodsan/tynn" class="btn">View on GitHub</a>
+      <a href="https://github.com/frodsan/tynn/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/frodsan/tynn/tarball/master" class="btn">Download .tar.gz</a>
     </section>
 
     <section class="main-content">
@@ -47,7 +49,7 @@
 <li><a href="#environments">Environments</a></li>
 <li><a href="#static-files">Static Files</a></li>
 <li><a href="#testing">Testing</a></li>
-<li><a href="http://api.tynn.xyz/">API Reference</a></li>
+<li><a href="http://api.tynn.xyz/2.0.0">API Reference</a></li>
 <li><a href="#changelog">Changelog</a></li>
 <li><a href="#development">Development</a></li>
 <li><a href="#contributing">Contributing</a></li>
@@ -397,7 +399,7 @@ new dependencies to your application as it is included in Rack already.</p>
 <h2>
 <a id="environments" class="anchor" href="#environments" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Environments</h2>
 
-<p>Tynn ships with <a href="http://api.tynn.xyz/Tynn/Environment.html">Tynn::Environment</a> to set and check the current environment for the application.</p>
+<p>Tynn ships with <a href="http://api.tynn.xyz/2.0.0/Tynn/Environment.html">Tynn::Environment</a> to set and check the current environment for the application.</p>
 
 <div class="highlight highlight-source-ruby"><pre><span class="pl-k">require</span> <span class="pl-s"><span class="pl-pds">"</span>tynn<span class="pl-pds">"</span></span>
 <span class="pl-k">require</span> <span class="pl-s"><span class="pl-pds">"</span>tynn/environment<span class="pl-pds">"</span></span>
@@ -442,7 +444,7 @@ new dependencies to your application as it is included in Rack already.</p>
 <h2>
 <a id="static-files" class="anchor" href="#static-files" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Static Files</h2>
 
-<p>Tynn ships with <a href="http://api.tynn.xyz/Tynn/Static.html">Tynn::Static</a> to serve static files such as images, CSS, JavaScript and others.</p>
+<p>Tynn ships with <a href="http://api.tynn.xyz/2.0.0/Tynn/Static.html">Tynn::Static</a> to serve static files such as images, CSS, JavaScript and others.</p>
 
 <div class="highlight highlight-source-ruby"><pre><span class="pl-k">require</span> <span class="pl-s"><span class="pl-pds">"</span>tynn<span class="pl-pds">"</span></span>
 <span class="pl-k">require</span> <span class="pl-s"><span class="pl-pds">"</span>tynn/static<span class="pl-pds">"</span></span>
@@ -489,7 +491,7 @@ new dependencies to your application as it is included in Rack already.</p>
 <h2>
 <a id="testing" class="anchor" href="#testing" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Testing</h2>
 
-<p>Tynn ships with <a href="http://api.tynn.xyz/Tynn/Test.html">Tynn::Test</a>, a simple helper class to simulate requests to your application.</p>
+<p>Tynn ships with <a href="http://api.tynn.xyz/2.0.0/Tynn/Test.html">Tynn::Test</a>, a simple helper class to simulate requests to your application.</p>
 
 <div class="highlight highlight-source-ruby"><pre><span class="pl-k">require</span> <span class="pl-s"><span class="pl-pds">"</span>tynn<span class="pl-pds">"</span></span>
 <span class="pl-k">require</span> <span class="pl-s"><span class="pl-pds">"</span>tynn/test<span class="pl-pds">"</span></span>
@@ -506,7 +508,7 @@ app.get(<span class="pl-s"><span class="pl-pds">"</span>/<span class="pl-pds">"<
 <span class="pl-c1">200</span>   <span class="pl-k">==</span> app.res.status <span class="pl-c"># =&gt; true</span>
 <span class="pl-s"><span class="pl-pds">"</span>hei<span class="pl-pds">"</span></span> <span class="pl-k">==</span> app.res.body   <span class="pl-c"># =&gt; true</span></pre></div>
 
-<p><a href="http://api.tynn.xyz/Tynn/Test.html">Tynn::Test</a> is test-framework agnostic. The following example uses <a href="https://github.com/seattlerb/minitest">Minitest</a>:</p>
+<p><a href="http://api.tynn.xyz/2.0.0/Tynn/Test.html">Tynn::Test</a> is test-framework agnostic. The following example uses <a href="https://github.com/seattlerb/minitest">Minitest</a>:</p>
 
 <div class="highlight highlight-source-ruby"><pre><span class="pl-k">require</span> <span class="pl-s"><span class="pl-pds">"</span>minitest/autorun<span class="pl-pds">"</span></span>
 <span class="pl-k">require</span> <span class="pl-s"><span class="pl-pds">"</span>tynn/test<span class="pl-pds">"</span></span>
@@ -575,6 +577,6 @@ app.get(<span class="pl-s"><span class="pl-pds">"</span>/<span class="pl-pds">"<
 
     </section>
 
-
+  
   </body>
 </html>
