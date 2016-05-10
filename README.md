@@ -14,6 +14,7 @@ A thin library for web development in Ruby.
 * [Middleware](#middleware)
 * [Plugins](#plugins)
 * [Settings](#settings)
+* [Default Plugins](#default-plugins)
 * [Environments](#environments)
 * [Method Override](#method-override)
 * [Static Files](#static-files)
