@@ -16,7 +16,7 @@ A thin library for web development in Ruby.
 * [Environments](#environments)
 * [Static Files](#static-files)
 * [Testing](#testing)
-* [API Reference](http://api.tynn.xyz/)
+* [API Reference](http://api.tynn.xyz/2.0.0)
 * [Changelog](#changelog)
 * [Development](#development)
 * [Contributing](#contributing)
@@ -564,6 +564,6 @@ Tynn is released under the [MIT License](http://www.opensource.org/licenses/MIT)
 [capybara]: https://github.com/jnicklas/capybara
 [minitest]: https://github.com/seattlerb/minitest
 [rack::test]: https://github.com/brynary/rack-test
-[tynn::environment]: http://api.tynn.xyz/Tynn/Environment.html
-[tynn::static]: http://api.tynn.xyz/Tynn/Static.html
-[tynn::test]: http://api.tynn.xyz/Tynn/Test.html
+[tynn::environment]: http://api.tynn.xyz/2.0.0/Tynn/Environment.html
+[tynn::static]: http://api.tynn.xyz/2.0.0/Tynn/Static.html
+[tynn::test]: http://api.tynn.xyz/2.0.0/Tynn/Test.html
