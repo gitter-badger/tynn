@@ -362,7 +362,7 @@ module CurrencyHelper
 end
 ```
 
-To load a plugin use the `plugin` method.
+To load the plugin into the application, use the `plugin` method.
 
 ```ruby
 App.plugin(CurrencyHelper, currency: "$")
@@ -403,14 +403,14 @@ Admins.settings[:layout] # => "admins/layout"
 This features comes in handy when authoring plugins.
 
 ```ruby
-module AppName
+module CurrencyHelper
   module ClassMethods
-    def app_name=(name)
-      set(:app_name, name)
+    def currency=(currency)
+      set(:currency, currency)
     end
 
-    def app_name
-      settings.fetch(:app_name, "MyApp")
+    def currency
+      settings.fetch(:currency, "$")
     end
   end
 end
