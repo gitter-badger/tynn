@@ -1,5 +1,7 @@
 # Tynn
 
+[![Join the chat at https://gitter.im/frodsan/tynn](https://badges.gitter.im/frodsan/tynn.svg)](https://gitter.im/frodsan/tynn?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 A thin library for web development in Ruby.
 
 * [Installation](#installation)
